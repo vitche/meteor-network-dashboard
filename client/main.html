@@ -184,6 +184,8 @@
       <div class="row">
         <!-- Left col -->
         <section class="col-lg-7 connectedSortable">
+          {{> listPeers}}
+          {{> editPeer}}
         </section>
         <!-- /.Left col -->
         <!-- right col (We are only adding the ID to make the widgets sortable)-->
@@ -209,10 +211,6 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Slimscroll -->
@@ -226,3 +224,9 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 </body>
+<template name="listPeers">
+:)
+</template>
+<template name="editPeer">
+;)
+</template>
