@@ -14,28 +14,35 @@
           <thead>
           <tr>
             <th>Peer ID</th>
-            <th>Label</th>
+            <th>Name</th>
+            <th>URI</th>
             <th>Status</th>
             <th>Health</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td><a href="peer/edit.html?id=">OR9842</a></td>
-            <td>Call of Duty IV</td>
-            <td><span class="label label-success">Running</span></td>
-            <td>
-              <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-            </td>
-          </tr>
+          {{#each items}}
+            <tr>
+              <td><a href="peer/edit.html?id={{_id}}">{{_id}}</a></td>
+              <td>{{name}}</td>
+              <td><a href="{{uri}}">{{uri}}</a></td>
+              <td>
+                <!--
+                <span class="label label-success">Running</span>
+                -->
+              </td>
+              <td>
+                <!--
+                <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                -->
+              </td>
+              <td><a href="peer/delete.html?id={{_id}}">Delete</a></td>
+            </tr>
+          {{/each}}            
           </tbody>
         </table>
       </div>
-    </div>
-    {{> peerEditWidget}}
-    <div class="box-footer clearfix">
-      <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Register New Peer</a>
-      <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Peers</a>
     </div>
   </div>
 </template>
