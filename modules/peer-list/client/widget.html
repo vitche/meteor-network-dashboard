@@ -24,7 +24,7 @@
           <tbody>
           {{#each items}}
             <tr>
-              <td><a href="#?peer={{_id}}" data-toggle="control-sidebar">{{_id}}</a></td>
+              <td><a href="/peers/{{_id}}" data-toggle="control-sidebar">{{_id}}</a></td>
               <td>{{name}}</td>
               <td><a href="{{uri}}">{{uri}}</a></td>
               <td>
@@ -37,7 +37,7 @@
                 <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
                 -->
               </td>
-              <td><a href="peer/delete.html?id={{_id}}">Delete</a></td>
+              <td><a href="peers/delete.html?id={{_id}}">Delete</a></td>
             </tr>
           {{/each}}            
           </tbody>
