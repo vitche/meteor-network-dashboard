@@ -1,7 +1,7 @@
 import { Template } from 'meteor/templating';
-import { Peer } from '../../peer/model';
+import { Peer } from '../../../peer/model';
 
-import './widget.html'
+import './peer.html'
 
 Template.peerEditWidget.events({
 	'submit .edit'(event) {
@@ -17,4 +17,3 @@ Template.peerEditWidget.events({
 	}
 });
 
-console.log('node: peer-edit.client.widget');
