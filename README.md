@@ -4,7 +4,7 @@
 ## Re-factoring
 ------
 
-Here will be described all the proposals for refactoring the project. Each offer will have on status. 
+Here will be described all the proposals for refactoring the project. Each proposal will have own status. 
 
 Statuses and their meaning are described in table below
 
