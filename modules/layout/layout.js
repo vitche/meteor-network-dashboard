@@ -1,8 +1,8 @@
 import { Template } from 'meteor/templating';
 
-import '../pages/dashboard/client/dashboard';
-import '../pages/peer-list/client/peers-list';
-import '../pages/peer-edit/client/peer';
+import '../dashboard/client/dashboard';
+import '../peer-list/client/peers-list';
+import '../peer-edit/client/peer';
 
 import './layout.html'
 

@@ -8,7 +8,7 @@ import '../config/routers/peers.routes';
 
 // components
 import '../modules/layout/layout';
-import '../modules/pages/login/login';
+import '../modules/authentication/client/login';
 
 // templates
 import './main.html';
