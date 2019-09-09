@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Peer } from '../modules/peer/model';
 
+// import '../modules/authentication/useraccounts-configuration'
+
 Meteor.startup(() => {
     if (0 === Peer.find({}).count()) {
   	    Peer.insert({

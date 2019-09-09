@@ -9,7 +9,8 @@ import '../config/routers/peers.routes';
 
 // components
 import '../modules/layout/layout';
-import '../modules/authentication/client/login';
+import '../modules/authentication/client/layout';
+import '../modules/authentication/client/authentication-page'
 
 // templates
 import './main.html';

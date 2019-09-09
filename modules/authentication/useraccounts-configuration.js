@@ -1,16 +1,23 @@
 import { AccountsTemplates } from 'meteor/useraccounts:core';
 
 
+
+FlowRouter.triggers.enter([AccountsTemplates.ensureSignedIn]);
+
 AccountsTemplates.configure({
+    defaultTemplate: 'authenticationPage',
+    defaultLayout: 'authenticationLayout',
     showForgotPasswordLink: true,
-    defaultLayout: 'login',
     defaultLayoutRegions: {},
-    defaultContentRegion: 'main'
+    defaultContentRegion: 'main',
+    onLogoutHook: function () {
+        FlowRouter.go('/signin');
+    }
 });
 
 AccountsTemplates.configureRoute('signIn', {
     name: 'signin',
-    path: '/signin',
+    path: '/signin'
 });
 
 AccountsTemplates.configureRoute('signUp', {
