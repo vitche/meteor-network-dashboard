@@ -24,7 +24,7 @@
           <tbody>
           {{#each items}}
             <tr>
-              <td><a href="/peers/{{_id}}" data-toggle="control-sidebar">{{_id}}</a></td>
+              <td><a href="{{pathFor 'peers.edit' id=_id}}" data-toggle="control-sidebar">{{_id}}</a></td>
               <td>{{name}}</td>
               <td><a href="{{uri}}">{{uri}}</a></td>
               <td>

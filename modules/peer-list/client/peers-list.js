@@ -1,12 +1,10 @@
 import { Template } from 'meteor/templating';
 import { Peer } from '../../peer/model';
 
-import './widget.html'
+import './peers-list.html'
 
 Template.peerListWidget.helpers({
 	items() {
 		return Peer.find({});
 	}
 });
-
-console.log('node: peer-list.client.widget');
