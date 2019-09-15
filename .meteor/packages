@@ -27,3 +27,7 @@ accounts-password
 useraccounts:unstyled
 useraccounts:flow-routing
 aldeed:template-extension
+alanning:roles
+aldeed:simple-schema
+aldeed:collection2
+mdg:validated-method
