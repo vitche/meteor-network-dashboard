@@ -2,26 +2,39 @@ import { Meteor } from 'meteor/meteor';
 
 import { Groups } from '../../modules/groups/server/groups.schema';
 import { Organizations } from '../../modules/organizations/server/organizations.schema';
-import { OrganizationsMethods } from '../../modules/organizations/server/organizations.methods';
+import { UsersMethods } from '../../modules/users/server/users.methods';
+
 
 const ORGANIZATION_DEFAULT = require('../../configs/default-data/organization.config');
+const GROUP_DEFAULT = require('../../configs/default-data/groups.config');
+const USERS_DEFAULT = require('../../configs/default-data/users.config');
 
 Meteor.startup(() => {
-	console.log('Start up project ');
 	const organizations = Organizations.find({}).count();
 	if (organizations) {
-
 		return;
 	}
-	console.log('No organization found. Create default one');
 
-	console.log('after parse : ', ORGANIZATION_DEFAULT)
+	try {
+		const organizationId = Organizations.insert(ORGANIZATION_DEFAULT);
+		const groupId = Groups.insert({ ...GROUP_DEFAULT, ...{ organizationId } });
 
+		USERS_DEFAULT.forEach((user) => {
+			const userId = Accounts.createUser({ email: user.email });
 
-	const organizationId = OrganizationsMethods.createOrganization.call(ORGANIZATION_DEFAULT , (err) => {
-		console.log(err)
-	});
+			UsersMethods.setUserWithDefaultSettings.call({ userId, user, organizationId });
 
-	console.log('organization : ', organizationId);
+			UsersMethods.addPermissionToUser.call({
+				userId,
+				permissions: GROUP_DEFAULT.permissions,
+				groupId
+			});
 
+			UsersMethods.sendEnrollmentLetter.call({ userId, email: user.email });
+		})
+	} catch (e) {
+		throw new Meteor.Error(e);
+	}
 });
+
+

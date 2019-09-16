@@ -1,10 +1,8 @@
-[
-  {
-    "title": "Super Admin",
-    "parentId": null,
-    "organizationId": null,
-    "permissions": [
-      "allowAll"
-    ]
-  }
-]
+{
+  "title": "Super Admin",
+  "parentId": null,
+  "organizationId": null,
+  "permissions": [
+    "allowAll"
+  ]
+}

@@ -1,7 +1,8 @@
 [
   {
     "email": "johndoe1@gmail.com",
-    "password": null,
+    "emailVerified": true,
+    "emailPrimary": true,
     "profile": {
       "firstName": "John",
       "lastName": "Doe",
@@ -10,7 +11,8 @@
   },
   {
     "email": "johndoe2@gmail.com",
-    "password": null,
+    "emailVerified": true,
+    "emailPrimary": true,
     "profile": {
       "firstName": "John ",
       "lastName": "Doe",
@@ -19,7 +21,8 @@
   },
   {
     "email": "johndoe3@gmail.com",
-    "password": null,
+    "emailVerified": true,
+    "emailPrimary": true,
     "profile": {
       "firstName": "John",
       "lastName": "Doe",
