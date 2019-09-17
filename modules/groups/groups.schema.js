@@ -5,6 +5,7 @@ export const GroupsCollection = new Mongo.Collection('groups');
 
 const GroupsSchema = new SimpleSchema({
 	title: { type: String, max: 100 },
+	alias: { type: String, optional: true },
 	parentGroupId: { type: String, optional: true },
 	organizationId: { type: String, optional: true },
 	permissions: { type: Array },

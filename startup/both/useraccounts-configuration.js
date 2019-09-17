@@ -1,4 +1,5 @@
 import { AccountsTemplates } from 'meteor/useraccounts:core';
+import { postSignUpHook, onLogoutHook } from './useraccounts.hooks'
 
 FlowRouter.triggers.enter([ AccountsTemplates.ensureSignedIn ]);
 
@@ -9,9 +10,8 @@ AccountsTemplates.configure({
 	defaultLayoutRegions: {},
 	showPlaceholders: true,
 	defaultContentRegion: 'main',
-	onLogoutHook: function () {
-		FlowRouter.go('/signin');
-	}
+	onLogoutHook: onLogoutHook,
+	postSignUpHook: postSignUpHook
 });
 
 // Remove email and password fields to placed them in correct order

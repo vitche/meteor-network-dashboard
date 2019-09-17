@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 
-import { GroupsCollection } from '../../modules/groups/server/groups.schema';
-import { UsersCollection } from '../../modules/users/server/users.schema'
-import { UsersMethods } from '../../modules/users/server/users.methods';
+import { GroupsCollection } from '../../modules/groups/groups.schema';
+import { UsersCollection } from '../../modules/users/users.schema'
+import { UsersMethods } from '../../modules/users/users.methods';
 
 const GROUP_DEFAULT = require('../../configs/default-data/groups.config');
 const USERS_DEFAULT = require('../../configs/default-data/users.config');
