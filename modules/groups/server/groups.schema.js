@@ -1,12 +1,12 @@
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-export const Groups = new Mongo.Collection('groups');
+export const GroupsCollection = new Mongo.Collection('groups');
 
-Groups.schema = new SimpleSchema({
+const GroupsSchema = new SimpleSchema({
 	title: { type: String, max: 100 },
-	parentId: { type: String },
-	organizationId: { type: String },
+	parentGroupId: { type: String, optional: true },
+	organizationId: { type: String, optional: true },
 	permissions: { type: Array },
 	'permissions.$': { type: String },
 	createdAt: {
@@ -22,3 +22,5 @@ Groups.schema = new SimpleSchema({
 		},
 	},
 });
+
+GroupsCollection.attachSchema(GroupsSchema);

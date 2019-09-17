@@ -1,32 +1,12 @@
-[
-  {
-    "email": "johndoe1@gmail.com",
+{
+  "devops": {
+    "email": "devops@sep.com",
     "emailVerified": true,
     "emailPrimary": true,
     "profile": {
-      "firstName": "John",
-      "lastName": "Doe",
-      "organizationId": null
-    }
-  },
-  {
-    "email": "johndoe2@gmail.com",
-    "emailVerified": true,
-    "emailPrimary": true,
-    "profile": {
-      "firstName": "John ",
-      "lastName": "Doe",
-      "organizationId": null
-    }
-  },
-  {
-    "email": "johndoe3@gmail.com",
-    "emailVerified": true,
-    "emailPrimary": true,
-    "profile": {
-      "firstName": "John",
-      "lastName": "Doe",
+      "firstName": "Dev",
+      "lastName": "Ops",
       "organizationId": null
     }
   }
-]
+}

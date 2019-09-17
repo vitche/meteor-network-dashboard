@@ -60,4 +60,4 @@ const UserSchema = new SimpleSchema({
 	},
 });
 
-Meteor.users.attachSchema(UserSchema);
+UsersCollection.attachSchema(UserSchema);

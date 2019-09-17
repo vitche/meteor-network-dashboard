@@ -1,9 +1,9 @@
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-export const Organizations = new Mongo.Collection('organizations');
+export const OrganizationsCollection = new Mongo.Collection('organizations');
 
-Organizations.schema = new SimpleSchema({
+const OrganizationsSchema = new SimpleSchema({
 	title: { type: String, max: 100 },
 	verified: { type: Boolean, defaultValue: false },
 	createdAt: {
@@ -20,4 +20,4 @@ Organizations.schema = new SimpleSchema({
 	},
 });
 
-Organizations.attachSchema(Organizations.schema);
+OrganizationsCollection.attachSchema(OrganizationsSchema);

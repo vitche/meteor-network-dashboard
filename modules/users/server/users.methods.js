@@ -13,7 +13,7 @@ const setUserWithDefaultSettings = new ValidatedMethod({
 				'emails.0.primary': user.emailPrimary,
 				'profile.firstName': user.profile.firstName,
 				'profile.lastName': user.profile.lastName,
-				'profile.organizationId': organizationId
+				'profile.organizationId': organizationId || null
 			}
 		})
 	}

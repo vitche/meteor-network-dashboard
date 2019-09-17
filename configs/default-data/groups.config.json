@@ -1,8 +1,18 @@
 {
-  "title": "Super Admin",
-  "parentId": null,
-  "organizationId": null,
-  "permissions": [
-    "allowAll"
-  ]
+  "rootGroup": {
+    "title": "Root Admins",
+    "parentGroupId": null,
+    "organizationId": null,
+    "permissions": [
+      "allowAll"
+    ]
+  },
+  "allUsers": {
+    "title": "All users",
+    "parentGroupId": null,
+    "organizationId": null,
+    "permissions": [
+      "allowReview"
+    ]
+  }
 }

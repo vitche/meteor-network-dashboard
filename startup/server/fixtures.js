@@ -1,37 +1,42 @@
 import { Meteor } from 'meteor/meteor';
 
-import { Groups } from '../../modules/groups/server/groups.schema';
-import { Organizations } from '../../modules/organizations/server/organizations.schema';
+import { GroupsCollection } from '../../modules/groups/server/groups.schema';
+import { UsersCollection } from '../../modules/users/server/users.schema'
 import { UsersMethods } from '../../modules/users/server/users.methods';
 
-
-const ORGANIZATION_DEFAULT = require('../../configs/default-data/organization.config');
 const GROUP_DEFAULT = require('../../configs/default-data/groups.config');
 const USERS_DEFAULT = require('../../configs/default-data/users.config');
 
 Meteor.startup(() => {
-	const organizations = Organizations.find({}).count();
-	if (organizations) {
+	const users = UsersCollection.find({}).count();
+	if (users) {
 		return;
 	}
 
 	try {
-		const organizationId = Organizations.insert(ORGANIZATION_DEFAULT);
-		const groupId = Groups.insert({ ...GROUP_DEFAULT, ...{ organizationId } });
+		// create main admin of system
+		const devopsId = Accounts.createUser({ email: USERS_DEFAULT.devops.email });
 
-		USERS_DEFAULT.forEach((user) => {
-			const userId = Accounts.createUser({ email: user.email });
+		// create default groups
+		const rootGroupId = GroupsCollection.insert({ ...GROUP_DEFAULT.rootGroup });
+		const allUsersGroupId = GroupsCollection.insert({ ...GROUP_DEFAULT.allUsers, parentGroupId: rootGroupId });
 
-			UsersMethods.setUserWithDefaultSettings.call({ userId, user, organizationId });
+		UsersMethods.setUserWithDefaultSettings.call({ userId: devopsId, user: USERS_DEFAULT.devops });
 
-			UsersMethods.addPermissionToUser.call({
-				userId,
-				permissions: GROUP_DEFAULT.permissions,
-				groupId
-			});
+		UsersMethods.addPermissionToUser.call({
+			userId: devopsId,
+			permissions: GROUP_DEFAULT.rootGroup.permissions,
+			groupId: rootGroupId
+		});
 
-			UsersMethods.sendEnrollmentLetter.call({ userId, email: user.email });
-		})
+		UsersMethods.addPermissionToUser.call({
+			userId: devopsId,
+			permissions: GROUP_DEFAULT.allUsers.permissions,
+			groupId: allUsersGroupId
+		});
+
+		UsersMethods.sendEnrollmentLetter.call({ userId: devopsId, email: USERS_DEFAULT.devops.email });
+
 	} catch (e) {
 		throw new Meteor.Error(e);
 	}
