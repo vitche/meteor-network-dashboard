@@ -10,6 +10,8 @@
   "dependencies": {
     "@babel/runtime": "^7.3.4",
     "bcrypt": "^3.0.6",
+    "fabric-ca-client": "^1.4.4",
+    "fabric-client": "^1.4.4",
     "meteor-node-stubs": "^0.4.1"
   },
   "meteor": {
