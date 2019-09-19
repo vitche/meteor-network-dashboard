@@ -5,7 +5,8 @@
     "parentGroupId": null,
     "organizationId": null,
     "permissions": [
-      "allowAll"
+      "allowAdmin",
+      "allowReview"
     ]
   },
   "allUsers": {

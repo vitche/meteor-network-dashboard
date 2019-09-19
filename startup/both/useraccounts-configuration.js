@@ -1,7 +1,41 @@
 import { AccountsTemplates } from 'meteor/useraccounts:core';
 import { postSignUpHook, onLogoutHook } from './useraccounts.hooks'
+import * as _ from 'lodash';
+import { ROUTES_CONFIG, WHITE_LIST_ROUTES } from './routes.config';
 
-FlowRouter.triggers.enter([ AccountsTemplates.ensureSignedIn ]);
+
+function isRedirectAllow(path, redirect) {
+	const routeName = path.route.name;
+
+	if (!routeName) {
+		throw Error('No entered route configured!');
+	}
+
+	if (_.indexOf(WHITE_LIST_ROUTES, routeName) > -1) {
+		return;
+	}
+
+	const route = _.get(ROUTES_CONFIG, routeName);
+
+	if (!route) {
+		// if route wasn't configured in out configs
+		// then just redirect to main page
+		FlowRouter.go(ROUTES_CONFIG.dashboard.list.name)
+		// TODO show notification to user
+	}
+
+	const userPermissions = Session.get('userPermissions');
+	const isAllow = _.intersection(userPermissions, route.permissions);
+
+	if (!isAllow.length) {
+		FlowRouter.go(ROUTES_CONFIG.dashboard.list.name);
+
+	}
+
+	return true;
+}
+
+FlowRouter.triggers.enter([ AccountsTemplates.ensureSignedIn, isRedirectAllow ]);
 
 AccountsTemplates.configure({
 	defaultTemplate: 'authenticationPage',
@@ -40,7 +74,7 @@ AccountsTemplates.addField(email);
 AccountsTemplates.addField(password);
 
 AccountsTemplates.configureRoute('signIn', {
-	name: 'signin',
+	name: 'signIn',
 	path: '/signin'
 });
 
