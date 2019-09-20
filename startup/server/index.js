@@ -1,2 +1,2 @@
 import './fixtures';
-import '../../modules/roles/server';
+import './login.handler';

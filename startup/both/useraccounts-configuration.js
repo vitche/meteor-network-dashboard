@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { ROUTES_CONFIG, WHITE_LIST_ROUTES } from './routes.config';
 
 
-function isRedirectAllow(path, redirect) {
+function isRedirectAllow(path) {
 	const routeName = path.route.name;
 
 	if (!routeName) {
@@ -24,12 +24,16 @@ function isRedirectAllow(path, redirect) {
 		// TODO show notification to user
 	}
 
-	const userPermissions = Session.get('userPermissions');
+	const userPermissions = ServerSession.get('userPermissions');
+
+	if (!userPermissions) {
+		FlowRouter.go(ROUTES_CONFIG.dashboard.list.name)
+	}
+
 	const isAllow = _.intersection(userPermissions, route.permissions);
 
 	if (!isAllow.length) {
 		FlowRouter.go(ROUTES_CONFIG.dashboard.list.name);
-
 	}
 
 	return true;

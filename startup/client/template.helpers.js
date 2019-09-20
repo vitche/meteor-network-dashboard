@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { PROTECTED_ELEMENTS } from '../../configs/roles/protected-elements';
 
 Template.registerHelper('isAllow', (element) => {
-	const roles = Session.get('userPermissions');
+	const roles = ServerSession.get('userPermissions');
 
 	if (!roles) return;
 

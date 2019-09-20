@@ -31,3 +31,4 @@ aldeed:simple-schema
 aldeed:collection2
 mdg:validated-method
 session
+erasaur:server-session
