@@ -25,8 +25,9 @@ function isRedirectAllow(path) {
 	}
 
 	const userPermissions = ServerSession.get('userPermissions');
-
+	console.log(userPermissions)
 	if (!userPermissions) {
+		
 		FlowRouter.go(ROUTES_CONFIG.dashboard.list.name)
 	}
 
