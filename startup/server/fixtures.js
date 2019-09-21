@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-import { GroupsCollection } from '../../modules/groups/groups.schema';
+import { GroupsCollection } from '../../modules/groups/both/groups.schema';
 import { UsersCollection } from '../../modules/users/users.schema'
 import { UsersMethods } from '../../modules/users/users.methods';
 

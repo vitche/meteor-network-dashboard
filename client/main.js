@@ -7,6 +7,7 @@ import '../modules/authentication/client/layout';
 
 // modules
 import '../modules/authentication/client/authentication-page'
+import '../modules/groups/both';
 import '../modules/groups/client';
 
 // templates

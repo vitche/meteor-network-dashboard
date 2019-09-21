@@ -1,8 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Peer } from '../modules/peer/model';
 
-import '../startup/both/'
+import '../startup/both/';
 import '../startup/server';
+
+import '../modules/groups/both';
+import '../modules/groups/server';
 
 Meteor.startup(() => {
 	if (0 === Peer.find({}).count()) {
