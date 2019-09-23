@@ -1,8 +1,55 @@
 <template name="groupsListWidget">
     <section class="content-header">
-        <h1>Groups list</h1>
-        {{#each group in  groupList}}
-            {{group.title}}
-        {{/each}}
+        <h1>Users, Groups & Organizations</h1>
+    </section>
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Groups</h3>
+                    </div>
+                    <div class="box-body">
+                        <ul class="sidebar-menu tree">
+                            <li class="treeview menu-open" style="height: auto;">
+                                <a>
+                                    <span>Multilevel</span>
+                                    <span class="pull-right-container"><i
+                                            class="fa fa-angle-left pull-right"></i></span>
+                                </a>
+
+                                <ul class="treeview-menu" style="display: block;">
+                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                                    <li class="treeview" style="height: auto;">
+                                        <a href="#"><i class="fa fa-circle-o"></i> Level One
+                                            <span class="pull-right-container"><i
+                                                    class="fa fa-angle-left pull-right"></i></span>
+                                        </a>
+
+                                        <ul class="treeview-menu" style="display: none;">
+                                            <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                                            <li class="treeview">
+                                                <a href="#"><i class="fa fa-circle-o"></i> Level Two
+                                                    <span class="pull-right-container"><i
+                                                            class="fa fa-angle-left pull-right"></i></span>
+                                                </a>
+
+                                                <ul class="treeview-menu" style="display: none;">
+                                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </template>

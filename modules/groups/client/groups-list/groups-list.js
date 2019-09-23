@@ -22,6 +22,7 @@ Template.groupsListWidget.onCreated(async function () {
 			console.error(err);
 		} else {
 			this.groupsList = result;
+			console.log(this.groupsList);
 		}
 		this.isGroupsLoad.set(true);
 	});

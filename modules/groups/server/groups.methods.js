@@ -14,8 +14,6 @@ export const getGroupsList = new ValidatedMethod({
 			return GroupsCollection.find({}).fetch();
 		}
 
-
-
 		return [];
 	},
 });
