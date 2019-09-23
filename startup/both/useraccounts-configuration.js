@@ -2,6 +2,7 @@ import { AccountsTemplates } from 'meteor/useraccounts:core';
 import { postSignUpHook, onLogoutHook } from './useraccounts.hooks'
 import * as _ from 'lodash';
 import { ROUTES_CONFIG, WHITE_LIST_ROUTES } from './routes.config';
+import { SERVER_SESSIONS_KEYS } from '../../configs/server-session.keys';
 
 
 function isRedirectAllow(path) {
@@ -24,7 +25,7 @@ function isRedirectAllow(path) {
 		// TODO show notification to user
 	}
 
-	const userPermissions = ServerSession.get('userPermissions');
+	const userPermissions = ServerSession.get(SERVER_SESSIONS_KEYS.userPermissions);
 
 	if (!userPermissions) {
 		FlowRouter.go(ROUTES_CONFIG.dashboard.list.name)

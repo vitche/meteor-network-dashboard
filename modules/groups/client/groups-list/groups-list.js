@@ -1,7 +1,6 @@
 import { Template } from 'meteor/templating';
 
 import './groups-list.html';
-import { GroupsMethods } from '../../both/groups.methods';
 
 function AsyncMethod(callback) {
 	return new Promise((resolve, reject) => {
@@ -17,8 +16,15 @@ function AsyncMethod(callback) {
 
 Template.groupsListWidget.onCreated(async function () {
 	this.isGroupsLoad = new ReactiveVar(false);
-	this.groupsList = await AsyncMethod(GroupsMethods.getGroupsList);
-	this.isGroupsLoad.set(true);
+	this.groupsList = [];
+	Meteor.call('groups.method.getGroupsList', (err, result) => {
+		if (err) {
+			console.error(err);
+		} else {
+			this.groupsList = result;
+		}
+		this.isGroupsLoad.set(true);
+	});
 });
 
 

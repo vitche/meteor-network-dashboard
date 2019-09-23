@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import { SERVER_SESSIONS_KEYS } from '../../configs/server-session.keys';
 
 Accounts.onLogin((data) => {
 	if (data.user.roles) {
@@ -8,6 +9,6 @@ Accounts.onLogin((data) => {
 			.uniq()
 			.value();
 
-		ServerSession.set('userPermissions', permissions);
+		ServerSession.set(SERVER_SESSIONS_KEYS.userPermissions, permissions);
 	}
 });

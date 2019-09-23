@@ -1,5 +1,5 @@
 export const PROTECTED_ELEMENTS = {
-	viewDashboardPage: [ 'allowAdmin', 'allowReview' ],
-	viewPeersPage: [ 'allowReview', 'allowAdmin' ],
-	viewGroupsPage: [ 'allowAdmin' ],
+	viewDashboardPage: [ 'superAdmin', 'defaultUser' ],
+	viewPeersPage: [ 'superAdmin', 'defaultUser' ],
+	viewGroupsPage: [ 'superAdmin' ],
 };

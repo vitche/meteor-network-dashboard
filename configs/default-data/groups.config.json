@@ -5,8 +5,7 @@
     "parentGroupId": null,
     "organizationId": null,
     "permissions": [
-      "allowAdmin",
-      "allowReview"
+      "superAdmin"
     ]
   },
   "allUsers": {
@@ -15,7 +14,7 @@
     "parentGroupId": null,
     "organizationId": null,
     "permissions": [
-      "allowReview"
+      "defaultUser"
     ]
   }
 }
