@@ -1,10 +1,10 @@
 import './fixtures';
 import './login.handler';
 
-Meteor.publish('some', function (userId) {
-    const per = ServerSession.get('userPermissions')
-    if (!per) {
-        this.ready()
-    }
-    return [];
-})
+Meteor.publish('userPermissions', function (userPermissions) {
+	const permissions = ServerSession.get('userPermissions');
+	if (!permissions) {
+		this.ready()
+	}
+	return [];
+});
