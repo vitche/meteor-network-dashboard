@@ -2,60 +2,94 @@ const path = require('path');
 const FabricClient = require('fabric-client');
 const FabricCAClient = require('fabric-ca-client');
 
-const logOn = "admin";
-const password = "adminpw";
-const membershipServiceProvider = "Org1MSP";
+class FabricConnection {
+
+    constructor(fabricClient, fabricCAClient) {
+        this.fabricClient = fabricClient;
+        this.fabricCAClient = fabricCAClient;
+    }
+
+    userContext(logOn) {
+        return new FabricUserContext(this, logOn);
+    }
+}
+
+class FabricConnectionFactory {
+
+    constructor(storePath) {
+        this._storePath = storePath;
+    }
+
+    async connect() {
+
+        let keyValueStore = await FabricClient.newDefaultKeyValueStore({
+            path: this._storePath
+        });
+
+        let fabricClient = new FabricClient();
+        fabricClient.setStateStore(keyValueStore);
+        let cryptoSuite = FabricClient.newCryptoSuite();
+
+        // Use the same location for the state store (where the users' certificate are kept)
+        // and the crypto store (where the users' keys are kept)
+        let cryptoKeyStore = FabricClient.newCryptoKeyStore({path: storePath});
+        cryptoSuite.setCryptoKeyStore(cryptoKeyStore);
+        fabricClient.setCryptoSuite(cryptoSuite);
+        let tlsOptions = {
+            trustedRoots: [],
+            verify: false
+        };
+
+        // TODO: change to HTTPS when the CA is running TLS enabled
+        let fabricCAClient = new FabricCAClient('http://localhost:7054', tlsOptions, 'ca.example.com', cryptoSuite);
+
+        return new FabricConnection(fabricClient, fabricCAClient);
+    }
+}
+
+class FabricUserContext {
+
+    constructor(connection, logOn) {
+        this._connection = connection;
+        this._logOn = logOn;
+    }
+
+    async register(membershipServiceProvider, password) {
+
+        // Need to enroll it with the CA server
+        let enrollment = await this._connection.fabricCAClient.enroll({
+            enrollmentID: this._logOn,
+            enrollmentSecret: password
+        });
+        let user = await this._connection.fabricClient.createUser({
+            username: this._logOn,
+            mspid: membershipServiceProvider,
+            cryptoContent: {
+                privateKeyPEM: enrollment.key.toBytes(),
+                signedCertPEM: enrollment.certificate
+            }
+        });
+
+        return this._connection.fabricClient.setUserContext(user);
+    }
+
+    async load() {
+        return this._connection.fabricClient.getUserContext(this._logOn, true);
+    }
+}
+
 let storePath = path.join(__dirname, '../.certificates');
 
-let fabricClient = new FabricClient();
-let fabricCAClient = null;
-let administratorUser = null;
-
-FabricClient.newDefaultKeyValueStore({
-    path: storePath
-}).then((keyValueStore) => {
-    fabricClient.setStateStore(keyValueStore);
-    let cryptoSuite = FabricClient.newCryptoSuite();
-    // Use the same location for the state store (where the users' certificate are kept)
-    // and the crypto store (where the users' keys are kept)
-    let cryptoKeyStore = FabricClient.newCryptoKeyStore({path: storePath});
-    cryptoSuite.setCryptoKeyStore(cryptoKeyStore);
-    fabricClient.setCryptoSuite(cryptoSuite);
-    let tlsOptions = {
-        trustedRoots: [],
-        verify: false
-    };
-    // TODO: change to HTTPS when the CA is running TLS enabled
-    fabricCAClient = new FabricCAClient('http://localhost:7054', tlsOptions, 'ca.example.com', cryptoSuite);
-    return fabricClient.getUserContext('admin', true);
-}).then((previousUserContext) => {
-    if (previousUserContext && previousUserContext.isEnrolled()) {
-        administratorUser = previousUserContext;
-        return null;
-    } else {
-        // Need to enroll it with the CA server
-        return fabricCAClient.enroll({
-            enrollmentID: logOn,
-            enrollmentSecret: password
-        }).then((enrollment) => {
-            return fabricClient.createUser({
-                username: logOn,
-                mspid: membershipServiceProvider,
-                cryptoContent: {
-                    privateKeyPEM: enrollment.key.toBytes(),
-                    signedCertPEM: enrollment.certificate
-                }
+let connectionFactory = new FabricConnectionFactory(storePath);
+connectionFactory.connect().then((connection) => {
+    let userContext = connection.userContext('admin');
+    userContext.load().then((previousUserContext) => {
+        if (previousUserContext && previousUserContext.isEnrolled()) {
+            console.log('Previous user context loaded:', previousUserContext);
+        } else {
+            userContext.register('Org1MSP', 'adminpw').then((newUser) => {
+                console.log('Registered a new user:', newUser);
             });
-        }).then((user) => {
-            administratorUser = user;
-            return fabricClient.setUserContext(administratorUser);
-        }).catch((error) => {
-            console.error('Failed to enroll and persist admin. Error: ' + error.stack ? error.stack : error);
-            throw new Error('Failed to enroll admin');
-        });
-    }
-}).then(() => {
-    console.log('Assigned the admin user to the fabric client ::' + administratorUser.toString());
-}).catch((error) => {
-    console.error('Failed to enroll admin: ' + error);
+        }
+    });
 });
