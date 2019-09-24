@@ -1,5 +1,5 @@
 import { AccountsTemplates } from 'meteor/useraccounts:core';
-import { postSignUpHook, onLogoutHook } from './useraccounts.hooks'
+import { postSignUpHook, onLogoutHook, preSignUpHook } from './useraccounts.hooks'
 import * as _ from 'lodash';
 import { ROUTES_CONFIG, WHITE_LIST_ROUTES } from './routes.config';
 import { SERVER_SESSIONS_KEYS } from '../../configs/server-session.keys';

@@ -18,6 +18,8 @@ export const postSignUpHook = function (userId, info) {
 			permissions: group.permissions,
 			groupId: group._id
 		});
+
+		UsersMethods.setUserEmailAsPrimaryAfterSignUp.call({ userId })
 	} catch (e) {
 		throw new Meteor.Error('postSignUpHook.permission-failed', e.message);
 	}
