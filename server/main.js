@@ -1,14 +1,47 @@
-import { Meteor } from 'meteor/meteor';
-import { Peer } from '../modules/peer/model';
+import {Meteor} from 'meteor/meteor';
+import {Peer} from '../modules/peer/model';
+import {FabricConnectionFactory} from '../modules/fabric-client/server/connection-factory';
 
 import '../modules/authentication/useraccounts-configuration'
 
+let connectionFactory = new FabricConnectionFactory('../.certificates');
+connectionFactory.connect('http://localhost:7054', 'ca.example.com').then((connection) => {
+    console.log('Connected to HyperLedger Fabric');
+
+    let userContext = connection.userContext('admin');
+    userContext.load().then((rootUser) => {
+        if (rootUser && rootUser.isEnrolled()) {
+            console.log('Root user loaded:', rootUser);
+            let childUserLogOn = 'user-5';
+            userContext = connection.userContext(childUserLogOn);
+            userContext.load().then((childUser) => {
+                if (childUser && childUser.isEnrolled()) {
+                    console.log('Child user loaded:', childUser);
+                } else {
+                    console.log('Will register a child user');
+                    userContext.registerChild(
+                        'Org1MSP',
+                        rootUser,
+                        'org1.department1',
+                        childUserLogOn).then((childUser) => {
+                        console.log('Registered child user:', childUser);
+                    });
+                }
+            });
+        } else {
+            userContext.register('Org1MSP', 'adminpw').then((newUser) => {
+                console.log('Registered a new user:', newUser);
+            });
+        }
+    });
+});
+
 Meteor.startup(() => {
     if (0 === Peer.find({}).count()) {
-  	    Peer.insert({
-  	  	    name: "Test network host shell tunnel",
-  	  	    uri: "grpc://peer0.org1.example.com:7053"
-  	    });
-  	    console.log("Created test peers");
+        Peer.insert({
+            name: "Test network host shell tunnel",
+            uri: "grpc://peer0.org1.example.com:7053"
+        });
+        console.log("Created test peers");
     }
 });
