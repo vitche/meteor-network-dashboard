@@ -20,7 +20,7 @@ class FabricConnectionFactory {
         this._storePath = storePath;
     }
 
-    async connect() {
+    async connect(uri, CAName) {
 
         let keyValueStore = await FabricClient.newDefaultKeyValueStore({
             path: this._storePath
@@ -40,9 +40,7 @@ class FabricConnectionFactory {
             verify: false
         };
 
-        // TODO: change to HTTPS when the CA is running TLS enabled
-        let fabricCAClient = new FabricCAClient('http://localhost:7054', tlsOptions, 'ca.example.com', cryptoSuite);
-
+        let fabricCAClient = new FabricCAClient(uri, tlsOptions, CAName, cryptoSuite);
         return new FabricConnection(fabricClient, fabricCAClient);
     }
 }
@@ -54,7 +52,7 @@ class FabricUserContext {
         this._logOn = logOn;
     }
 
-    async register(membershipServiceProvider, password) {
+    async register(membershipServiceProviderName, password) {
 
         // Need to enroll it with the CA server
         let enrollment = await this._connection.fabricCAClient.enroll({
@@ -63,7 +61,7 @@ class FabricUserContext {
         });
         let user = await this._connection.fabricClient.createUser({
             username: this._logOn,
-            mspid: membershipServiceProvider,
+            mspid: membershipServiceProviderName,
             cryptoContent: {
                 privateKeyPEM: enrollment.key.toBytes(),
                 signedCertPEM: enrollment.certificate
@@ -81,7 +79,7 @@ class FabricUserContext {
 let storePath = path.join(__dirname, '../.certificates');
 
 let connectionFactory = new FabricConnectionFactory(storePath);
-connectionFactory.connect().then((connection) => {
+connectionFactory.connect('http://localhost:7054', 'ca.example.com').then((connection) => {
     let userContext = connection.userContext('admin');
     userContext.load().then((previousUserContext) => {
         if (previousUserContext && previousUserContext.isEnrolled()) {
