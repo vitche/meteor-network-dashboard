@@ -1,4 +1,5 @@
 import { PROTECTED_ELEMENTS } from '../../configs/roles/protected-elements';
+import { ROLES_DICTIONARY } from '../../configs/roles/roles.dictionary';
 
 export const WHITE_LIST_ROUTES = [
 	'changePwd',
@@ -41,6 +42,15 @@ export const ROUTES_CONFIG = {
 			name: 'groups.list',
 			path: '/',
 			permissions: PROTECTED_ELEMENTS.viewGroupsPage
+		},
+		addChild: {
+			name: 'groups.addChild',
+			path: '/add-child/:id',
+			permissions: [
+				ROLES_DICTIONARY.private.superAdmin.alias,
+				ROLES_DICTIONARY.private.organizationOwner.alias,
+				ROLES_DICTIONARY.public.allowAddChildGroup.alias
+			]
 		}
 	}
 };

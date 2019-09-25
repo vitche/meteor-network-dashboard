@@ -10,7 +10,11 @@ const DEFAULT_GROUPS = require('../../../configs/default-data/groups.config');
 export const getGroupsList = new ValidatedMethod({
 	name: 'groups.method.getGroupsList',
 	mixins: [ Mixins.loggedIn, Mixins.roles ],
-	roles: [ ROLES_DICTIONARY.superAdmin.alias, ROLES_DICTIONARY.organizationOwner.alias, ROLES_DICTIONARY.allowReviewGroup ],
+	roles: [
+		ROLES_DICTIONARY.private.superAdmin.alias,
+		ROLES_DICTIONARY.private.organizationOwner.alias,
+		ROLES_DICTIONARY.public.allowReviewGroup
+	],
 	validate: null,
 	run() {
 
@@ -32,10 +36,10 @@ export const getGroupUsers = new ValidatedMethod({
 	name: 'groups.method.getGroupUsers',
 	mixins: [ Mixins.loggedIn, Mixins.roles ],
 	roles: [
-		ROLES_DICTIONARY.superAdmin.alias,
-		ROLES_DICTIONARY.organizationOwner.alias,
-		ROLES_DICTIONARY.allowReviewGroup.alias,
-		ROLES_DICTIONARY.allowReviewGroupMembers.alias
+		ROLES_DICTIONARY.private.superAdmin.alias,
+		ROLES_DICTIONARY.private.organizationOwner.alias,
+		ROLES_DICTIONARY.public.allowReviewGroup.alias,
+		ROLES_DICTIONARY.public.allowReviewGroupMembers.alias
 	],
 	validate: new SimpleSchema({
 		groupId: { type: String },
@@ -49,7 +53,7 @@ export const getGroupUsers = new ValidatedMethod({
 				}
 			},
 			// TODO: this is bad perfomance solutions
-			{ $unwind: '$roles' },
+			{ $unwind: '$roles' }, // {key : 'group name', value : [permi]}
 			{ $match: { 'roles.k': groupId } },
 			{ $replaceRoot: { newRoot: '$doc' } },
 			{

@@ -15,10 +15,10 @@ Template.groupItemWidget.events({
 	},
 	'click .js-add-child-group': function (event) {
 		event.stopImmediatePropagation();
-		this.onAddChildGroup(this.group.id)
+		this.onAddChildGroup(this.group._id)
 	},
 	'click .js-delete-group': function (event) {
 		event.stopImmediatePropagation();
-		this.onDeleteGroup(this.group.id)
+		this.onDeleteGroup(this.group._id)
 	}
 });

@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 
 import './groups-list.html';
 import '../group-item/group-item';
+import { ROUTES_CONFIG } from '../../../../startup/both/routes.config';
 
 Template.groupsListWidget.onCreated(function () {
 	this.state = new ReactiveDict();
@@ -44,7 +45,10 @@ Template.groupsListWidget.onCreated(function () {
 	};
 
 	this.addChildGroup = (groupId) => {
+		console.log(groupId)
 		// TODO: show modal window with form for adding new group;
+		// TODO : for now it will be as seprate page
+		FlowRouter.go(ROUTES_CONFIG.groups.addChild.name, { id: groupId })
 	};
 
 	this.deleteGroup = (groupId) => {

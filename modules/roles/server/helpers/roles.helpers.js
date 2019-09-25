@@ -8,7 +8,7 @@ import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
  */
 const isSuperAdmin = () => {
 	const currentUserPermissions = ServerSession.get(SERVER_SESSIONS_KEYS.userPermissions);
-	return _.includes(currentUserPermissions, ROLES_DICTIONARY.superAdmin.alias);
+	return _.includes(currentUserPermissions, ROLES_DICTIONARY.private.superAdmin.alias);
 };
 
 
