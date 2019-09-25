@@ -71,6 +71,27 @@ class FabricUserContext {
         return this._connection.fabricClient.setUserContext(user);
     }
 
+    async registerChild(membershipServiceProviderName, parentUser, affiliation, logOn) {
+
+        let secret = await this._connection.fabricCAClient.register({
+            enrollmentID: logOn,
+            affiliation: affiliation
+        }, parentUser);
+        let enrollment = await this._connection.fabricCAClient.enroll({
+            enrollmentID: logOn,
+            enrollmentSecret: secret
+        });
+        let newUser = await this._connection.fabricClient.createUser({
+            username: logOn,
+            mspid: membershipServiceProviderName,
+            cryptoContent: {
+                privateKeyPEM: enrollment.key.toBytes(),
+                signedCertPEM: enrollment.certificate
+            }
+        });
+        return newUser;
+    }
+
     async load() {
         return this._connection.fabricClient.getUserContext(this._logOn, true);
     }
@@ -81,9 +102,25 @@ let storePath = path.join(__dirname, '../.certificates');
 let connectionFactory = new FabricConnectionFactory(storePath);
 connectionFactory.connect('http://localhost:7054', 'ca.example.com').then((connection) => {
     let userContext = connection.userContext('admin');
-    userContext.load().then((previousUserContext) => {
-        if (previousUserContext && previousUserContext.isEnrolled()) {
-            console.log('Previous user context loaded:', previousUserContext);
+    userContext.load().then((rootUser) => {
+        if (rootUser && rootUser.isEnrolled()) {
+            console.log('Root user loaded:', rootUser);
+            let childUserLogOn = 'user-4';
+            userContext = connection.userContext(childUserLogOn);
+            userContext.load().then((childUser) => {
+                if (childUser && childUser.isEnrolled()) {
+                    console.log('Child user loaded:', childUser);
+                } else {
+                    console.log('Will register a child user');
+                    userContext.registerChild(
+                        'Org1MSP',
+                        rootUser,
+                        'org1.department1',
+                        childUserLogOn).then((childUser) => {
+                        console.log('Registered child user:', childUser);
+                    });
+                }
+            });
         } else {
             userContext.register('Org1MSP', 'adminpw').then((newUser) => {
                 console.log('Registered a new user:', newUser);
