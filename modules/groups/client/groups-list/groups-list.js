@@ -45,10 +45,8 @@ Template.groupsListWidget.onCreated(function () {
 	};
 
 	this.addChildGroup = (groupId) => {
-		console.log(groupId)
-		// TODO: show modal window with form for adding new group;
-		// TODO : for now it will be as seprate page
-		FlowRouter.go(ROUTES_CONFIG.groups.addChild.name, { id: groupId })
+		const parentGroup = _.find(this.groupsList, (group) => group._id === groupId);
+		Session.set('parentForSubgroup', parentGroup);
 	};
 
 	this.deleteGroup = (groupId) => {

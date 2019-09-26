@@ -1,5 +1,5 @@
 import { Template } from 'meteor/templating';
-import { Peer } from '../../peer/model';
+import { Peer } from '../../../peer/model';
 
 import './peers-list.html'
 

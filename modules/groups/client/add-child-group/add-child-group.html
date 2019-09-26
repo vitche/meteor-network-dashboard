@@ -1,6 +1,6 @@
 <template name="addChildGroupWidget">
     <section class="content-header">
-        <h1>Add child for group</h1>
+        <h1>Add subgroup for </h1>
     </section>
     <section class="content">
         <div class="row">
@@ -18,15 +18,11 @@
                                 <input type="text" class="form-control" placeholder="Enter Group Name">
                             </div>
                             <div class="form-group">
-                                <label>Group alias (Optional)</label>
-                                <input type="text" class="form-control" placeholder="Enter Group Alias">
-                            </div>
-                            <div class="form-group">
                                 <label>Select permissions</label>
                                 {{#each permission in permissions}}
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" value="{{permission.alias}}">
+                                            <input type="checkbox" value="{{permission.alias}}" checked="{{permission.checked}}">
                                             {{permission.title}}
                                         </label>
                                     </div>

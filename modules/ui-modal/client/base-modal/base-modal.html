@@ -1,0 +1,10 @@
+<template name="baseModal">
+    {{#if activeModal}}
+        <div class="modal fade in" id="modal-default" style="display: block">
+            <div class="modal-dialog">
+                <h1>MODAL</h1>
+                {{> Template.dynamic template=activeModal}}
+            </div>
+        </div>
+    {{/if}}
+</template>

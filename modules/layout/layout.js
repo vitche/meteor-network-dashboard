@@ -2,12 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
 import { AccountsTemplates } from 'meteor/useraccounts:core';
-import '../dashboard/client/dashboard';
-import '../ui-peer-list/client/peers-list';
 
-import '../ui-peer-edit/client/peer';
 import './layout.html'
-
 
 Template.layout.onCreated(function () {
 
@@ -24,6 +20,9 @@ Template.layout.helpers({
 			return;
 		}
 		return user.emails && user.emails[0];
+	},
+	activeModal: function() {
+		return Session.get('activeModal');
 	}
 });
 
