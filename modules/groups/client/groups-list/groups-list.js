@@ -1,11 +1,11 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict'
-
 import * as _ from 'lodash';
+
+import { ModalService } from "../../../ui-modal/client/service/modal.service";
 
 import './groups-list.html';
 import '../group-item/group-item';
-import { ROUTES_CONFIG } from '../../../../startup/both/routes.config';
 
 Template.groupsListWidget.onCreated(function () {
 	this.state = new ReactiveDict();
@@ -46,7 +46,8 @@ Template.groupsListWidget.onCreated(function () {
 
 	this.addChildGroup = (groupId) => {
 		const parentGroup = _.find(this.groupsList, (group) => group._id === groupId);
-		Session.set('parentForSubgroup', parentGroup);
+		// TODO: make it as extended service for modals;
+		ModalService.forkSubgroup(parentGroup)
 	};
 
 	this.deleteGroup = (groupId) => {

@@ -2,12 +2,10 @@ import { Template } from "meteor/templating";
 
 import './add-group.modal.html';
 
-Template.addGroupModal.onCreated(function () {
-	console.log('addGroupModal');
-});
+Template.addGroupModal.inheritsHelpersFrom('baseModal');
+Template.addGroupModal.inheritsEventsFrom('baseModal');
+Template.addGroupModal.inheritsHooksFrom('baseModal');
 
-Template.addGroupModal.events({
-	'click .js-modal-close': function () {
-		Session.set('activeModal', false);
-	}
+Template.addGroupModal.onCreated(function () {
+	console.log(this.data)
 });
