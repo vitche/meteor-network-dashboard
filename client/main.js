@@ -14,6 +14,7 @@ import '../modules/dashboard/client';
 import '../modules/ui-peer-list/client';
 import '../modules/groups/both';
 import '../modules/groups/client';
+import '../modules/profile/client'
 
 // templates
 import './main.html';

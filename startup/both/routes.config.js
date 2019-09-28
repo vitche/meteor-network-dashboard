@@ -23,6 +23,14 @@ export const ROUTES_CONFIG = {
 			permissions: PROTECTED_ELEMENTS.viewDashboardPage
 		}
 	},
+	profile: {
+		prefix: '/profile',
+		profile: {
+			name: 'profile.profile',
+			path: '/',
+			permissions: [ ROLES_DICTIONARY.private.defaultUser.alias ]
+		}
+	},
 	peers: {
 		prefix: '/peers',
 		list: {

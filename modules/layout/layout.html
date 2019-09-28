@@ -22,14 +22,14 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">{{currentUser.profile.firstName}} {{currentUser.profile.lastName}}</span>
+                                    <span class="hidden-xs">{{currentUser.profileRoutes.firstName}} {{currentUser.profileRoutes.lastName}}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
                                         <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                         <p>
-                                            {{currentUser.profile.firstName}} {{currentUser.profile.lastName}}
+                                            {{currentUser.profileRoutes.firstName}} {{currentUser.profileRoutes.lastName}}
                                             {{#if emailLocal}}
                                                 <small>{{emailLocal.address}}</small>
                                                 {{#unless emailLocal.verified}}
@@ -42,11 +42,11 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <button id="logout-button" class="btn btn-default btn-flat">Profile
+                                            <button class="btn btn-default btn-flat js-profile-button">Profile
                                             </button>
                                         </div>
                                         <div class="pull-right">
-                                            <button id="logout-button" class="btn btn-default btn-flat">Sign out
+                                            <button  class="btn btn-default btn-flat js-logout-button">Sign out
                                             </button>
                                         </div>
                                     </li>
@@ -62,7 +62,6 @@
                 <section class="sidebar">
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="header">NETWORK MANAGEMENT</li>
                         <li class="active">
                             <a href="{{pathFor 'dashboard.list'}}">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -70,7 +69,6 @@
                         </li>
                         {{#if isAllow 'viewPeersPage' }}
                             <li class="">
-
                                 <a href="{{pathFor 'peers.list'}}">
                                     <i class="fa fa-cube"></i> <span>Peers</span>
                                 </a>
