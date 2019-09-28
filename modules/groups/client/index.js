@@ -1,2 +1,2 @@
 import './groups-list/groups-list';
-import './add-child-group/add-child-group';
+import './group-fork/group-fork';

@@ -32,6 +32,28 @@ export const getGroupsList = new ValidatedMethod({
 	},
 });
 
+export const forkGroup = new ValidatedMethod({
+	name: 'groups.method.forkGroup',
+	mixins: [ Mixins.loggedIn, Mixins.roles ],
+	roles: [
+		ROLES_DICTIONARY.private.superAdmin.alias,
+		ROLES_DICTIONARY.private.organizationOwner.alias,
+		ROLES_DICTIONARY.public.allowAddChildGroup.alias,
+	],
+	validate: new SimpleSchema({
+		title: { type: String },
+		permissions: { type: Array },
+		'permissions.$': { type: String },
+		parentGroupId: { type: String },
+		organizationId: { type: String, optional: true }
+	}).validator(),
+	async run(forkedGroup) {
+		const result = await GroupsCollection.insert(forkedGroup);
+		console.log(result);
+		return true;
+	}
+});
+
 export const getGroupUsers = new ValidatedMethod({
 	name: 'groups.method.getGroupUsers',
 	mixins: [ Mixins.loggedIn, Mixins.roles ],
@@ -39,7 +61,6 @@ export const getGroupUsers = new ValidatedMethod({
 		ROLES_DICTIONARY.private.superAdmin.alias,
 		ROLES_DICTIONARY.private.organizationOwner.alias,
 		ROLES_DICTIONARY.public.allowReviewGroup.alias,
-		ROLES_DICTIONARY.public.allowReviewGroupMembers.alias
 	],
 	validate: new SimpleSchema({
 		groupId: { type: String },

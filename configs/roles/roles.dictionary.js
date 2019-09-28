@@ -26,14 +26,6 @@ export const ROLES_DICTIONARY = {
 			alias: 'allowReviewGroup',
 			title: 'Allow Review Group'
 		},
-		allowReviewGroupMembers: {
-			alias: 'allowReviewGroupMembers',
-			title: 'Allow Review Group Members'
-		},
-		allowReviewGroupPermissions: {
-			alias: 'allowReviewGroupPermissions',
-			title: 'Allow Review Group Permissions'
-		},
 		allowAssignOrRemoveGroupMembers: {
 			alias: 'allowAssignOrRemoveGroupMembers',
 			title: 'Allow Assign Or Remove Group Members'

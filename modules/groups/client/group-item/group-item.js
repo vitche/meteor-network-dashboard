@@ -11,14 +11,14 @@ Template.groupItemWidget.helpers({});
 
 Template.groupItemWidget.events({
 	'click .js-select-group': function (event) {
-		this.onSelect(this.group._id);
+		this.onSelect();
 	},
 	'click .js-add-child-group': function (event) {
 		event.stopImmediatePropagation();
-		this.onAddChildGroup(this.group._id);
+		this.onAddChildGroup();
 	},
 	'click .js-delete-group': function (event) {
 		event.stopImmediatePropagation();
-		this.onDeleteGroup(this.group._id)
+		this.onDeleteGroup()
 	}
 });
