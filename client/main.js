@@ -1,15 +1,13 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import '../startup/client';
+import '../startup/both';
 
-// configuration - routes
-import '../modules/authentication/useraccounts-configuration';
-import '../config/routers/dashboard.routes';
-import '../config/routers/peers.routes';
-
-// components
+// layouts
 import '../modules/layout/layout';
 import '../modules/authentication/client/layout';
+
+// modules
 import '../modules/authentication/client/authentication-page'
+import '../modules/groups/client';
 
 // templates
 import './main.html';

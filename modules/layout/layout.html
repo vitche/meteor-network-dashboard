@@ -68,11 +68,21 @@
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="">
-                            <a href="{{pathFor 'peers.list'}}">
-                                <i class="fa fa-cube"></i> <span>Peers</span>
-                            </a>
-                        </li>
+                        {{#if isAllow 'viewPeersPage' }}
+                            <li class="">
+
+                                <a href="{{pathFor 'peers.list'}}">
+                                    <i class="fa fa-cube"></i> <span>Peers</span>
+                                </a>
+                            </li>
+                        {{/if}}
+                        {{#if isAllow 'viewGroupsPage' }}
+                            <li class="">
+                                <a href="{{pathFor 'groups.list'}}">
+                                    <i class="fa fa-cube"></i> <span>Groups</span>
+                                </a>
+                            </li>
+                        {{/if}}
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -87,7 +97,8 @@
                 <div class="pull-right hidden-xs">
                     <b>Version</b> 0.0.1
                 </div>
-                <strong>Copyright &copy; 2014-2019 <a href="https://softethica.com">SoftEthica</a>.</strong> All rights
+                <strong>Copyright &copy; 2014-2019 <a href="https://softethica.com">SoftEthica</a>.</strong> All
+                rights
                 reserved.
             </footer>
             <!-- Control Sidebar -->
@@ -96,7 +107,8 @@
                 <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
                     <li class="active"><a href="#control-sidebar-sensors-tab" data-toggle="tab"><i
                             class="fa fa-microchip"></i></a></li>
-                    <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+                    <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a>
+                    </li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">

@@ -1,0 +1,21 @@
+{
+  "rootGroup": {
+    "title": "Root Admins",
+    "alias": "default_root_admins",
+    "parentGroupId": null,
+    "organizationId": null,
+    "permissions": [
+      "allowAdmin",
+      "allowReview"
+    ]
+  },
+  "allUsers": {
+    "title": "All users",
+    "alias": "default_all_users",
+    "parentGroupId": null,
+    "organizationId": null,
+    "permissions": [
+      "allowReview"
+    ]
+  }
+}
