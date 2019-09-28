@@ -49,8 +49,7 @@ export const forkGroup = new ValidatedMethod({
 	}).validator(),
 	async run(forkedGroup) {
 		const result = await GroupsCollection.insert(forkedGroup);
-		console.log(result);
-		return true;
+		return result;
 	}
 });
 
