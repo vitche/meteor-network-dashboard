@@ -4,6 +4,7 @@
   "scripts": {
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
+    "hyperledger-ca-admin-enroll": "node scripts/hyperledger-ca-admin-enroll",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
@@ -13,7 +14,9 @@
     "lodash": "4.17.15",
     "meteor-node-stubs": "0.4.1",
     "moment": "2.24.0",
-    "simpl-schema": "1.5.5"
+    "simpl-schema": "1.5.5",
+    "fabric-ca-client": "1.4.4",
+    "fabric-client": "1.4.4"
   },
   "meteor": {
     "mainModule": {
