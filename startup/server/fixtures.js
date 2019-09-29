@@ -1,11 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 
 import { GroupsCollection } from '../../modules/groups/both/groups.schema';
+import { OrganizationsCollection } from '../../modules/organizations/both/organizations.schema';
 import { UsersCollection } from '../../modules/users/users.schema'
 import { UsersMethods } from '../../modules/users/users.methods';
 
 const GROUP_DEFAULT = require('../../configs/default-data/groups.config');
 const USERS_DEFAULT = require('../../configs/default-data/users.config');
+const ORGANIZATION_DEFAULT = require('../../configs/default-data/organization.config');
 
 Meteor.startup(() => {
 	const users = UsersCollection.find({}).count();
@@ -21,7 +23,20 @@ Meteor.startup(() => {
 		const rootGroupId = GroupsCollection.insert({ ...GROUP_DEFAULT.rootGroup });
 		const allUsersGroupId = GroupsCollection.insert({ ...GROUP_DEFAULT.allUsers, parentGroupId: rootGroupId });
 
-		UsersMethods.setUserWithDefaultSettings.call({ userId: devopsId, user: USERS_DEFAULT.devops });
+		const defaultOrganizationId = OrganizationsCollection.insert({
+			...ORGANIZATION_DEFAULT,
+			ownerId: devopsId,
+			defaultGroupId: rootGroupId
+		});
+
+		// join group to organization
+		GroupsCollection.update({ _id: rootGroupId }, { $set: { organizationId: defaultOrganizationId } });
+
+		UsersMethods.setUserWithDefaultSettings.call({
+			userId: devopsId,
+			user: USERS_DEFAULT.devops,
+			organizationId: defaultOrganizationId
+		});
 
 		UsersMethods.addPermissionToUser.call({
 			userId: devopsId,

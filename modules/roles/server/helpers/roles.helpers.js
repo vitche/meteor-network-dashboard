@@ -11,7 +11,13 @@ const isSuperAdmin = () => {
 	return _.includes(currentUserPermissions, ROLES_DICTIONARY.private.superAdmin.alias);
 };
 
+const isHasPermission = (neededPermissions) => {
+	const currentUserPermissions = ServerSession.get(SERVER_SESSIONS_KEYS.userPermissions);
+	return neededPermissions.every(permission => currentUserPermissions.includes(permission));
+};
+
 
 export const RolesHelpers = {
 	isSuperAdmin,
+	isHasPermission
 };

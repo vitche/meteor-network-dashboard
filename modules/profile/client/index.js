@@ -1,1 +1,1 @@
-import './profile/profile'
+import './profile-page/profile-page'

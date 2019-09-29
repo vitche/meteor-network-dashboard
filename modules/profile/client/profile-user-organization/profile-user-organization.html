@@ -1,0 +1,47 @@
+<template name="Profile_user_organization">
+    <div class="active tab-pane" id="activity">
+        {{#if isOrganizationLoading}}
+            <div class="overlay">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        {{/if}}
+
+        {{#if organization}}
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                        <i class="fa fa-globe"></i> General
+                    </h2>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <p>
+                            <b>Organization title:</b> {{organization.title}}
+                        </p>
+                        <p>
+                            <b>Membership:</b> {{membership}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+
+        {{#unless isOrganizationExist}}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="center-block">
+                        <p class="text-center">You are not a member of organization</p>
+                        <button type="button" class="btn btn-success btn" style="display: block; margin: 0 auto;">Create
+                            organization
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        {{/unless}}
+
+    </div>
+</template>

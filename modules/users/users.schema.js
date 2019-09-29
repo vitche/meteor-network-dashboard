@@ -46,6 +46,7 @@ const UserSchema = new SimpleSchema({
 	// account-password plugin save all tokens here
 	services: { type: Object, optional: true, blackbox: true },
 	roles: { type: Object, optional: true, blackbox: true },
+	organizationId: { type: String, optional: true },
 	createdAt: {
 		type: Date,
 		autoValue() {

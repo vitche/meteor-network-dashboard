@@ -1,0 +1,21 @@
+<template name="User_profile">
+    <div class="row">
+        <div class="col-md-3">
+            {{> Profile_user_information }}
+        </div>
+
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    {{#each tab in tabs}}
+                        <li class="{{activeTabClass tab}} js-activate-tab" data-value="{{@index}}"><a
+                                data-toggle="tab">{{tab.title}}</a></li>
+                    {{/each}}
+                </ul>
+                <div class="tab-content">
+                    {{> Template.dynamic template=activeTabName}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

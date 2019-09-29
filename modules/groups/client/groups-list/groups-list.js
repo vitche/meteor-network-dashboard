@@ -24,20 +24,7 @@ Template.groupsListWidget.onCreated(function () {
 			this.state.set('isGroupsLoading', true);
 		}
 	});
-
-
-	this._init = () => {
-		this.state.set('isGroupsLoading', false);
-		Meteor.call('groups.method.getGroupsList', (err, result) => {
-			if (err) {
-				throw new Error(err);
-			}
-
-			this.groupsList = result;
-			this.state.set('isGroupsLoading', true);
-		});
-	};
-
+	
 	this.onSelectGroup = () => {
 		const group = Template.instance().data.group;
 		GroupService.getGroupUsers(group._id, (users) => {

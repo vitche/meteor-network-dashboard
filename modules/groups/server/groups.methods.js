@@ -13,7 +13,7 @@ export const getGroupsList = new ValidatedMethod({
 	roles: [
 		ROLES_DICTIONARY.private.superAdmin.alias,
 		ROLES_DICTIONARY.private.organizationOwner.alias,
-		ROLES_DICTIONARY.public.allowReviewGroup
+		ROLES_DICTIONARY.public.allowReviewGroup.alias
 	],
 	validate: null,
 	run() {

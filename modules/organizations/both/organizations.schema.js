@@ -4,10 +4,10 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 export const OrganizationsCollection = new Mongo.Collection('organizations');
 
 const OrganizationsSchema = new SimpleSchema({
-	title: { type: String, max: 100, required: true },
-	verified: { type: Boolean, defaultValue: false, required: true },
-	ownerId: { type: String, required: true },
-	defaultGroupId: { type: String, required: true },
+	title: { type: String, max: 100 },
+	verified: { type: Boolean, defaultValue: false },
+	ownerId: { type: String },
+	groupId: { type: String, optional: true },
 	createdAt: {
 		type: Date,
 		autoValue() {
