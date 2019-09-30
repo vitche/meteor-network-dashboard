@@ -34,3 +34,23 @@ export const getOrganizationById = new ValidatedMethod({
 		return result
 	}
 });
+
+export const createOrganizationRequest = new ValidatedMethod({
+	name: 'organization.createOrganizationRequest',
+	mixin: [ Mixins.loggedIn, Mixins.roles ],
+	roles: [
+		ROLES_DICTIONARY.private.defaultUser
+	],
+	validate: new SimpleSchema({
+		title: { type: String }
+	}).validator(),
+	async run({ title }) {
+		const userId = Meteor.userId();
+		// create organization;
+		const organization = await OrganizationsCollection.insert({ title, ownerId: userId });
+
+		// create a request for approving organization
+
+
+	}
+});

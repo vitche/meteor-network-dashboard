@@ -1,0 +1,17 @@
+<template name="Organization_list">
+    <table class="table table-hover">
+        <tbody>
+        <tr>
+            <th>Group title</th>
+            <th>Parent Group</th>
+            <th>Related Organization</th>
+            <th>Actions</th>
+        </tr>
+        {{#if isGroupsLoad}}
+            {{#each group in groupsList}}
+                {{> groupItemWidget (groupItem group)}}
+            {{/each}}
+        {{/if}}
+        </tbody>
+    </table>
+</template>
