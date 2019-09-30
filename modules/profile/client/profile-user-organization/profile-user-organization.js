@@ -1,8 +1,10 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict'
 
-import './profile-user-organization.html';
 import { ModalService } from '../../../ui-modal/client/service/modal.service';
+
+import './profile-user-organization.html';
+
 
 Template.Profile_user_organization.onCreated(function () {
 	this.state = new ReactiveDict();

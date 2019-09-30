@@ -5,9 +5,9 @@ export const OrganizationsCollection = new Mongo.Collection('organizations');
 
 const OrganizationsSchema = new SimpleSchema({
 	title: { type: String, max: 100 },
-	verified: { type: Boolean, defaultValue: false },
 	ownerId: { type: String },
 	groupId: { type: String, optional: true },
+	verified: { type: Boolean, defaultValue: false },
 	createdAt: {
 		type: Date,
 		autoValue() {

@@ -46,11 +46,17 @@ export const createOrganizationRequest = new ValidatedMethod({
 	}).validator(),
 	async run({ title }) {
 		const userId = Meteor.userId();
+		let result;
 		// create organization;
-		const organization = await OrganizationsCollection.insert({ title, ownerId: userId });
+		try {
+			result = await OrganizationsCollection.insert({ title, ownerId: userId });
+		} catch (err) {
+			console.log(err);
+		}
+
 
 		// create a request for approving organization
-
+		return result;
 
 	}
 });
