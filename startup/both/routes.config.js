@@ -1,4 +1,4 @@
-import { PROTECTED_ELEMENTS } from '../../configs/roles/protected-elements';
+import { PAGE_PERMISSIONS } from '../../configs/roles/protected-elements';
 import { ROLES_DICTIONARY } from '../../configs/roles/roles.dictionary';
 
 export const WHITE_LIST_ROUTES = [
@@ -20,7 +20,7 @@ export const ROUTES_CONFIG = {
 		list: {
 			name: 'dashboard.list',
 			path: '/',
-			permissions: PROTECTED_ELEMENTS.viewDashboardPage
+			permissions: PAGE_PERMISSIONS.viewDashboardPage
 		}
 	},
 	profile: {
@@ -31,17 +31,25 @@ export const ROUTES_CONFIG = {
 			permissions: [ ROLES_DICTIONARY.private.defaultUser.alias ]
 		}
 	},
+	organizations: {
+		prefix: '/organizations',
+		list: {
+			name: 'organizations.list',
+			path: '/',
+			permissions: [ ROLES_DICTIONARY.private.superAdmin.alias ]
+		}
+	},
 	peers: {
 		prefix: '/peers',
 		list: {
 			name: 'peers.list',
 			path: '/',
-			permissions: PROTECTED_ELEMENTS.viewPeersPage
+			permissions: PAGE_PERMISSIONS.viewPeersPage
 		},
 		edit: {
 			name: 'peers.edit',
 			path: '/:id',
-			permissions: PROTECTED_ELEMENTS.viewPeersPage
+			permissions: PAGE_PERMISSIONS.viewPeersPage
 		}
 	},
 	groups: {
@@ -49,7 +57,7 @@ export const ROUTES_CONFIG = {
 		list: {
 			name: 'groups.list',
 			path: '/',
-			permissions: PROTECTED_ELEMENTS.viewGroupsPage
+			permissions: PAGE_PERMISSIONS.viewGroupsPage
 		},
 		addChild: {
 			name: 'groups.addChild',

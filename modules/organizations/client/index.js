@@ -2,4 +2,4 @@
 import './service/organization.service'
 
 //pages
-import './organization-page';
+import './organization-page/organization-page';
