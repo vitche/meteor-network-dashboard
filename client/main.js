@@ -5,6 +5,10 @@ import '../startup/both';
 import '../modules/layout/layout';
 import '../modules/authentication/client/layout';
 
+// modals
+import '../modules/ui-modal/client';
+
+
 // modules both
 import '../modules/groups/both';
 import '../modules/organizations/both'
@@ -17,8 +21,6 @@ import '../modules/groups/client';
 import '../modules/profile/client'
 import '../modules/organizations/client';
 
-// modals
-import '../modules/ui-modal/client';
 
 
 // templates
