@@ -10,6 +10,7 @@ Template.baseModal.onCreated(function () {
 	this.close = (view) => {
 		Session.set('activeModal', false);
 		Blaze.remove(view);
+
 	};
 
 	this.startLoading = () => {

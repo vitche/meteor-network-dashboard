@@ -21,5 +21,11 @@ Template.registerHelper('dateFormat', (date, format) => {
 });
 
 Template.registerHelper('isVerified', (verified) => {
-	return verified ? 'Approved' : 'Waiting for approve';
+	let html;
+	if (verified) {
+		html = `<span class="label label-success">Approved</span>`
+	} else {
+		html = `<span class="label label-warning">Waiting for approve</span>`
+	}
+	return Spacebars.SafeString(html);
 });

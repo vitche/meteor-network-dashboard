@@ -2,4 +2,5 @@
 import './service/organization.service'
 
 //pages
-import './organization-page/organization-page';
+import './pages/organizations-page/organizations-page';
+import './pages/organization-info/organization-info';
