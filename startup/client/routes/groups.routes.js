@@ -13,3 +13,10 @@ groups.route(ROUTES_CONFIG.groups.list.path, {
 		BlazeLayout.render('layout', { main: 'groupsListWidget' })
 	}
 });
+
+groups.route(ROUTES_CONFIG.groups.addChild.path, {
+	name: ROUTES_CONFIG.groups.addChild.name,
+	action: function (params, queryParams) {
+		BlazeLayout.render('layout', { main: 'addChildGroupWidget' })
+	}
+});

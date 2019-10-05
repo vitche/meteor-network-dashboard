@@ -90,7 +90,14 @@
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                {{> Template.dynamic template=main}}
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <!-- Set template or needed data here-->
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    {{> Template.dynamic template=main}}
+                </section>
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">
@@ -134,5 +141,8 @@
                  immediately after the control sidebar -->
             <div class="control-sidebar-bg"></div>
         </div>
+        {{#if activeModal}}
+        <div class="modal-backdrop fade in"></div>
+        {{/if}}
     </div>
 </template>

@@ -1,5 +1,5 @@
 import { UsersMethods } from '../../modules/users/users.methods';
-import { GroupsCollection } from '../../modules/groups/groups.schema';
+import { GroupsCollection } from '../../modules/groups/both/groups.schema';
 
 const GROUP_DEFAULT = require('../../configs/default-data/groups.config');
 
@@ -18,6 +18,8 @@ export const postSignUpHook = function (userId, info) {
 			permissions: group.permissions,
 			groupId: group._id
 		});
+
+		UsersMethods.setUserEmailAsPrimaryAfterSignUp.call({ userId })
 	} catch (e) {
 		throw new Meteor.Error('postSignUpHook.permission-failed', e.message);
 	}

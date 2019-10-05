@@ -19,6 +19,18 @@ const setUserWithDefaultSettings = new ValidatedMethod({
 	}
 });
 
+const setUserEmailAsPrimaryAfterSignUp = new ValidatedMethod({
+	name: 'users.setUserEmailAsPrimaryAfterSignUp',
+	validate: null,
+	run({ userId }) {
+		return UsersCollection.update(userId, {
+			$set: {
+				'emails.0.primary': true,
+			}
+		})
+	}
+});
+
 const addPermissionToUser = new ValidatedMethod({
 	name: 'users.addPermissionToUser',
 	validate: new SimpleSchema({
@@ -46,5 +58,6 @@ const sendEnrollmentLetter = new ValidatedMethod({
 export const UsersMethods = {
 	setUserWithDefaultSettings,
 	sendEnrollmentLetter,
-	addPermissionToUser
+	addPermissionToUser,
+	setUserEmailAsPrimaryAfterSignUp
 };

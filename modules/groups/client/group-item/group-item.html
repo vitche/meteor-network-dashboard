@@ -1,0 +1,17 @@
+<template name="groupItemWidget">
+    <tr class="js-select-group">
+        <td>{{group.title}}</td>
+        <td>{{#if group.parentGroupId}}  {{group.parentGroupId}} {{else}}
+            No parent group {{/if}}</td>
+        <td>{{#if group.organizationId}} {{group.organizationId}} {{else}}
+            No organization {{/if}}</td>
+        <td>
+            <div>
+                <button type="button" class="btn btn-success js-add-child-group"><i
+                        class="fa fa-code-fork"></i></button>
+                <button type="button" class="btn btn-danger js-delete-group"><i
+                        class="fa fa-times"></i></button>
+            </div>
+        </td>
+    </tr>
+</template>

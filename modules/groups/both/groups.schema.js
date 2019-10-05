@@ -3,6 +3,10 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 export const GroupsCollection = new Mongo.Collection('groups');
 
+if (Meteor.isServer) {
+	GroupsCollection.rawCollection().createIndex({ parentGroupId: 1 });
+}
+
 const GroupsSchema = new SimpleSchema({
 	title: { type: String, max: 100 },
 	alias: { type: String, optional: true },
