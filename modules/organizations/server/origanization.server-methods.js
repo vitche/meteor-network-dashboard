@@ -54,8 +54,6 @@ export const createOrganizationRequest = new ValidatedMethod({
 			console.log(err);
 		}
 
-
-		// create a request for approving organization
 		return result;
 
 	}

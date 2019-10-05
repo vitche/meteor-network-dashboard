@@ -1,6 +1,16 @@
+/**
+ * Profile User Organization component is page tab of users organizations
+ * TODO: MindMap
+ * This tab will contain 2 blocks.
+ * First one will contain information about user personal Organization - implemented!!!
+ * Second one will contain information about organization in which user consist - not implemented
+ * Need to discuss
+ */
+
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict'
 
+import { OrganizationsCollection } from '../../../organizations/both/organizations.schema';
 import { ModalService } from '../../../ui-modal/client/service/modal.service';
 
 import './profile-user-organization.html';
@@ -8,32 +18,29 @@ import './profile-user-organization.html';
 
 Template.Profile_user_organization.onCreated(function () {
 	this.state = new ReactiveDict();
-	const user = Meteor.user();
-	this.state.set('isOrganizationExist', user.profile.organizationId);
-	this._init = () => {
-		if (user.profile.organizationId) {
-			this.state.set('isOrganizationLoading', true);
-			Meteor.call('organization.getOrganizationById', { organizationId: user.profile.organizationId }, (err, response) => {
-				if (err) {
-					throw new Error(err);
-				}
 
-				this.state.set('organization', response);
-				this.state.set('isOrganizationLoading', false);
-			})
+	this.state.set('isOrganizationLoading', true);
+
+	const organizationHandler = this.subscribe('organizations.publish.getUserOrganization');
+
+	this.autorun(() => {
+		if (organizationHandler.ready()) {
+			// get organization where current user is owner
+			const userOrganization = OrganizationsCollection.findOne({ ownerId: Meteor.userId() });
+
+			if (userOrganization) {
+				this.state.set('organization', userOrganization);
+			}
+
+			this.state.set('isOrganizationLoading', false);
 		}
-	};
-
-	this._init();
+	});
 });
 
 
 Template.Profile_user_organization.helpers({
 	isOrganizationLoading: function () {
 		return Template.instance().state.get('isOrganizationLoading');
-	},
-	isOrganizationExist: function () {
-		return Template.instance().state.get('isOrganizationExist');
 	},
 	organization: function () {
 		return Template.instance().state.get('organization');

@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h2 class="page-header">
-                        <i class="fa fa-globe"></i> General
+                        <i class="fa fa-globe"></i> My organization
                     </h2>
                 </div>
 
@@ -20,6 +20,11 @@
                     <div class="form-group">
                         <p>
                             <b>Organization title:</b> {{organization.title}}
+                            {{#if organization.verified}}
+                                <span class="label label-success">Verified</span>
+                            {{else }}
+                                <span class="label label-danger">Not Verified</span>
+                            {{/if}}
                         </p>
                         <p>
                             <b>Membership:</b> {{membership}}
@@ -29,18 +34,18 @@
             </div>
         {{/if}}
 
-        {{#unless isOrganizationExist}}
+        {{#unless organization}}
             <div class="row">
                 <div class="col-xs-12">
                     <div class="center-block">
                         <p class="text-center">You are not a member of organization</p>
-                        <button type="button" class="btn btn-success btn js-create-organization" style="display: block; margin: 0 auto;">Create
+                        <button type="button" class="btn btn-success btn js-create-organization"
+                                style="display: block; margin: 0 auto;">Create
                             organization
                         </button>
                     </div>
                 </div>
             </div>
-
         {{/unless}}
 
     </div>

@@ -26,7 +26,7 @@ Meteor.startup(() => {
 		const defaultOrganizationId = OrganizationsCollection.insert({
 			...ORGANIZATION_DEFAULT,
 			ownerId: devopsId,
-			defaultGroupId: rootGroupId
+			groupId: rootGroupId
 		});
 
 		// join group to organization

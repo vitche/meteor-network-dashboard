@@ -3,6 +3,7 @@ import { RolesHelpers } from '../../roles/server/helpers/roles.helpers';
 import { OrganizationsCollection } from '../both/organizations.schema';
 
 
+// TODO: make a pagination
 Meteor.publish('organizations.publish.getOrganizationsList', function () {
 	const userId = Meteor.userId();
 
@@ -15,4 +16,15 @@ Meteor.publish('organizations.publish.getOrganizationsList', function () {
 	}
 
 	return OrganizationsCollection.find();
+});
+
+Meteor.publish('organizations.publish.getUserOrganization', function () {
+	const userId = Meteor.userId();
+
+	if (!userId) {
+		throw new Meteor.Error('not-loggedIn', 'User must be logged in');
+	}
+
+	return OrganizationsCollection.find({ ownerId: userId })
+
 });

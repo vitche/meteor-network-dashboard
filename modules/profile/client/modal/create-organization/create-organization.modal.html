@@ -8,9 +8,13 @@
                 <div class="modal-body">
                     <form role="form">
                         <!-- text input -->
-                        <div class="form-group">
+                        <div class="form-group {{#if hasError}}has-error{{/if}}">
                             <label>Organization name</label>
-                            <input type="text" class="form-control" placeholder="Enter Organization Name">
+                            <input type="text" class="form-control" placeholder="Enter Organization Name"
+                                   disabled="{{#if isLoading }}disabled{{/if}}">
+                            {{#if hasError}}
+                                <span class="help-block ">Organization name is required</span>
+                            {{/if}}
                         </div>
                     </form>
                 </div>

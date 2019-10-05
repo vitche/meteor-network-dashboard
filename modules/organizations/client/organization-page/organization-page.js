@@ -1,5 +1,5 @@
 import { Template } from 'meteor/templating';
-import { ReactiveDict} from 'meteor/reactive-dict';
+import { ReactiveDict } from 'meteor/reactive-dict';
 
 import './organization-page.html';
 import './organization-list/organization-list';
@@ -20,10 +20,13 @@ Template.Organization_page.onCreated(function () {
 });
 
 Template.Organization_page.helpers({
-	organizations: function() {
+	organizations: function () {
 		return Template.instance().state.get('organizations')
 	},
-	organizationsArgs: function(organizations) {
+	isOrganizationLoading: function() {
+		return !!Template.instance().state.get('organizations')
+	},
+	organizationsArgs: function (organizations) {
 		return {
 			organizations
 		}
