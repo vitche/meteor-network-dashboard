@@ -2,7 +2,7 @@ import { Template } from 'meteor/templating';
 
 import './base-modal.html';
 
-Template.baseModal.onCreated(function () {
+Template.Base_modal.onCreated(function () {
 	this.isLoading = new ReactiveVar(false);
 	Session.set('activeModal', true);
 	$('body').addClass('modal-open');
@@ -23,17 +23,17 @@ Template.baseModal.onCreated(function () {
 
 });
 
-Template.baseModal.onDestroyed(function () {
+Template.Base_modal.onDestroyed(function () {
 	$('body').removeClass('modal-open');
 });
 
-Template.baseModal.helpers({
+Template.Base_modal.helpers({
 	isLoading: function () {
 		return Template.instance().isLoading.get();
 	}
 });
 
-Template.baseModal.events({
+Template.Base_modal.events({
 	'click .js-modal-close': function (event, template) {
 		Template.instance().close(template.view)
 	}

@@ -25,3 +25,13 @@
 .margin-top-20 {
     margin-top: 20px;
 }
+
+.section-title {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.section-separator {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eeeeee;
+}

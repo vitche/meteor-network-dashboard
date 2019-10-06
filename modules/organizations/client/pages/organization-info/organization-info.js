@@ -2,6 +2,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
 import './organization-info.html';
+import { ModalService } from '../../../../ui-modal/client/service/modal.service';
 import { OrganizationsCollection } from '../../../both/organizations.schema';
 
 Template.Organization_info.onCreated(function () {
@@ -33,4 +34,8 @@ Template.Organization_info.helpers({
 	}
 });
 
-Template.Organization_info.events({});
+Template.Organization_info.events({
+	'click .js-approve-modal': function () {
+		ModalService.approveOrganizationModal({ organization: Template.instance().state.get('organization') })
+	}
+});

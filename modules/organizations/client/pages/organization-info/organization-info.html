@@ -6,22 +6,94 @@
             </div>
         </section>
     {{else}}
-        <section class="invoice">
-            <!-- title row -->
-            <div class="row page-header">
-                <div class="col-xs-6">
-                    <h2><i class="fa fa-globe"></i> {{organization.title}}</h2>
+        <div class="container">
+            <section class="invoice">
+                <div class="row page-header">
+                    <div class="col-xs-6">
+                        <h2><i class="fa fa-globe"></i> {{organization.title}}</h2>
+                    </div>
+                    <div class="col-xs-6 margin-top-20">
+                        {{#unless organization.verified}}
+                            <button type="button" class="btn btn-success pull-right js-approve-modal"><i
+                                    class="fa fa-credit-card"></i>
+                                Approve
+                            </button>
+                        {{/unless}}
+                    </div>
                 </div>
-                <div class="col-xs-6 margin-top-20">
-                    {{#unless organization.verified}}
-                        <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i>
-                            Approve
-                        </button>
-                    {{/unless}}
-                </div>
-                <!-- /.col -->
-            </div>
+                <div class="row section-separator">
+                    <h4 class="lead section-title">General Info</h4>
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <h3>150</h3>
 
-        </section>
+                                <p>New Peers</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-green">
+                            <div class="inner">
+                                <h3>150</h3>
+
+                                <p>New Users</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-orange">
+                            <div class="inner">
+                                <h3>150</h3>
+
+                                <p>New Groups</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-red">
+                            <div class="inner">
+                                <h3>150</h3>
+
+                                <p>New Tasks</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row section-separator">
+                    <h3 class="lead section-title">Contacts</h3>
+                    <div class="col-xs-6">
+                        <address>
+                            <strong>{{organization.title}}</strong><br>
+                            795 Folsom Ave, Suite 600<br>
+                            San Francisco, CA 94107<br>
+                            Phone: (804) 123-5432<br>
+                            Email: info@almasaeedstudio.com
+                        </address>
+                    </div>
+                </div>
+            </section>
+        </div>
     {{/if}}
 </template>

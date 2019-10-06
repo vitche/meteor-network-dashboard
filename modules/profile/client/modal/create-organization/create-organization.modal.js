@@ -39,6 +39,6 @@ Template.Create_organization_modal.events({
 	}
 });
 
-Template.Create_organization_modal.inheritsHelpersFrom(Template.baseModal);
-Template.Create_organization_modal.inheritsEventsFrom(Template.baseModal);
-Template.Create_organization_modal.inheritsHooksFrom(Template.baseModal);
+Template.Create_organization_modal.inheritsHelpersFrom(Template.Base_modal);
+Template.Create_organization_modal.inheritsEventsFrom(Template.Base_modal);
+Template.Create_organization_modal.inheritsHooksFrom(Template.Base_modal);
