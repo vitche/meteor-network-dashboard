@@ -5,10 +5,6 @@ import * as _ from 'lodash'
 
 import './group-fork.html';
 
-Template.groupForkWidget.inheritsHelpersFrom('baseModal');
-Template.groupForkWidget.inheritsEventsFrom('baseModal');
-Template.groupForkWidget.inheritsHooksFrom('baseModal');
-
 Template.groupForkWidget.onCreated(function () {
 
 });
@@ -48,7 +44,9 @@ Template.groupForkWidget.events({
 
 			instance.isLoading.set(false);
 		})
-
-
 	},
 });
+
+Template.groupForkWidget.inheritsHelpersFrom(Template.Base_modal);
+Template.groupForkWidget.inheritsEventsFrom(Template.Base_modal);
+Template.groupForkWidget.inheritsHooksFrom(Template.Base_modal);

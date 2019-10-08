@@ -1,5 +1,6 @@
 import { PAGE_PERMISSIONS } from '../../configs/roles/protected-elements';
 import { ROLES_DICTIONARY } from '../../configs/roles/roles.dictionary';
+import { ORGANIZATION_ROUTES } from '../../modules/organizations/both/organizations.routes';
 
 export const WHITE_LIST_ROUTES = [
 	'changePwd',
@@ -31,14 +32,7 @@ export const ROUTES_CONFIG = {
 			permissions: [ ROLES_DICTIONARY.private.defaultUser.alias ]
 		}
 	},
-	organizations: {
-		prefix: '/organizations',
-		list: {
-			name: 'organizations.list',
-			path: '/',
-			permissions: [ ROLES_DICTIONARY.private.superAdmin.alias ]
-		}
-	},
+	organizations: { ...ORGANIZATION_ROUTES },
 	peers: {
 		prefix: '/peers',
 		list: {

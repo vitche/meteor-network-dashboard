@@ -25,6 +25,22 @@ Meteor.publish('organizations.publish.getUserOrganization', function () {
 		throw new Meteor.Error('not-loggedIn', 'User must be logged in');
 	}
 
+
 	return OrganizationsCollection.find({ ownerId: userId })
 
 });
+
+Meteor.publish('organizations.publish.getOrganizationById', function (organizationId) {
+	const userId = Meteor.userId();
+
+	if (!userId) {
+		throw new Meteor.Error('not-loggedIn', 'User must be logged in');
+	}
+
+	if (!RolesHelpers.isSuperAdmin()) {
+		throw new Meteor.Error('not-authorize', 'You do not have permissions');
+	}
+
+	return OrganizationsCollection.find({ _id: organizationId });
+
+})

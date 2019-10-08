@@ -31,6 +31,7 @@ Meteor.startup(() => {
 
 		// join group to organization
 		GroupsCollection.update({ _id: rootGroupId }, { $set: { organizationId: defaultOrganizationId } });
+		GroupsCollection.update({ _id: allUsersGroupId }, { $set: { organizationId: defaultOrganizationId } });
 
 		UsersMethods.setUserWithDefaultSettings.call({
 			userId: devopsId,

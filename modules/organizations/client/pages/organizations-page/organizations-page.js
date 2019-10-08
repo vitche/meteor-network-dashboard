@@ -1,9 +1,12 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
-import './organization-page.html';
-import './organization-list/organization-list';
-import { OrganizationsCollection } from '../../both/organizations.schema';
+import { ROUTES_CONFIG } from '../../../../../startup/both/routes.config';
+import { OrganizationsCollection } from '../../../both/organizations.schema';
+
+import '../../components/organization-item/organization-item';
+
+import './organizations-page.html';
 
 Template.Organization_page.onCreated(function () {
 	this.state = new ReactiveDict();
@@ -15,7 +18,11 @@ Template.Organization_page.onCreated(function () {
 			const organizations = OrganizationsCollection.find().fetch();
 			this.state.set('organizations', organizations)
 		}
-	})
+	});
+
+	this.onSelect = (selectedOrganization) => {
+		FlowRouter.go(ROUTES_CONFIG.organizations.info.name, { id: selectedOrganization._id });
+	}
 
 });
 
@@ -23,12 +30,13 @@ Template.Organization_page.helpers({
 	organizations: function () {
 		return Template.instance().state.get('organizations')
 	},
-	isOrganizationLoading: function() {
+	isOrganizationLoading: function () {
 		return !!Template.instance().state.get('organizations')
 	},
-	organizationsArgs: function (organizations) {
+	organizationArgs: function (organization) {
 		return {
-			organizations
+			organization,
+			onSelect: Template.instance().onSelect
 		}
 	}
 });
