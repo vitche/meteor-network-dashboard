@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor';
-import { Peer } from '../modules/peer/model';
+import { Peer } from '../imports/modules/peer/model';
 
-import '../startup/both/';
-import '../startup/server';
+import '../imports/startup/both/';
+import '../imports/startup/server';
 
-import '../modules/groups/both';
-import '../modules/groups/server';
-import '../modules/organizations/server';
+import '../imports/modules/groups/both';
+import '../imports/modules/groups/server';
+import '../imports/modules/organizations/server';
 
 Meteor.startup(() => {
 	if (0 === Peer.find({}).count()) {
