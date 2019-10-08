@@ -6,6 +6,7 @@ import '../startup/server';
 
 import '../modules/groups/both';
 import '../modules/groups/server';
+import '../modules/organizations/server';
 
 Meteor.startup(() => {
 	if (0 === Peer.find({}).count()) {

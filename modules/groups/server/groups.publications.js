@@ -22,7 +22,7 @@ Meteor.publish('groups.publish.getGroupList', function () {
 	const requiredPermissions = [
 		ROLES_DICTIONARY.private.superAdmin.alias,
 		ROLES_DICTIONARY.private.organizationOwner.alias,
-		ROLES_DICTIONARY.public.allowReviewGroup
+		ROLES_DICTIONARY.public.allowReviewGroup.alias
 	];
 
 	if (!checkUserPermissions(requiredPermissions)) {

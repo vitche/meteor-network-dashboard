@@ -1,0 +1,27 @@
+<template name="Organization_list">
+    <table class="table table-hover">
+        <tbody>
+
+        <tr>
+            <th>Organization title</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {{#if organizations}}
+            {{#each org in organizations}}
+                <tr class="js-select-group">
+                    <td>{{org.title}}</td>
+                    <td>{{isVerified org.verified}}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="btn btn-success js-add-child-group"
+                                    disabled="{{#if org.verified}}disabled{{/if}}"><i
+                                    class="fa fa-check"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            {{/each}}
+        {{/if}}
+        </tbody>
+    </table>
+</template>

@@ -28,8 +28,8 @@ useraccounts:flow-routing
 aldeed:template-extension
 alanning:roles
 aldeed:simple-schema
-aldeed:collection2
 mdg:validated-method
 session
 erasaur:server-session
 didericis:permissions-mixin
+aldeed:collection2@3.0.2

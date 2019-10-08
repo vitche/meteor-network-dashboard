@@ -4,6 +4,7 @@ import { Template } from 'meteor/templating';
 import { AccountsTemplates } from 'meteor/useraccounts:core';
 
 import './layout.html'
+import { ROUTES_CONFIG } from '../../startup/both/routes.config';
 
 Template.layout.onCreated(function () {
 
@@ -21,13 +22,16 @@ Template.layout.helpers({
 		}
 		return user.emails && user.emails[0];
 	},
-	activeModal: function() {
+	activeModal: function () {
 		return Session.get('activeModal');
 	}
 });
 
 Template.layout.events({
-	'click #logout-button'() {
+	'click .js-profile-button'() {
+		FlowRouter.go(ROUTES_CONFIG.profile.profile.name);
+	},
+	'click .js-logout-button'() {
 		AccountsTemplates.logout();
 	}
 });

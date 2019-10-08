@@ -42,11 +42,11 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <button id="logout-button" class="btn btn-default btn-flat">Profile
+                                            <button class="btn btn-default btn-flat js-profile-button">Profile
                                             </button>
                                         </div>
                                         <div class="pull-right">
-                                            <button id="logout-button" class="btn btn-default btn-flat">Sign out
+                                            <button class="btn btn-default btn-flat js-logout-button">Sign out
                                             </button>
                                         </div>
                                     </li>
@@ -62,17 +62,15 @@
                 <section class="sidebar">
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="header">NETWORK MANAGEMENT</li>
                         <li class="active">
                             <a href="{{pathFor 'dashboard.list'}}">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
-                        {{#if isAllow 'viewPeersPage' }}
+                        {{#if isAllow 'viewOrganizationPage' }}
                             <li class="">
-
-                                <a href="{{pathFor 'peers.list'}}">
-                                    <i class="fa fa-cube"></i> <span>Peers</span>
+                                <a href="{{pathFor 'organizations.list'}}">
+                                    <i class="fa fa-cube"></i> <span>Organizations</span>
                                 </a>
                             </li>
                         {{/if}}
@@ -80,6 +78,13 @@
                             <li class="">
                                 <a href="{{pathFor 'groups.list'}}">
                                     <i class="fa fa-cube"></i> <span>Groups</span>
+                                </a>
+                            </li>
+                        {{/if}}
+                        {{#if isAllow 'viewPeersPage' }}
+                            <li class="">
+                                <a href="{{pathFor 'peers.list'}}">
+                                    <i class="fa fa-cube"></i> <span>Peers</span>
                                 </a>
                             </li>
                         {{/if}}
@@ -142,7 +147,7 @@
             <div class="control-sidebar-bg"></div>
         </div>
         {{#if activeModal}}
-        <div class="modal-backdrop fade in"></div>
+            <div class="modal-backdrop fade in"></div>
         {{/if}}
     </div>
 </template>
