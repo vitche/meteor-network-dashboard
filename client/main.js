@@ -14,6 +14,7 @@ import '../imports/modules/organizations/both'
 
 // modules client
 import '../imports/modules/authentication/client/authentication-page'
+import '../imports/modules/users/client';
 import '../imports/modules/dashboard/client';
 import '../imports/modules/ui-peer-list/client';
 import '../imports/modules/groups/client';

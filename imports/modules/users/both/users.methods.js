@@ -44,20 +44,20 @@ const addPermissionToUser = new ValidatedMethod({
 	}
 });
 
-const sendEnrollmentLetter = new ValidatedMethod({
-	name: 'users.sendEnrollmentLetter',
-	validate: new SimpleSchema({
-		userId: { type: String },
-		email: { type: String }
-	}).validator(),
-	run({ userId, email }) {
-		return Accounts.sendEnrollmentEmail(userId, email)
-	}
-});
+const sendEnrollmentLetter = (data) => {
+	Meteor.call('users.sendEnrollmentLetter', data, (err, response) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+
+		console.log(response);
+	})
+};
 
 export const UsersMethods = {
 	setUserWithDefaultSettings,
-	sendEnrollmentLetter,
 	addPermissionToUser,
+	sendEnrollmentLetter,
 	setUserEmailAsPrimaryAfterSignUp
 };

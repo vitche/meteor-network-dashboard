@@ -1,10 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import { Peer } from '../imports/modules/peer/model';
 
-import '../imports/startup/both/';
-import '../imports/startup/server';
+import '../imports/utils/server';
 
+import '../imports/startup/both/';
+import '../imports/modules/users/both';
 import '../imports/modules/groups/both';
+
+import '../imports/startup/server';
+import '../imports/modules/users/server';
 import '../imports/modules/groups/server';
 import '../imports/modules/organizations/server';
 

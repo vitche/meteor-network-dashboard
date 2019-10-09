@@ -3,7 +3,7 @@ import { GroupsCollection } from '../both/groups.schema';
 import { RolesHelpers } from '../../roles/server/helpers/roles.helpers';
 import { Mixins } from '../../../helpers/server/mixins'
 import { ROLES_DICTIONARY } from '../../../configs/roles/roles.dictionary';
-import { UsersCollection } from '../../users/users.schema';
+import { UsersCollection } from '../../users/both/users.schema';
 
 const DEFAULT_GROUPS = require('../../../configs/default-data/groups.config');
 

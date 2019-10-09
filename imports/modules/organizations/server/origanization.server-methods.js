@@ -3,10 +3,10 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { ROLES_DICTIONARY } from '../../../configs/roles/roles.dictionary';
 import { Mixins } from '../../../helpers/server/mixins';
 import { GroupsCollection } from '../../groups/both/groups.schema';
-import { UsersCollection } from '../../users/users.schema';
+import { UsersCollection } from '../../users/both/users.schema';
 import { OrganizationsCollection } from '../both/organizations.schema';
 import { RolesHelpers } from '../../roles/server/helpers/roles.helpers';
-import { UsersMethods } from '../../users/users.methods';
+import { UsersMethods } from '../../users/both/users.methods';
 
 const DEFAULT_GROUPS = require('../../../configs/default-data/groups.config');
 

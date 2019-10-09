@@ -2,8 +2,8 @@ import { Meteor } from 'meteor/meteor';
 
 import { GroupsCollection } from '../../modules/groups/both/groups.schema';
 import { OrganizationsCollection } from '../../modules/organizations/both/organizations.schema';
-import { UsersCollection } from '../../modules/users/users.schema'
-import { UsersMethods } from '../../modules/users/users.methods';
+import { UsersCollection } from '../../modules/users/both/users.schema'
+import { UsersMethods } from '../../modules/users/both/users.methods';
 
 const GROUP_DEFAULT = require('../../configs/default-data/groups.config');
 const USERS_DEFAULT = require('../../configs/default-data/users.config');
@@ -51,7 +51,7 @@ Meteor.startup(() => {
 			groupId: allUsersGroupId
 		});
 
-		UsersMethods.sendEnrollmentLetter.call({ userId: devopsId, email: USERS_DEFAULT.devops.email });
+		UsersMethods.sendEnrollmentLetter({ userId: devopsId });
 
 	} catch (e) {
 		throw new Meteor.Error(e);

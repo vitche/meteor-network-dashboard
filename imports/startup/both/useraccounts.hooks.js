@@ -1,4 +1,4 @@
-import { UsersMethods } from '../../modules/users/users.methods';
+import { UsersMethods } from '../../modules/users/both/users.methods';
 import { GroupsCollection } from '../../modules/groups/both/groups.schema';
 
 const GROUP_DEFAULT = require('../../configs/default-data/groups.config');
