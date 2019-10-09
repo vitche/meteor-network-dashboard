@@ -2,7 +2,12 @@ import {Meteor} from 'meteor/meteor';
 import {Peer} from '../modules/peer/model';
 import {FabricConnectionFactory} from '../modules/fabric-client/server/connection-factory';
 
-import '../modules/authentication/useraccounts-configuration'
+import '../imports/startup/both/';
+import '../imports/startup/server';
+
+import '../imports/modules/groups/both';
+import '../imports/modules/groups/server';
+import '../imports/modules/organizations/server';
 
 let connectionFactory = new FabricConnectionFactory('../.certificates');
 connectionFactory.connect('http://localhost:7054', 'ca.example.com').then((connection) => {
@@ -37,11 +42,11 @@ connectionFactory.connect('http://localhost:7054', 'ca.example.com').then((conne
 });
 
 Meteor.startup(() => {
-    if (0 === Peer.find({}).count()) {
-        Peer.insert({
-            name: "Test network host shell tunnel",
-            uri: "grpc://peer0.org1.example.com:7053"
-        });
-        console.log("Created test peers");
-    }
+	if (0 === Peer.find({}).count()) {
+		Peer.insert({
+			name: 'Test network host shell tunnel',
+			uri: 'grpc://peer0.org1.example.com:7053'
+		});
+		console.log('Created test peers');
+	}
 });

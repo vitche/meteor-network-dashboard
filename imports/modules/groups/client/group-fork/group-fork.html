@@ -1,0 +1,42 @@
+<template name="groupForkWidget">
+    <div class="modal fade in" id="modal-default" style="display: block">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Fork group:  {{parentGroupTitle}} </h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label>Group name</label>
+                            <input type="text" class="form-control" placeholder="Enter Group Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Select permissions</label>
+                            {{#each permission in permissions}}
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="{{permission.alias}}"
+                                               checked="{{permission.checked}}">
+                                        {{permission.title}}
+                                    </label>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left js-modal-close" data-dismiss="modal">Close
+                    </button>
+                    <button type="button" class="btn btn-primary js-fork-group">Save changes</button>
+                </div>
+                {{#if isLoading}}
+                    <div class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</template>

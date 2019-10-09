@@ -1,0 +1,13 @@
+{
+  "devops": {
+    "email": "devops@sep.com",
+    "emailVerified": true,
+    "emailPrimary": true,
+    "organizationId": null,
+    "profile": {
+      "firstName": "Dev",
+      "lastName": "Ops",
+      "organizationId": null
+    }
+  }
+}

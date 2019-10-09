@@ -1,0 +1,33 @@
+<template name="Organization_page">
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Organizations</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-bordered">
+                        <tbody>
+
+                        <tr>
+                            <th>Organization title</th>
+                            <th style="width: 110px">Status</th>
+                        </tr>
+                        {{#if organizations}}
+                            {{#each organization in organizations}}
+                                {{> Organization_table_item (organizationArgs organization)}}
+                            {{/each}}
+                        {{/if}}
+                        </tbody>
+                    </table>
+                </div>
+                {{#unless isOrganizationLoading}}
+                    <div class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                {{/unless}}
+            </div>
+        </div>
+    </div>
+</template>
