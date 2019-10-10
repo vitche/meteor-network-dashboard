@@ -17,7 +17,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="form-group">
+                    <div>
                         <p>
                             <b>Organization title:</b> {{organization.title}}
                             {{#if organization.verified}}
@@ -30,6 +30,19 @@
                             <b>Membership:</b> {{membership}}
                         </p>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Invite user</h3>
+                    <form class="invite-user-form">
+                        <div class="form-group ">
+                            <label for="email_for_invite" class="control-label">Enter email:</label>
+                            <input id="email_for_invite" type="email" class="form-control" placeholder="User email"
+                                   required>
+                        </div>
+                        <button type="submit" class="btn btn-primary js-save">Send invitation</button>
+                    </form>
                 </div>
             </div>
         {{/if}}

@@ -16,5 +16,4 @@ class EmailServiceClass extends EmailBase {
 	}
 }
 
-s
 export const EmailService = new EmailServiceClass();

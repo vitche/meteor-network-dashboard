@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { ROLES_DICTIONARY } from '../../../configs/roles/roles.dictionary';
 import { Mixins } from '../../../helpers/server/mixins';
+import { EmailService } from '../../../utils/server/email/email.service';
 import { GroupsCollection } from '../../groups/both/groups.schema';
 import { UsersCollection } from '../../users/both/users.schema';
 import { OrganizationsCollection } from '../both/organizations.schema';
@@ -109,5 +110,43 @@ export const approveOrganization = new ValidatedMethod({
 			throw new Meteor.Error('operation-fail', err.message)
 		}
 		return true;
+	}
+});
+
+export const inviteUser = new ValidatedMethod({
+	name: 'organization.methods.inviteUser',
+	mixin: [ Mixins.loggedIn, Mixins.roles ],
+	roles: [
+		ROLES_DICTIONARY.private.superAdmin.alias,
+		ROLES_DICTIONARY.private.organizationOwner.alias
+	],
+	validate: new SimpleSchema({
+		email: { type: String }
+	}).validator(),
+	async run({ email }) {
+		try {
+			const loggedUser = Meteor.user();
+
+			// create an user with this type of email
+			const userId = Accounts.createUser({ email: email });
+
+			// set to user organization id by default
+			const user = await UsersCollection.update(userId, {
+				$set: {
+					'profile.organizationId': loggedUser.profile.organizationId,
+				}
+			});
+
+			const { groupId } = await OrganizationsCollection.findOne({ _id: loggedUser.profile.organizationId, }, { groupId: 1 });
+
+			// set to user roles depend on selected group.
+			// TODO: call this mesthod only with groupId
+			Roles.addUsersToRoles(userId, [ ROLES_DICTIONARY.private.organizationMember.alias ], groupId);
+
+			EmailService.sendEnrollmentEmail(userId);
+		} catch (err) {
+			console.log(err);
+			throw new Meteor.Error('operation-fall', err.message);
+		}
 	}
 });
