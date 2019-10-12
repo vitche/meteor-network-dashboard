@@ -16,6 +16,12 @@
                     </form>
                 </div>
                 <div class="modal-footer">
+                    {{#if onError}}
+                        <div>{{onError}}</div>
+                    {{/if}}
+                    {{#if onSuccess}}
+                        <div>{{onSuccess}}</div>
+                    {{/if}}
                     <button type="button" class="btn btn-default pull-left js-modal-close" data-dismiss="modal">Close
                     </button>
                     <button type="button" class="btn btn-primary js-save">Save changes</button>

@@ -41,7 +41,7 @@ export const getOrganizationById = new ValidatedMethod({
 });
 
 export const createOrganizationRequest = new ValidatedMethod({
-	name: 'organization.createOrganizationRequest',
+	name: 'organization.methods.createOrganizationRequest',
 	mixin: [ Mixins.loggedIn, Mixins.roles ],
 	roles: [
 		ROLES_DICTIONARY.private.defaultUser.alias
@@ -65,7 +65,7 @@ export const createOrganizationRequest = new ValidatedMethod({
 });
 
 export const approveOrganization = new ValidatedMethod({
-	name: 'organization.method.approveOrganization',
+	name: 'organization.methods.approveOrganization',
 	mixin: [ Mixins.loggedIn, Mixins.roles ],
 	roles: [
 		ROLES_DICTIONARY.private.superAdmin.alias,

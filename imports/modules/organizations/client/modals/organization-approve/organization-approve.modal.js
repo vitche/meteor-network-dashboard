@@ -1,9 +1,11 @@
-import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+
+import { OrganizationService } from '../../service/organization.service';
 
 import './organization-approve.modal.html';
 
 Template.Approve_organization_modal.onCreated(function () {
+
 });
 
 Template.Approve_organization_modal.helpers({
@@ -13,27 +15,25 @@ Template.Approve_organization_modal.helpers({
 });
 
 Template.Approve_organization_modal.events({
+	'input input[type=text]': function () {
+		Template.instance().reset();
+	},
+
 	'click .js-save': async function (event, template) {
+		event.preventDefault();
+
 		const instance = Template.instance();
 		const { organization } = instance.data;
-
 		const groupTitle = template.find('input[type=text]').value;
 
+		// TODO: think how to make it using base_modal
 		instance.startLoading();
-		Meteor.call('organization.method.approveOrganization', {
-			organizationId: organization._id,
-			ownerId: organization.ownerId,
-			groupTitle
-		}, (err, resolve) => {
-			if (err) {
-
-				console.log("ERROR : ", err);
-				return;
-			}
-			instance.finishLoading();
-			instance.close(template.view);
-		});
-
+		try {
+			await OrganizationService.approveOrganization(organization._id, organization.ownerId, groupTitle);
+			instance.onSuccess('Organization was approved successfully')
+		} catch (err) {
+			instance.onError(err.message);
+		}
 	}
 });
 
