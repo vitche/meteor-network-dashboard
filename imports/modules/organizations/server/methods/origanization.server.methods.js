@@ -1,20 +1,15 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
 import { Mixins } from '../../../../helpers/server/mixins';
+import { ORGANIZATION_SERVER_METHODS } from '../../both/organizations.methods';
+
 import { createOrganizationRequest } from '../functions/createOrganizationRequest.function';
 import { getOrganizationById } from '../functions/getOrganizationById.function';
 import { approveOrganization } from '../functions/approveOrganization.function';
 import { inviteUser } from '../functions/inviteUser.function';
 
-export const ORGANIZATION_METHODS = {
-	getOrganizationById: 'organization.methods.getOrganizationById',
-	createOrganizationRequest: 'organization.methods.createOrganizationRequest',
-	approveOrganization: 'organization.methods.approveOrganization',
-	inviteUser: 'organization.methods.inviteUser'
-};
-
 export const getOrganizationByIdMethod = new ValidatedMethod({
-	name: ORGANIZATION_METHODS.getOrganizationById,
+	name: ORGANIZATION_SERVER_METHODS.getOrganizationById,
 	mixins: [ Mixins.loggedIn, Mixins.roles ],
 	roles: [
 		ROLES_DICTIONARY.private.superAdmin.alias,
@@ -30,7 +25,7 @@ export const getOrganizationByIdMethod = new ValidatedMethod({
 });
 
 export const createOrganizationRequestMethod = new ValidatedMethod({
-	name: ORGANIZATION_METHODS.createOrganizationRequest,
+	name: ORGANIZATION_SERVER_METHODS.createOrganizationRequest,
 	mixin: [ Mixins.loggedIn, Mixins.roles ],
 	roles: [
 		ROLES_DICTIONARY.private.defaultUser.alias
@@ -45,7 +40,7 @@ export const createOrganizationRequestMethod = new ValidatedMethod({
 });
 
 export const approveOrganizationMethod = new ValidatedMethod({
-	name: ORGANIZATION_METHODS.approveOrganization,
+	name: ORGANIZATION_SERVER_METHODS.approveOrganization,
 	mixin: [ Mixins.loggedIn, Mixins.roles ],
 	roles: [
 		ROLES_DICTIONARY.private.superAdmin.alias,
@@ -61,7 +56,7 @@ export const approveOrganizationMethod = new ValidatedMethod({
 });
 
 export const inviteUserMethod = new ValidatedMethod({
-	name: ORGANIZATION_METHODS.inviteUser,
+	name: ORGANIZATION_SERVER_METHODS.inviteUser,
 	mixin: [ Mixins.loggedIn, Mixins.roles ],
 	roles: [
 		ROLES_DICTIONARY.private.superAdmin.alias,
