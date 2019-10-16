@@ -1,6 +1,7 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
 import { Mixins } from '../../../../helpers/server/mixins';
+import { createDefaultUser } from '../../../users/server/functions/createDefaultUser.function';
 import { ORGANIZATION_SERVER_METHODS } from '../../both/organizations.methods';
 
 import { createOrganizationRequest } from '../functions/createOrganizationRequest.function';
@@ -66,6 +67,12 @@ export const inviteUserMethod = new ValidatedMethod({
 		email: { type: String }
 	}).validator(),
 	async run({ email }) {
-		return await inviteUser(email)
+		try {
+			const userId = await createDefaultUser(email);
+			return await inviteUser(userId)
+		} catch (err) {
+			throw new Meteor.Error(400, err.message);
+		}
+
 	}
 });

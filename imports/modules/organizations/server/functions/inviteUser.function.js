@@ -1,32 +1,41 @@
-import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
+import { GROUP_ALIASES } from '../../../../configs/groups/aliases';
 import { EmailService } from '../../../../utils/server/email/email.service';
+import { GroupsCollection } from '../../../groups/both/groups.schema';
+import { RolesService } from '../../../roles/server/services/roles.service';
 import { UsersCollection } from '../../../users/both/users.schema';
-import { OrganizationsCollection } from '../../both/organizations.schema';
 
-export const inviteUser = async function (email) {
+// We should not create an user and give him a permissions before he accept the invitation
+// We must just send an invitation letter and only after user accept it create an user document
+// but Meteor.Account.sendEnrollmentEmail work only with already created user
+// TODO: refactor this function with just sending an email with some token and do not create any users.
+export const inviteUser = async function (userId) {
 	try {
 		const loggedUser = Meteor.user();
 
-		// create an user with this type of email
-		const userId = Accounts.createUser({ email: email });
-
 		// set to user organization id by default
-		const user = await UsersCollection.update(userId, {
+
+		await UsersCollection.update(userId, {
 			$set: {
 				'profile.organizationId': loggedUser.profile.organizationId,
 			}
 		});
 
-		const { groupId } = await OrganizationsCollection.findOne({ _id: loggedUser.profile.organizationId, }, { groupId: 1 });
+		// get id of group that contain all organization members
+		const group = await GroupsCollection.findOne(
+			{
+				$and: [
+					{ organizationId: loggedUser.profile.organizationId },
+					{ alias: GROUP_ALIASES.organizationMembersGroupAlias }
+				]
+			});
 
-		// set to user roles depend on selected group.
-		// TODO: call this mesthod only with groupId
-		Roles.addUsersToRoles(userId, [ ROLES_DICTIONARY.private.organizationMember.alias ], groupId);
+		// update user with permissions of group
+		await RolesService.setUserPermissions(userId, group.permissions, group._id);
 
 		EmailService.sendEnrollmentEmail(userId);
 	} catch (err) {
-		console.log(err);
-		throw new Meteor.Error('operation-fall', err.message);
+		console.error('createDefaultUser: ', err);
+		throw new Meteor.Error('invite-user-error', err.message);
 	}
 
 	return true;
