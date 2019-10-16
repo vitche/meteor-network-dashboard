@@ -8,26 +8,35 @@
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
-                        <tbody>
+                        <thead>
                         <tr>
                             <th>Group title</th>
                             <th>Parent Group</th>
                             <th>Related Organization</th>
                             <th>Actions</th>
                         </tr>
-                        {{#if isGroupsLoad}}
+                        </thead>
+                        <tbody>
+                        {{#if groupsList}}
+
                             {{#each group in groupsList}}
                                 {{> groupItemWidget (groupItem group)}}
                             {{/each}}
                         {{/if}}
                         </tbody>
                     </table>
+                    {{#unless groupsList}}
+                        <div class="text-center">
+                            <h3>You are not a member of any groups yet</h3>
+                        </div>
+                    {{/unless}}
+
                 </div>
-                {{#unless isGroupsLoad}}
+                {{#if isGroupsLoad}}
                     <div class="overlay">
                         <i class="fa fa-refresh fa-spin"></i>
                     </div>
-                {{/unless}}
+                {{/if}}
             </div>
         </div>
 

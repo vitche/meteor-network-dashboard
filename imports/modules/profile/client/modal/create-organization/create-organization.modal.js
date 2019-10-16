@@ -19,23 +19,27 @@ Template.Create_organization_modal.helpers({
 Template.Create_organization_modal.events({
 	'input input[type=text]': function () {
 		Template.instance().state.set('hasError', false);
+		Template.instance().reset();
 	},
 	'click .js-save': async function (event, template) {
 		event.preventDefault();
+
 		const instance = Template.instance();
 
-
 		const title = template.find('input[type=text]').value;
+
 		if (!title) {
 			instance.state.set('hasError', true);
 			return;
 		}
 
 		instance.startLoading();
-		await OrganizationService.sendCreatingOrganizationRequest({ title });
-
-		instance.finishLoading();
-		instance.close(template.view);
+		try {
+			await OrganizationService.sendCreatingOrganizationRequest({ title });
+			instance.onSuccess('Organization was created')
+		} catch (err) {
+			instance.onError(err.message);
+		}
 	}
 });
 

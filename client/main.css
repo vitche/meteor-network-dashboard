@@ -35,3 +35,7 @@
     margin-bottom: 20px;
     border-bottom: 1px solid #eeeeee;
 }
+
+.invite-user-form {
+    width: 300px;
+}

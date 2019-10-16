@@ -11,24 +11,23 @@ import '../group-item/group-item';
 
 Template.groupsListWidget.onCreated(function () {
 	this.state = new ReactiveDict();
-	this.groupsList = [];
-	this.selectedGroupUsers = [];
-
-	// TODO: catch error?
+	this.state.set('groups', []);
+	this.state.set('isGroupsLoading', true);
 
 	const groupsHandler = this.subscribe('groups.publish.getGroupList');
 
 	this.autorun(() => {
 		if (groupsHandler.ready()) {
-			this.groupsList = GroupsCollection.find().fetch();
-			this.state.set('isGroupsLoading', true);
+			const groupsList = GroupsCollection.find().fetch();
+
+			this.state.set('groups', groupsList);
+			this.state.set('isGroupsLoading', false);
 		}
 	});
-	
+
 	this.onSelectGroup = () => {
 		const group = Template.instance().data.group;
 		GroupService.getGroupUsers(group._id, (users) => {
-			this.selectedGroupUsers = users;
 			this.state.set('selectedGroup', { group, users })
 		})
 	};
@@ -50,7 +49,7 @@ Template.groupsListWidget.helpers({
 		return Template.instance().state.get('selectedGroup');
 	},
 	groupsList: function () {
-		return GroupsCollection.find();
+		return Template.instance().state.get('groups').length && Template.instance().state.get('groups');
 	},
 	groupItem: function (group) {
 		const instance = Template.instance();

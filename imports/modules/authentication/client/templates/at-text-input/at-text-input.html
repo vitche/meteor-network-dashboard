@@ -1,0 +1,13 @@
+<template name="override-atTextInput">
+    <div class="form-group {{#if isValidating}}validating{{/if}} {{#if hasError}}has-error{{/if}} {{#if
+            hasSuccess}}has-success{{/if}} {{#if feedback}}has-feedback{{/if}}">
+        <input class="form-control" type="{{type}}" id="at-field-{{_id}}" name="at-field-{{_id}}"
+               placeholder="{{placeholder}}" autocapitalize="none" autocorrect="off">
+        {{#if hasIcon}}
+            <span class="{{iconClass}}"></span>
+        {{/if}}
+        {{#if hasError}}
+            <span class="text-red">{{errorText}}</span>
+        {{/if}}
+    </div>
+</template>

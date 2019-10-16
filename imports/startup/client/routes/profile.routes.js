@@ -14,3 +14,10 @@ profileRoutes.route(ROUTES_CONFIG.profile.profile.path, {
 		BlazeLayout.render('layout', { main: 'User_profile' });
 	},
 });
+
+FlowRouter.route(ROUTES_CONFIG.setupProfile.path, {
+	name: ROUTES_CONFIG.setupProfile.name,
+	action: function (params, queryParams) {
+		BlazeLayout.render('authenticationLayout', { main: 'Setup_profile' });
+	},
+});

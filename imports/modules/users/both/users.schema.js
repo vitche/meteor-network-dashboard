@@ -35,18 +35,18 @@ const UserSchema = new SimpleSchema({
 	emails: { type: Array },
 	'emails.$': { type: Object },
 	'emails.$.address': { type: String, regEx: SimpleSchema.RegEx.Email },
-	'emails.$.verified': { type: Boolean },
-	'emails.$.primary': { type: Boolean, optional: true },
+	'emails.$.verified': { type: Boolean, defaultValue: false, optional: true },
+	'emails.$.primary': { type: Boolean, defaultValue: false, optional: true },
 	password: { type: String, optional: true },
 	profile: {
 		type: UserProfile,
-		optional: true
+		optional: true,
+		blackbox: true
 	},
 	// this field must be by default as we sent verification tokens via emails
 	// account-password plugin save all tokens here
 	services: { type: Object, optional: true, blackbox: true },
 	roles: { type: Object, optional: true, blackbox: true },
-	organizationId: { type: String, optional: true },
 	createdAt: {
 		type: Date,
 		autoValue() {
@@ -59,6 +59,15 @@ const UserSchema = new SimpleSchema({
 			}
 		},
 	},
+}, {
+	clean: {
+		filter: false,
+		autoConvert: false,
+		removeEmptyStrings: true,
+		trimStrings: true,
+		getAutoValues: true,
+		removeNullsFromArrays: true,
+	}
 });
 
 UsersCollection.attachSchema(UserSchema);

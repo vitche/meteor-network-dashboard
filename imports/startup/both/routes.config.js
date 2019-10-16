@@ -16,6 +16,11 @@ export const WHITE_LIST_ROUTES = [
 ];
 
 export const ROUTES_CONFIG = {
+	setupProfile: {
+		name: 'setupProfile',
+		path: '/setup-profile',
+		permissions: [ ROLES_DICTIONARY.private.defaultUser.alias ]
+	},
 	dashboard: {
 		prefix: '/',
 		list: {

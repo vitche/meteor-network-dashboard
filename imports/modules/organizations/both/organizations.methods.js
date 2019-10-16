@@ -3,6 +3,14 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 import { Organizations } from './organizations.schema';
 
+export const ORGANIZATION_SERVER_METHODS = {
+	getOrganizationById: 'organization.methods.getOrganizationById',
+	createOrganizationRequest: 'organization.methods.createOrganizationRequest',
+	approveOrganization: 'organization.methods.approveOrganization',
+	inviteUser: 'organization.methods.inviteUser'
+};
+
+
 const createOrganization = new ValidatedMethod({
 	name: 'organization.create',
 	validate: new SimpleSchema({

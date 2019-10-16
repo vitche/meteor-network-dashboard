@@ -1,2 +1,2 @@
 import './organizations.publications';
-import './origanization.server-methods';
+import './methods/origanization.server.methods';

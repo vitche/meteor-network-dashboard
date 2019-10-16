@@ -1,17 +1,9 @@
-/**
- * Profile User Organization component is page tab of users organizations
- * TODO: MindMap
- * This tab will contain 2 blocks.
- * First one will contain information about user personal Organization - implemented!!!
- * Second one will contain information about organization in which user consist - not implemented
- * Need to discuss
- */
-
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict'
 
-import { OrganizationsCollection } from '../../../organizations/both/organizations.schema';
-import { ModalService } from '../../../ui-modal/client/service/modal.service';
+import { OrganizationsCollection } from '../../../../organizations/both/organizations.schema';
+import { ModalService } from '../../../../ui-modal/client/service/modal.service';
+import { ProfileService } from '../../services/profile.service';
 
 import './profile-user-organization.html';
 
@@ -54,5 +46,11 @@ Template.Profile_user_organization.helpers({
 Template.Profile_user_organization.events({
 	'click .js-create-organization': function () {
 		ModalService.createOrganization();
+	},
+	'submit .invite-user-form': async function (event, template) {
+		event.preventDefault();
+		const email = template.find('input[type=email]').value;
+
+		await ProfileService.inviteUserToOrganization(email);
 	}
 });

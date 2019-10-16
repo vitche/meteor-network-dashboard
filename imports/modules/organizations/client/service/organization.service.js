@@ -1,13 +1,23 @@
-export const OrganizationService = {
-	sendCreatingOrganizationRequest({ title }) {
-		return new Promise((resolve, reject) => {
-			Meteor.call('organization.createOrganizationRequest', { title }, (err, res) => {
-				if (err) {
-					reject(err)
-				}
+import { ORGANIZATION_SERVER_METHODS } from '../../both/organizations.methods';
 
-				resolve(res);
-			})
+class OrganizationServiceClass {
+	constructor() {
+	}
+
+	async sendCreatingOrganizationRequest({ title }) {
+		return await Meteor.callPromise(ORGANIZATION_SERVER_METHODS.createOrganizationRequest, { title })
+	}
+
+
+	async approveOrganization(organizationId, ownerId, groupTitle) {
+		return await Meteor.callPromise(ORGANIZATION_SERVER_METHODS.approveOrganization, {
+			organizationId,
+			ownerId,
+			groupTitle
 		})
 	}
-};
+
+
+}
+
+export const OrganizationService = new OrganizationServiceClass();
