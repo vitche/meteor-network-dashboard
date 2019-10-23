@@ -37,6 +37,10 @@ export const ROLES_DICTIONARY = {
 		allowCreateCluster: {
 			alias: 'allowCreateCluster',
 			title: 'Allow Create Cluster'
+		},
+		allowReviewClusters: {
+			alias: 'allowReviewClusters',
+			title: 'Allow Review Clusters'
 		}
 	}
 

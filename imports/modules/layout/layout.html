@@ -88,6 +88,13 @@
                                 </a>
                             </li>
                         {{/if}}
+                        {{#if isAllow 'viewClustersPage' }}
+                            <li class="">
+                                <a href="{{pathFor 'clusters.list'}}">
+                                    <i class="fa fa-cube"></i> <span>Cluster</span>
+                                </a>
+                            </li>
+                        {{/if}}
                     </ul>
                 </section>
                 <!-- /.sidebar -->

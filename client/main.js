@@ -21,6 +21,7 @@ import '../imports/modules/ui-peer-list/client';
 import '../imports/modules/groups/client';
 import '../imports/modules/profile/client'
 import '../imports/modules/organizations/client';
+import '../imports/modules/clusters/client';
 
 // templates
 import './main.html';
