@@ -1,8 +1,9 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
 import { Mixins } from '../../../../helpers/server/mixins';
-import { createDefaultUser } from '../../../users/server/functions/createDefaultUser.function';
 import { ORGANIZATION_SERVER_METHODS } from '../../both/organizations.methods';
+
+import { createDefaultUser } from '../../../users/server/functions/createDefaultUser.function';
 
 import { createOrganizationRequest } from '../functions/createOrganizationRequest.function';
 import { getOrganizationById } from '../functions/getOrganizationById.function';
