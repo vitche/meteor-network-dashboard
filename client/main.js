@@ -23,5 +23,8 @@ import '../imports/modules/profile/client'
 import '../imports/modules/organizations/client';
 import '../imports/modules/clusters/client';
 
+//shared components
+import '../imports/modules/ui-components/client'
+
 // templates
 import './main.html';

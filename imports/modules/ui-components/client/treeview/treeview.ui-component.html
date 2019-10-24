@@ -1,0 +1,16 @@
+<template name="Treeview_component">
+    <ul class="treeview" id="sep-treeview">
+        {{#each item in data}}
+            <li>
+                <a class="js-selected-item" data-id="{{item.title}}">
+                    <i class="fa fa-cubes"></i>
+                    {{item.title}}
+                    <span class="label label-primary pull-right">12</span>
+                </a>
+            </li>
+            {{#if isHasChildren item}}
+                {{> Treeview_component (clusterItem item)}}
+            {{/if}}
+        {{/each}}
+    </ul>
+</template>

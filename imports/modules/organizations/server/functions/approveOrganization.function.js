@@ -12,6 +12,7 @@ export const approveOrganization = async function (organizationId, ownerId, grou
 	// TODO: make it as transaction flow
 	try {
 		const rootGroup = await GroupsCollection.findOne({ alias: GROUP_ALIASES.rootGroupAlias });
+		const organization = await OrganizationsCollection.findOne({ _id: organizationId });
 
 		// create root group of organization with provided title
 		const organizationGroupId = await GroupsCollection.insert({
@@ -24,7 +25,7 @@ export const approveOrganization = async function (organizationId, ownerId, grou
 
 		// create a default group with all members of organization
 		const membersGroupId = await GroupsCollection.insert({
-			title: GROUP_TITLES.organizationMembersGroupTitle,
+			title: `${ organization.title } ${ GROUP_TITLES.organizationMembersGroupTitle }`,
 			alias: GROUP_ALIASES.organizationMembersGroupAlias,
 			organizationId: organizationId,
 			parentGroupId: organizationGroupId,

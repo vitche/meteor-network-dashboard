@@ -7,11 +7,14 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
  */
 export const ClustersSchema = new SimpleSchema({
 	title: { type: String, max: 50 },
+	description: { type: String, max: 100, optional: true },
 	peers: { type: Array },
 	'peers.$': { type: String },
 	groups: { type: Array },
 	'groups.$': { type: String },
-	organizationId: {type: String},
+	organizationId: { type: String },
+	childClustersIds: { type: Array },
+	'childClustersIds.$': { type: String },
 	createdAt: {
 		type: Date,
 		autoValue() {
