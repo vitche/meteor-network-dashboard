@@ -19,14 +19,18 @@ Meteor.publish('organizations.publish.getOrganizationsList', function () {
 });
 
 Meteor.publish('organizations.publish.getUserOrganization', function () {
-	const userId = Meteor.userId();
+	const user = Meteor.user();
 
-	if (!userId) {
+	if (!user) {
 		throw new Meteor.Error('not-loggedIn', 'User must be logged in');
 	}
 
+	if (!user.profile.organizationId) {
+		this.ready();
+	}
 
-	return OrganizationsCollection.find({ ownerId: userId })
+
+	return OrganizationsCollection.find({ _id: user.profile.organizationId })
 
 });
 

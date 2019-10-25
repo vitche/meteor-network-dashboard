@@ -16,6 +16,12 @@ profileRoutes.route(ROUTES_CONFIG.profile.profile.path, {
 });
 
 FlowRouter.route(ROUTES_CONFIG.setupProfile.path, {
+	triggersEnter: [ function (context, redirect) {
+		const user = Meteor.user();
+		if (user.profile.firstName && user.profile.lastName) {
+			redirect('/')
+		}
+	} ],
 	name: ROUTES_CONFIG.setupProfile.name,
 	action: function (params, queryParams) {
 		BlazeLayout.render('authenticationLayout', { main: 'Setup_profile' });

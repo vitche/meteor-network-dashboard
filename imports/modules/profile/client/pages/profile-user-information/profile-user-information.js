@@ -8,6 +8,9 @@ Template.Profile_user_information.onCreated(function () {
 Template.Profile_user_information.helpers({
 	userFullName: function () {
 		const user = Meteor.user();
+		if (!user) {
+			return;
+		}
 		return `${ user.profile.firstName } ${ user.profile.lastName }`;
 	},
 	userEmail: function () {

@@ -2,6 +2,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict'
 
 import { OrganizationsCollection } from '../../../../organizations/both/organizations.schema';
+import { RolesService } from '../../../../roles/client/services/roles.service';
 import { ModalService } from '../../../../ui-modal/client/service/modal.service';
 import { ProfileService } from '../../services/profile.service';
 
@@ -18,10 +19,10 @@ Template.Profile_user_organization.onCreated(function () {
 	this.autorun(() => {
 		if (organizationHandler.ready()) {
 			// get organization where current user is owner
-			const userOrganization = OrganizationsCollection.findOne({ ownerId: Meteor.userId() });
+			const userOrganization = OrganizationsCollection.find().fetch();
 
-			if (userOrganization) {
-				this.state.set('organization', userOrganization);
+			if (userOrganization.length) {
+				this.state.set('organization', userOrganization[0]);
 			}
 
 			this.state.set('isOrganizationLoading', false);
@@ -36,6 +37,10 @@ Template.Profile_user_organization.helpers({
 	},
 	organization: function () {
 		return Template.instance().state.get('organization');
+	},
+	canInviteUser: function () {
+		const organization = Template.instance().state.get('organization');
+		return organization && organization.verified && RolesService.isAllowToInviteUsers();
 	},
 	membership: function () {
 		const instance = Template.instance();

@@ -3,14 +3,18 @@
         <p class="login-box-msg">Setup your profile</p>
     </div>
 
-    <form role="form" id="setup-profile-form"  method="POST">
+    <form role="form" id="setup-profile-form">
         <div class="form-group">
-            <input class="form-control" type="password" placeholder="First name">
+            <input class="form-control" name="firstName" type="text" placeholder="First name">
         </div>
 
         <div class="form-group">
-            <input class="form-control" type="password" placeholder="Last name">
+            <input class="form-control" name="lastName" type="text" placeholder="Last name">
         </div>
+        <div class="form-group {{#if onError}}has-error{{/if}}">
+            <span class="help-block">{{onError}}</span>
+        </div>
+
         <button type="submit" class="btn btn-primary btn-block btn-flat">Save</button>
     </form>
 </template>
