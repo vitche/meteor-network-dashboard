@@ -12,7 +12,8 @@ import '../imports/startup/server';
 import '../imports/modules/users/server';
 import '../imports/modules/groups/server';
 import '../imports/modules/organizations/server';
-import '../imports/modules/clusters/server'
+import '../imports/modules/profile/server';
+import '../imports/modules/clusters/server';
 
 /*
 let connectionFactory = new FabricConnectionFactory('../.certificates');
