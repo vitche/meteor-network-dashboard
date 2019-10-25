@@ -1,8 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import { GROUP_ALIASES } from '../../../../configs/groups/aliases';
-import { GROUP_TITLES } from '../../../../configs/groups/titles';
+import { CLUSTER_ALIASES, CLUSTER_TITLES } from '../../../../configs/clusters/clusters.config';
+import { GROUP_ALIASES, GROUP_TITLES } from '../../../../configs/groups/groups.config';
 import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
 import { GroupsCollection } from '../../../groups/both/groups.schema';
+import { ClusterModel } from '../../../models/clusters/server/clusters.model';
 import { RolesService } from '../../../roles/server/services/roles.service';
 import { UsersCollection } from '../../../users/both/users.schema';
 import { OrganizationsCollection } from '../../both/organizations.schema';
@@ -11,7 +12,10 @@ import { OrganizationsCollection } from '../../both/organizations.schema';
 export const approveOrganization = async function (organizationId, ownerId, groupTitle) {
 	// TODO: make it as transaction flow
 	try {
+		// get root group as a parent for organizations groups
 		const rootGroup = await GroupsCollection.findOne({ alias: GROUP_ALIASES.rootGroupAlias });
+
+		// get organization data
 		const organization = await OrganizationsCollection.findOne({ _id: organizationId });
 
 		// create root group of organization with provided title
@@ -32,20 +36,38 @@ export const approveOrganization = async function (organizationId, ownerId, grou
 			permissions: [ ROLES_DICTIONARY.private.organizationMember.alias ]
 		});
 
-		// set root group id to organization document
+		// create a default cluster
+		const organizationClusterId = await ClusterModel.insert({
+			title: `${ organization.title } ${ CLUSTER_TITLES.allSensorClusterTitle }`,
+			alias: CLUSTER_ALIASES.allSensorClusterAlias,
+			organizationId: organizationId,
+			groups: [ organizationGroupId ]
+		});
+
+		// link default group with default cluster
+		const updatedGroup = await GroupsCollection.update(organizationGroupId, {
+			$addToSet: {
+				clusters: organizationGroupId
+			}
+		});
+
+		// set root group id and default cluster id to organization document
 		const updatedOrganization = await OrganizationsCollection.update(organizationId, {
 			$set: {
 				groupId: organizationGroupId,
+				clusterId: organizationClusterId,
 				verified: true,
 			}
 		});
 
+		// update user with his organization
 		const updatedUser = await UsersCollection.update(ownerId, {
 			$set: {
 				'profile.organizationId': organizationId,
 			}
 		});
 
+		// update user permissions
 		await RolesService.setUserPermissions(
 			ownerId,
 			[ ROLES_DICTIONARY.private.organizationOwner.alias ],

@@ -1,4 +1,5 @@
-import { GROUP_ALIASES } from '../../../../configs/groups/aliases';
+
+import { GROUP_ALIASES } from '../../../../configs/groups/groups.config';
 import { EmailService } from '../../../../utils/server/email/email.service';
 import { GroupsCollection } from '../../../groups/both/groups.schema';
 import { RolesService } from '../../../roles/server/services/roles.service';

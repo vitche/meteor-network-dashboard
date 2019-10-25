@@ -7,9 +7,8 @@ class ClusterServer {
 		this.collection.attachSchema(ClustersSchema);
 	}
 
-	async insert(title, organizationId) {
-		const clusterId = await this.collection.insert({ title, organizationId });
-		return this.findById(clusterId);
+	async insert(query) {
+		return await this.collection.insert(query);
 	}
 
 	findById(id) {
@@ -18,4 +17,4 @@ class ClusterServer {
 
 }
 
-export const ClusterModule = new ClusterServer();
+export const ClusterModel = new ClusterServer();
