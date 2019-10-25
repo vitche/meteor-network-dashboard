@@ -12,7 +12,7 @@ const GroupsSchema = new SimpleSchema({
 	alias: { type: String, optional: true },
 	parentGroupId: { type: String, optional: true },
 	organizationId: { type: String, optional: true },
-	clusters: { type: Array },
+	clusters: { type: Array, optional: true },
 	'clusters.$': { type: String },
 	permissions: { type: Array },
 	'permissions.$': { type: String },

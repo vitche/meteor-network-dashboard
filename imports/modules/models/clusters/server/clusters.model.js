@@ -7,8 +7,8 @@ class ClusterServer {
 		this.collection.attachSchema(ClustersSchema);
 	}
 
-	async insert(query) {
-		return await this.collection.insert(query);
+	insert(query) {
+		return this.collection.insert(query);
 	}
 
 	findById(id) {

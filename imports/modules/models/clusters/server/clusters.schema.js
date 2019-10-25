@@ -10,12 +10,12 @@ export const ClustersSchema = new SimpleSchema({
 	description: { type: String, max: 100, optional: true },
 	alias: { type: String, optional: true },
 	organizationId: { type: String },
-	peers: { type: Array },
-	'peers.$': { type: String },
-	groups: { type: Array },
-	'groups.$': { type: String },
-	childClustersIds: { type: Array },
-	'childClustersIds.$': { type: String },
+	peers: { type: Array, optional: true },
+	'peers.$': { type: String, optional: true },
+	groups: { type: Array, optional: true },
+	'groups.$': { type: String, optional: true },
+	childClustersIds: { type: Array, optional: true },
+	'childClustersIds.$': { type: String, optional: true },
 	createdAt: {
 		type: Date,
 		autoValue() {
