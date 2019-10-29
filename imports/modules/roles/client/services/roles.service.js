@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
 import { SERVER_SESSIONS_KEYS } from '../../../../configs/server-session.keys';
 
@@ -8,6 +9,10 @@ class RolesServiceClass {
 
 	getPermissions() {
 		return ServerSession.get(SERVER_SESSIONS_KEYS.userPermissions);
+	}
+
+	isAllowedAction(userPermissions) {
+		return !!_.intersection(this.getPermissions(), userPermissions).length
 	}
 
 	isAllowToInviteUsers() {

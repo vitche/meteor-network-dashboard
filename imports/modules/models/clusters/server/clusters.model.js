@@ -15,6 +15,10 @@ class ClusterServer {
 		return this.collection.find({ _id: id });
 	}
 
+	findAll() {
+		return this.collection.find();
+	}
+
 }
 
 export const ClusterModel = new ClusterServer();
