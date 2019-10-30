@@ -7,6 +7,7 @@ import '../imports/utils/server';
 import '../imports/startup/both/';
 import '../imports/modules/users/both';
 import '../imports/modules/groups/both';
+import '../imports/modules/tasks/both';
 
 import '../imports/startup/server';
 import '../imports/modules/users/server';
@@ -14,6 +15,7 @@ import '../imports/modules/groups/server';
 import '../imports/modules/organizations/server';
 import '../imports/modules/profile/server';
 import '../imports/modules/clusters/server';
+import '../imports/modules/tasks/server';
 
 /*
 let connectionFactory = new FabricConnectionFactory('../.certificates');

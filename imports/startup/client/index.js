@@ -4,6 +4,7 @@ import './routes/groups.routes';
 import './routes/profile.routes';
 import './routes/organizations.routes';
 import './routes/clusters.routers';
+import './routes/tasks.routers';
 
 import '../../helpers/client/templates/template.helpers';
 import { SERVER_SESSIONS_KEYS } from '../../configs/server-session.keys';

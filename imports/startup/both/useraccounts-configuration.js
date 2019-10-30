@@ -25,6 +25,11 @@ function isRedirectAllow(path) {
 		// TODO show notification to user
 	}
 
+	// if route doesn't required any permission pass it
+	if (!route.permissions.length) {
+		return true;
+	}
+
 	const userPermissions = ServerSession.get(SERVER_SESSIONS_KEYS.userPermissions);
 
 	if (!userPermissions) {
