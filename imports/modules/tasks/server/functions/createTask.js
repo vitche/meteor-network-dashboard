@@ -10,8 +10,6 @@ export const createTask = async (task) => {
 	
 	task = { ...task, ...{ organizationId: user.profile.organizationId, creatorId: user._id } };
 	
-	console.log(' updated task : ', task);
-	
 	let taskId;
 	
 	try {

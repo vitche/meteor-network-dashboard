@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { TASKS_METHODS_DICT } from '../../both/tasks.methods-dict';
 
 class TasksServiceClass {
@@ -5,8 +6,7 @@ class TasksServiceClass {
 	}
 	
 	async createTask(task) {
-		console.log(task);
-		return await Meteor.callPromise(TASKS_METHODS_DICT.createTask, task );
+		return Meteor.callPromise(TASKS_METHODS_DICT.createTask, task);
 	}
 }
 

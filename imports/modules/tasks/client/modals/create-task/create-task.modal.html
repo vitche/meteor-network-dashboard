@@ -6,20 +6,18 @@
                     <h4 class="modal-title">Create task</h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form">
-
+                    <form role="form" id="crete-task-form">
                         <div class="form-group {{#if hasError}}has-error{{/if}}">
                             <label>Task title</label>
                             <input type="text" class="form-control" placeholder="Enter Organization Name"
+                                   name="task-title"
                                    disabled="{{#if isLoading }}disabled{{/if}}">
-                            {{#if hasError}}
-                                <span class="help-block ">Task title is required</span>
-                            {{/if}}
                         </div>
 
                         <div class="form-group">
                             <label>Description</label>
                             <textarea class="form-control" rows="3" placeholder="Enter description"
+                                      name="task-description"
                                       spellcheck="false"></textarea>
                         </div>
 
@@ -35,28 +33,22 @@
 
                         <div class="form-group">
                             <label>Select Executor type</label>
-                            <select class="form-control">
+                            <select class="form-control" name="task-executor">
                                 <option>Organization members</option>
                                 <option>Platform IT Support</option>
                                 <option>Public</option>
                             </select>
                         </div>
 
-                        <div class="input-group">
+                        <div class="form-group">
                             <label for="price-rate">Rate</label>
-                            <input type="number" class="form-control" name="price-rate">
+                            <input type="number" class="form-control" name="task-rate">
                         </div>
 
                         <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox">
-                                    Auto prolongation time
-                                </label>
-                            </div>
+                            <label for="task-prolongation"> Auto prolongation time</label>
+                            <input type="checkbox" name="task-prolongation">
                         </div>
-
-
 
                     </form>
                 </div>
