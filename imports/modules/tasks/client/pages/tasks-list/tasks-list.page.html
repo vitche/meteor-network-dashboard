@@ -1,3 +1,10 @@
 <template name="Tasks_page">
     <h1>Tasks list</h1>
+    <button class="btn btn-success js-create-task">Create task</button>
+    <ul>
+        {{#each task in tasksList}}
+            <li>{{task.title}}</li>
+        {{/each}}
+    </ul>
+
 </template>

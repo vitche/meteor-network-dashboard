@@ -35,3 +35,6 @@ didericis:permissions-mixin
 aldeed:collection2@3.0.2
 email
 deanius:promise
+meteortesting:mocha
+xolvio:cleaner
+dburles:factory

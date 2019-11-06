@@ -6,7 +6,7 @@ class TasksCollectionClient {
 	}
 
 	find() {
-		return this.collection.find();
+		return this.collection.find().fetch();
 	}
 }
 

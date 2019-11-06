@@ -9,5 +9,8 @@ export const ModalService = {
 	},
 	approveOrganizationModal(data) {
 		Blaze.renderWithData(Template.Approve_organization_modal, data, document.body);
+	},
+	createTask(data) {
+		Blaze.renderWithData(Template.Create_task_modal, data, document.body);
 	}
 };
