@@ -1,10 +1,60 @@
 <template name="Tasks_page">
-    <h1>Tasks list</h1>
-    <button class="btn btn-success js-create-task">Create task</button>
-    <ul>
-        {{#each task in tasksList}}
-            <li>{{task.title}}</li>
-        {{/each}}
-    </ul>
-
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="margin">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success js-create-task">
+                        <i class="fa fa-plus"></i>
+                        Add Task
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tasks</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-hover table-bordered">
+                        <tbody>
+                        <tr>
+                            <th style="width: 70px;">Status</th>
+                            <th>Title</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>Executor type</th>
+                            <th>Rate</th>
+                            <th style="width: 20px;">Prolongation</th>
+                        </tr>
+                        {{#each task in tasksList}}
+                            <tr>
+                                <td><span class="badge bg-green">{{task.status}}</span></td>
+                                <td><a href="{{pathFor 'tasks.info' id=task._id }}">{{task.title}}</a></td>
+                                <td>{{dateFormat task.time.startDate 'lll'}}</td>
+                                <td>{{dateFormat task.time.endDate 'lll'}}</td>
+                                <td>{{task.executorType}}</td>
+                                <td>${{task.priceRate}}</td>
+                                <td>{{isAutoProlongation task.prolongation}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#">«</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

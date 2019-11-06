@@ -8,24 +8,32 @@ const moment = require('moment');
 
 Template.registerHelper('isAllow', (element) => {
 	const roles = ServerSession.get(SERVER_SESSIONS_KEYS.userPermissions);
-
-	if (!roles) return;
-
-	if (!PAGE_PERMISSIONS[element]) return;
-
+	
+	if ( !roles ) return;
+	
+	if ( !PAGE_PERMISSIONS[element] ) return;
+	
 	return !!_.intersection(PAGE_PERMISSIONS[element], roles).length;
 });
 
 Template.registerHelper('dateFormat', (date, format) => {
-	return moment(date).format('MM-DD-YYYY');
+	let defaultTime = 'MM-DD-YYYY';
+	if ( format ) {
+		defaultTime = format
+	}
+	return moment(date).format(format || defaultTime);
 });
 
 Template.registerHelper('isVerified', (verified) => {
 	let html;
-	if (verified) {
+	if ( verified ) {
 		html = `<span class="label label-success">Approved</span>`
 	} else {
 		html = `<span class="label label-warning">Waiting for approve</span>`
 	}
 	return Spacebars.SafeString(html);
+});
+
+Template.registerHelper('isAutoProlongation', (value) => {
+	return value ? 'Yes' : 'No';
 });
