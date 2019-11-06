@@ -1,11 +1,11 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { TasksService} from '../../services/tasks.service';
-import * as faker from 'faker';
 
 import './tasks-list.page.html';
 import { TasksCollection } from '../../../../models/tasks/client/tasks.collection';
 import { TASKS_PUBLICATIONS } from '../../../both/tasks.publications-dict';
+import { ModalService } from '../../../../ui-modal/client/service/modal.service';
 
 Template.Tasks_page.onCreated(function () {
 	this.state = new ReactiveDict();
@@ -28,6 +28,6 @@ Template.Tasks_page.helpers({
 
 Template.Tasks_page.events({
 	'click .js-create-task': async function (event, template) {
+		ModalService.createTask();
 	}
-	
 });

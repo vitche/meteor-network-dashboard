@@ -13,8 +13,10 @@ export const TasksSchema = new SimpleSchema({
 	'time.endDate': { type: Date },
 	executorType: { type: String },
 	priceRate: { type: Number },
+	prolongation: { type: Boolean, defaultValue: false },
 	creatorId: { type: String },
 	organizationId: { type: String },
+	status: { type: String, defaultValue: 'open' },
 	groupId: { type: String, optional: true },
 	clusterId: { type: String, optional: true },
 	createdAt: {

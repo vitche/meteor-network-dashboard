@@ -19,6 +19,7 @@ export const createTaskMethod = new ValidatedMethod({
 		'time.endDate': { type: Date },
 		executorType: { type: String },
 		priceRate: { type: Number },
+		prolongation: {type: Boolean}
 	}).validator(),
 	async run( task ) {
 		console.log('task : ', task);
