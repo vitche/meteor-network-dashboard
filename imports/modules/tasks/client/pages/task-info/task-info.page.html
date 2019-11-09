@@ -1,3 +1,30 @@
 <template name="Task_info">
-    <h1>Task info</h1>
+
+    {{#if isLoading}}
+        <section class="overlay-wrapper">
+            <div class="overlay">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        </section>
+    {{else}}
+        <div class="container">
+            <section class="invoice">
+                <div class="row page-header">
+                    <div class="col-xs-6">
+                        <h2><i class="fa fa-globe"></i> {{task.title}}</h2>
+                    </div>
+                    <div class="col-xs-6 margin-top-20">
+                        <button type="button" class="btn btn-success pull-right js-approve-modal"><i
+                                class="fa fa-credit-card"></i>
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-success pull-right js-approve-modal"><i
+                                class="fa fa-credit-card"></i>
+                            Run
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    {{/if}}
 </template>

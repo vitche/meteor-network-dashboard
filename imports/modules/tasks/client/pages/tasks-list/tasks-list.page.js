@@ -1,6 +1,5 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
-import { TasksService} from '../../services/tasks.service';
 
 import './tasks-list.page.html';
 import { TasksCollection } from '../../../../models/tasks/client/tasks.collection';

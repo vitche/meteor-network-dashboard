@@ -20,7 +20,7 @@ class TasksModelServer {
 	}
 	
 	findById(id) {
-		return this.collection.find({ _id: id })
+		return this.collection.find({ _id: id }).fetch();
 	}
 }
 

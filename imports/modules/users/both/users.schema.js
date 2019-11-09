@@ -65,7 +65,6 @@ const UserSchema = new SimpleSchema({
 		autoConvert: false,
 		removeEmptyStrings: true,
 		trimStrings: true,
-		getAutoValues: true,
 		removeNullsFromArrays: true,
 	}
 });
