@@ -1,3 +1,4 @@
+
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
@@ -9,12 +10,29 @@ import {
 
 import './create-task.modal.html';
 import './create-task.modal.css';
+import { PEER_PUBLISH_ENUM } from '../../../../peer/both/peers.enum';
+import { PeersCollection } from '../../../../models/peers/client/peers.collections';
 
 Template.Create_task_modal.onCreated(function () {
 	this.state = new ReactiveDict();
+	
+	const peersHandler = this.subscribe(PEER_PUBLISH_ENUM.getPeersList);
+	
+	// TODO : add spinner
+	this.autorun(() => {
+		if (peersHandler.ready()) {
+			const peers = PeersCollection.find().fetch();
+			console.log(peers);
+			this.state.set('peers', peers);
+		}
+	})
+	
 });
 
 Template.Create_task_modal.helpers({
+	peers: function() {
+		return Template.instance().state.get('peers');
+	},
 	hasError: function () {
 		return Template.instance().state.get('hasError');
 	},

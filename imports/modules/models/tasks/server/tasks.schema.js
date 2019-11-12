@@ -17,6 +17,8 @@ export const TasksSchema = new SimpleSchema({
 	executorType: { type: String },
 	assignTo: { type: String, optional: true },
 	priceRate: { type: Number, optional: true },
+	peersId: {type: Array},
+	'peersId.$': {type: String},
 	creatorId: { type: String },
 	organizationId: { type: String },
 	status: { type: String, defaultValue: 'open' },
