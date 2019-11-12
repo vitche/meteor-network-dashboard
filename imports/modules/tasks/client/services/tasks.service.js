@@ -29,6 +29,10 @@ class TasksServiceClass {
 		return await Meteor.callPromise(ORGANIZATION_SERVER_METHODS.getOrganizationMembers);
 	}
 	
+	async runTask(taskId) {
+		return await Meteor.callPromise(TASKS_METHODS_DICT.runTask, {taskId});
+	}
+	
 }
 
 export const TasksService = new TasksServiceClass();

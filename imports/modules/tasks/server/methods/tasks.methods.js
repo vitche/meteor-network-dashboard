@@ -4,6 +4,7 @@ import { Mixins } from '../../../../helpers/server/mixins';
 import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
 import { createTask } from '../functions/createTask';
 import { TasksModel } from '../../../models/tasks/server/tasks.model';
+import { runTask } from '../functions/runTask';
 
 export const createTaskMethod = new ValidatedMethod({
 	name: TASKS_METHODS_DICT.createTask,
@@ -63,5 +64,16 @@ export const getTaskWithOrgAndCreator = new ValidatedMethod({
 			throw new Meteor.Error(400, err.message);
 		}
 		return task;
+	}
+});
+
+export const runTaskMethod = new ValidatedMethod({
+	name: TASKS_METHODS_DICT.runTask,
+	mixin: [ Mixins.loggedIn ],
+	validate: new SimpleSchema({
+		taskId: { type: String },
+	}).validator(),
+	async run({taskId}) {
+		return await runTask(taskId)
 	}
 });

@@ -50,8 +50,8 @@ Template.Task_info.helpers({
 	taskExecutorTitle: function(type) {
 		return 	TASK_EXECUTOR_TYPES[type].title;
 	},
-	isOpenTask: function (status) {
-		return status === TASK_STATUSES.open.alias;
+	isCanRunning: function (task) {
+		return (task.status === TASK_STATUSES.open.alias) && task.time.type !== TASK_TIME_EXECUTE_TYPES.scheduled.alias;
 	},
 	isInProgressTask: function (status) {
 		return status === TASK_STATUSES.inProgress.alias;
@@ -80,4 +80,21 @@ Template.Task_info.helpers({
 	}
 });
 
-Template.Task_info.events({});
+Template.Task_info.events({
+	'click .js-run-task': async function(event, template) {
+		const instance = Template.instance();
+		instance.state.set('isLoading', true);
+		const task = instance.state.get('task');
+		let updatedTask;
+		try {
+			updatedTask = await TasksService.runTask(task._id);
+		} catch (err) {
+			console.error(err);
+			instance.state.set('isLoading', false);
+		}
+		
+		instance.state.set('isLoading', false);
+		instance.state.set('task', updatedTask);
+		
+	}
+});

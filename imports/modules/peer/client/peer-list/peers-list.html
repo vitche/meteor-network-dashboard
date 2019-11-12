@@ -1,0 +1,42 @@
+<template name="peerListWidget">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="margin">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success js-create-peer">
+                        <i class="fa fa-plus"></i>
+                        Add Peer
+                    </button>
+                </div>
+            </div>
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Peers</h3>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table no-margin">
+                            <thead>
+                            <tr>
+                                <th>Peer ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each peer in peersList}}
+                                <tr>
+                                    <td><a href="{{pathFor 'peers.edit' id=peer._id}}"
+                                           data-toggle="control-sidebar">{{peer._id}}</a></td>
+                                    <td>{{peer.name}}</td>
+                                    <td>{{peer.type}}</td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
