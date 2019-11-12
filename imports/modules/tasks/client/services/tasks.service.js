@@ -6,13 +6,23 @@ class TasksServiceClass {
 	constructor() {
 	}
 	
-	createTask(task) {
-		return Meteor.callPromise(TASKS_METHODS_DICT.createTask, task);
+	async createTask(task) {
+		let taskId;
+		try {
+			taskId = await Meteor.callPromise(TASKS_METHODS_DICT.createTask, task);
+		} catch ( err ) {
+			console.error(err)
+		}
+		return taskId
 	}
 	
 	async getTask(taskId) {
 		const task = await Meteor.callPromise(TASKS_METHODS_DICT.getTaskById, { taskId });
 		return task.length && task[0];
+	}
+	
+	getTaskWithOrgAndCreator(taskId) {
+		return Meteor.callPromise(TASKS_METHODS_DICT.getTaskWithOrgAndCreator, { taskId });
 	}
 	
 	async getOrganizationMembers() {

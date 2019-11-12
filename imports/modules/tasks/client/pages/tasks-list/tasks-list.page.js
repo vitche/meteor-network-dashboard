@@ -5,6 +5,7 @@ import './tasks-list.page.html';
 import { TasksCollection } from '../../../../models/tasks/client/tasks.collection';
 import { TASKS_PUBLICATIONS } from '../../../both/tasks.publications-dict';
 import { ModalService } from '../../../../ui-modal/client/service/modal.service';
+import { TASK_EXECUTOR_TYPES, TASK_TIME_EXECUTE_TYPES } from '../../../both/tasks.enums';
 
 Template.Tasks_page.onCreated(function () {
 	this.state = new ReactiveDict();
@@ -22,6 +23,12 @@ Template.Tasks_page.onCreated(function () {
 Template.Tasks_page.helpers({
 	tasksList: function () {
 		return Template.instance().state.get('tasks');
+	},
+	executorType: function(type) {
+		return TASK_EXECUTOR_TYPES[type].title
+	},
+	taskTimeType: function(type) {
+		return TASK_TIME_EXECUTE_TYPES[type].title
 	}
 });
 

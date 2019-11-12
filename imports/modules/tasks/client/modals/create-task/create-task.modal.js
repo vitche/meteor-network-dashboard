@@ -2,12 +2,13 @@ import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { TasksService } from '../../services/tasks.service';
-
-import './create-task.modal.html'
 import {
 	TASK_EXECUTOR_TYPES,
 	TASK_TIME_EXECUTE_TYPES
 } from '../../../both/tasks.enums';
+
+import './create-task.modal.html';
+import './create-task.modal.css';
 
 Template.Create_task_modal.onCreated(function () {
 	this.state = new ReactiveDict();
@@ -21,7 +22,7 @@ Template.Create_task_modal.helpers({
 		return Object.keys(TASK_EXECUTOR_TYPES).map(key => TASK_EXECUTOR_TYPES[key]);
 	},
 	isOrganizationExecutor: function () {
-		return Template.instance().state.get('executor') === TASK_EXECUTOR_TYPES.organizationMembers.alias;
+		return Template.instance().state.get('executor') === TASK_EXECUTOR_TYPES.organization.alias;
 	},
 	isPublicExecutor: function () {
 		return Template.instance().state.get('executor') === TASK_EXECUTOR_TYPES.public.alias;
@@ -54,7 +55,7 @@ Template.Create_task_modal.events({
 		const type = $('select[name=task-executor]').val();
 		instance.state.set('executor', type);
 		
-		if ( type === TASK_EXECUTOR_TYPES.organizationMembers.alias ) {
+		if ( type === TASK_EXECUTOR_TYPES.organization.alias ) {
 			let members = instance.state.get('members');
 			
 			if ( members && members.length ) return;
@@ -93,24 +94,21 @@ Template.Create_task_modal.events({
 		
 		instance.startLoading();
 		
-		const time = { timeType, prolongation, ...timeParse(startDate, endDate, estimate) };
-		console.log(time);
-		return;
 		try {
 			const taskId = await TasksService.createTask({
 				title,
 				description,
-				time: { timeType, prolongation, ...timeParse(startDate, endDate, estimate) },
+				time: { type: timeType, prolongation, ...timeParse(startDate, endDate, estimate) },
 				executorType,
 				assignTo,
 				priceRate: Number(priceRate),
-				prolongation
 			});
-			form.trigger('reset');
-			instance.onSuccess('Task has been created!');
 		} catch ( err ) {
 			instance.onError(err.message);
 		}
+		
+		form.trigger('reset');
+		instance.onSuccess('Task has been created!');
 	}
 });
 

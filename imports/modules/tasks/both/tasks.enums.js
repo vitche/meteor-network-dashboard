@@ -3,11 +3,11 @@ export const TASK_EXECUTOR_TYPES = {
 		title: 'Public',
 		alias: 'public'
 	},
-	organizationMembers: {
+	organization: {
 		title: 'Organization Members',
 		alias: 'organization'
 	},
-	platformSupport: {
+	platform: {
 		title: 'Platform IT Support',
 		alias: 'platform'
 	}
@@ -25,5 +25,20 @@ export const TASK_TIME_EXECUTE_TYPES = {
 	byComplete: {
 		title: 'By Complete',
 		alias: 'byComplete'
+	}
+};
+
+export const TASK_STATUSES = {
+	open: {
+		title: 'Open',
+		alias: 'open'
+	},
+	inProgress: {
+		title: 'In Progress',
+		alias: 'inProgress'
+	},
+	done: {
+		title: 'Done',
+		alias: 'done'
 	}
 };

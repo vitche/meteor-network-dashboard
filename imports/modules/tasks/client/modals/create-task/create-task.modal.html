@@ -41,13 +41,13 @@
                                 <label>End Date:</label>
                                 <input type="datetime-local" class="form-control" name="task-end-date">
                             </div>
-                            s
                         {{/if}}
 
                         {{#if isEstimated}}
-                            <div class="form-group">
-                                <label for="task-estimate">Estimate</label>
+                            <div class="form-group number-block">
+                                <label for="task-estimate">Original Estimate: </label>
                                 <input type="number" class="form-control" name="task-estimate">
+                                <span> hours</span>
                             </div>
                         {{/if}}
 
@@ -81,8 +81,8 @@
                         {{/if}}
 
                         {{#if isPublicExecutor}}
-                            <div class="form-group">
-                                <label for="price-rate">Rate</label>
+                            <div class="form-group number-block">
+                                <label for="price-rate">Rate: </label>
                                 <input type="number" class="form-control" name="task-rate">
                             </div>
                         {{/if}}

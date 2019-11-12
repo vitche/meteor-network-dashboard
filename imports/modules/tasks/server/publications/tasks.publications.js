@@ -1,7 +1,6 @@
-import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
-import { RolesService } from '../../../roles/server/services/roles.service';
 import { TasksModel } from '../../../models/tasks/server/tasks.model';
 import { TASKS_PUBLICATIONS } from '../../both/tasks.publications-dict';
+import { RolesHelpers } from '../../../roles/server/helpers/roles.helpers';
 
 Meteor.publish(TASKS_PUBLICATIONS.getTasks, function () {
 	const user = Meteor.user();
@@ -9,16 +8,17 @@ Meteor.publish(TASKS_PUBLICATIONS.getTasks, function () {
 		throw Meteor.Error(403, 'User must be logged in');
 	}
 	
-	// TODO: Return list of tickets depend on user permissions AND/OR type of tickets
-	// const requiredPermissions = [
-	// 	ROLES_DICTIONARY.private.superAdmin.alias,
-	// 	ROLES_DICTIONARY.private.organizationOwner.alias,
-	// ];
-	//
-	// if ( !RolesService.isAllowedAction(requiredPermissions) ) {
-	// 	this.ready();
-	// 	throw new Meteor.Error('You have not permissions for review groups');
-	// }
+	if ( RolesHelpers.isSuperAdmin() ) {
+		return TasksModel.findAll();
+	}
 	
-	return TasksModel.findAll();
+	if ( RolesHelpers.isOrganizationOwner() ) {
+		return TasksModel.findTasksForOrganizationOwner(user.profile.organizationId);
+	}
+	
+	if ( RolesHelpers.isOrganizationMember() ) {
+		return TasksModel.findTasksForOrganizationMember(user.profile.organizationId)
+	}
+	
+	return TasksModel.findPublicTasks()
 });

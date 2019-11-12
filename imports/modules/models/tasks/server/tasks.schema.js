@@ -7,7 +7,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
  */
 export const TasksSchema = new SimpleSchema({
 	title: { type: String, max: 250 },
-	description: { type: String, max: 1000, optional: true },
+	description: { type: String, max: 10000, optional: true },
 	time: { type: Object },
 	'time.type': { type: String },
 	'time.startDate': { type: Date, optional: true },

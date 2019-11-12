@@ -11,6 +11,16 @@ const isSuperAdmin = () => {
 	return _.includes(currentUserPermissions, ROLES_DICTIONARY.private.superAdmin.alias);
 };
 
+const isOrganizationOwner = () => {
+	const currentUserPermissions = ServerSession.get(SERVER_SESSIONS_KEYS.userPermissions);
+	return _.includes(currentUserPermissions, ROLES_DICTIONARY.private.organizationOwner.alias)
+};
+
+const isOrganizationMember = () => {
+	const currentUserPermissions = ServerSession.get(SERVER_SESSIONS_KEYS.userPermissions);
+	return _.includes(currentUserPermissions, ROLES_DICTIONARY.private.organizationMember.alias)
+};
+
 const isHasPermission = (neededPermissions) => {
 	const currentUserPermissions = ServerSession.get(SERVER_SESSIONS_KEYS.userPermissions);
 	return neededPermissions.every(permission => currentUserPermissions.includes(permission));
@@ -19,5 +29,7 @@ const isHasPermission = (neededPermissions) => {
 
 export const RolesHelpers = {
 	isSuperAdmin,
+	isOrganizationOwner,
+	isOrganizationMember,
 	isHasPermission
 };

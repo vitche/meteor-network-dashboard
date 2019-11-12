@@ -14,14 +14,16 @@ export const createTaskMethod = new ValidatedMethod({
 	],
 	validate: new SimpleSchema({
 		title: { type: String, max: 250 },
-		description: { type: String, max: 1000, optional: true },
+		description: { type: String, max: 10000, optional: true },
 		time: { type: Object },
-		'time.startDate': { type: Date },
-		'time.endDate': { type: Date },
+		'time.type': { type: String },
+		'time.startDate': { type: Date, optional: true },
+		'time.endDate': { type: Date, optional: true },
+		'time.estimate': { type: Number, optional: true },
+		'time.prolongation': { type: Boolean, defaultValue: false },
 		executorType: { type: String },
 		assignTo: {type: String, optional: true},
 		priceRate: { type: Number, optional: true },
-		prolongation: { type: Boolean }
 	}).validator(),
 	async run(task) {
 		return await createTask(task);
@@ -38,6 +40,24 @@ export const getTaskById = new ValidatedMethod({
 		let task;
 		try {
 			task = await TasksModel.findById(taskId)
+		} catch ( err ) {
+			console.error(err);
+			throw new Meteor.Error(400, err.message);
+		}
+		return task;
+	}
+});
+
+export const getTaskWithOrgAndCreator = new ValidatedMethod({
+	name: TASKS_METHODS_DICT.getTaskWithOrgAndCreator,
+	mixins: [ Mixins.loggedIn ],
+	validate: new SimpleSchema({
+		taskId: { type: String },
+	}).validator(),
+	async run({ taskId }) {
+		let task;
+		try {
+			task = await TasksModel.findTaskWithOrgAndCreator(taskId);
 		} catch ( err ) {
 			console.error(err);
 			throw new Meteor.Error(400, err.message);
