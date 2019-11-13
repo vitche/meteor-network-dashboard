@@ -22,21 +22,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Select time execute type</label>
-                            <select class="form-control" name="task-time-execute-type">
+                            <label>Select device</label>
+                            <select class="form-control" name="task-device">
                                 <option value="">Select type</option>
-                                {{#each type in timeExecuteTypes}}
-                                    <option value="{{type.alias}}">{{type.title}}</option>
+                                {{#each device in devices}}
+                                    <option value="{{device._id}}">{{device.name}} ({{device.type}})</option>
                                 {{/each}}
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label>Select device</label>
-                            <select class="form-control" name="task-device" >
+                            <label>Select time execute type</label>
+                            <select class="form-control" name="task-time-execute-type">
                                 <option value="">Select type</option>
-                                {{#each device in devices}}
-                                    <option value="{{device._id}}">{{device.name}} ({{device.type}})</option>
+                                {{#each type in timeExecuteTypes}}
+                                    <option value="{{type.alias}}">{{type.title}}</option>
                                 {{/each}}
                             </select>
                         </div>

@@ -85,12 +85,14 @@ AccountsTemplates.addField(password);
 
 AccountsTemplates.configureRoute('signIn', {
 	name: 'signIn',
-	path: '/signin'
+	path: '/signin',
+	redirect: '/'
 });
 
 AccountsTemplates.configureRoute('signUp', {
 	name: 'join',
 	path: '/join',
+	redirect: '/'
 });
 
 AccountsTemplates.configureRoute('forgotPwd');
@@ -98,6 +100,7 @@ AccountsTemplates.configureRoute('forgotPwd');
 AccountsTemplates.configureRoute('resetPwd', {
 	name: 'resetPwd',
 	path: '/reset-password',
+	redirect: '/'
 });
 
 AccountsTemplates.configureRoute('enrollAccount', {

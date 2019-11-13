@@ -23,7 +23,9 @@ export const createTaskMethod = new ValidatedMethod({
 		'time.estimate': { type: Number, optional: true },
 		'time.prolongation': { type: Boolean, defaultValue: false },
 		executorType: { type: String },
-		assignTo: {type: String, optional: true},
+		devicesId: { type: Array },
+		'devicesId.$': { type: String },
+		assignTo: { type: String, optional: true },
 		priceRate: { type: Number, optional: true },
 	}).validator(),
 	async run(task) {
@@ -73,7 +75,7 @@ export const runTaskMethod = new ValidatedMethod({
 	validate: new SimpleSchema({
 		taskId: { type: String },
 	}).validator(),
-	async run({taskId}) {
+	async run({ taskId }) {
 		return await runTask(taskId)
 	}
 });

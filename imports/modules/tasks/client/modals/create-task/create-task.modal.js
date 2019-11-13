@@ -107,7 +107,7 @@ Template.Create_task_modal.events({
 		const prolongation = $('input[type=\'checkbox\']').is(':checked');
 		
 		const executorType = $('select[name=task-executor]').val();
-		const device = $('select[name=task-device]').val();
+		const deviceId = $('select[name=task-device]').val();
 		const assignTo = $('select[name=task-assign-to]').val() || null;
 		const priceRate = $('input[name=task-rate]').val() || null;
 		
@@ -120,7 +120,7 @@ Template.Create_task_modal.events({
 				time: { type: timeType, prolongation, ...timeParse(startDate, endDate, estimate) },
 				executorType,
 				assignTo,
-				device,
+				devicesId: [deviceId],
 				priceRate: Number(priceRate),
 			});
 		} catch ( err ) {
