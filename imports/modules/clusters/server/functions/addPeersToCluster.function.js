@@ -1,3 +1,3 @@
-export const addPeersToClusterFunction = (peersId) => {
+export const addDevicesToClusterFunction = (devicesId) => {
 
 };

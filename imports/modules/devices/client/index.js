@@ -1,0 +1,1 @@
+import './devices-list/devices-list';

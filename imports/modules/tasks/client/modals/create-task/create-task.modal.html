@@ -32,11 +32,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Select peer</label>
-                            <select class="form-control" name="task-time-execute-type" >
+                            <label>Select device</label>
+                            <select class="form-control" name="task-device" >
                                 <option value="">Select type</option>
-                                {{#each peer in peers}}
-                                    <option value="{{peer._id}}">{{peer.name}} ({{peer.type}})</option>
+                                {{#each device in devices}}
+                                    <option value="{{device._id}}">{{device.name}} ({{device.type}})</option>
                                 {{/each}}
                             </select>
                         </div>

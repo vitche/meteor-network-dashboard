@@ -15,7 +15,7 @@ import '../imports/modules/organizations/server';
 import '../imports/modules/profile/server';
 import '../imports/modules/clusters/server';
 import '../imports/modules/tasks/server';
-import '../imports/modules/peer/server';
+import '../imports/modules/devices/server';
 
 /*
 let connectionFactory = new FabricConnectionFactory('../.certificates');

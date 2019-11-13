@@ -23,7 +23,7 @@ import '../imports/modules/profile/client'
 import '../imports/modules/organizations/client';
 import '../imports/modules/clusters/client';
 import '../imports/modules/tasks/client';
-import '../imports/modules/peer/client';
+import '../imports/modules/devices/client';
 
 //shared components
 import '../imports/modules/ui-components/client'

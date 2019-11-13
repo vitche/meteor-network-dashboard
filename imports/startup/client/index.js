@@ -1,5 +1,5 @@
 import './routes/dashboard.routes';
-import './routes/peers.routes';
+import './routes/devices.routes';
 import './routes/groups.routes';
 import './routes/profile.routes';
 import './routes/organizations.routes';

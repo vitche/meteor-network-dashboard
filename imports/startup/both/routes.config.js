@@ -42,17 +42,17 @@ export const ROUTES_CONFIG = {
 	organizations: { ...ORGANIZATION_ROUTES },
 	clusters: { ...CLUSTERS_ROUTERS },
 	tasks: { ...TASKS_ROUTES },
-	peers: {
-		prefix: '/peers',
+	devices: {
+		prefix: '/devices',
 		list: {
-			name: 'peers.list',
+			name: 'devices.list',
 			path: '/',
-			permissions: PAGE_PERMISSIONS.viewPeersPage
+			permissions: []
 		},
 		edit: {
-			name: 'peers.edit',
+			name: 'devices.edit',
 			path: '/:id',
-			permissions: PAGE_PERMISSIONS.viewPeersPage
+			permissions: []
 		}
 	},
 	groups: {

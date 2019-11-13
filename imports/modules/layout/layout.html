@@ -86,13 +86,11 @@
                                 </a>
                             </li>
                         {{/if}}
-                        {{#if isAllow 'viewPeersPage' }}
                             <li class="">
-                                <a href="{{pathFor 'peers.list'}}">
-                                    <i class="fa fa-cube"></i> <span>Peers</span>
+                                <a href="{{pathFor 'devices.list'}}">
+                                    <i class="fa fa-cube"></i> <span>Devices</span>
                                 </a>
                             </li>
-                        {{/if}}
                         {{#if isAllow 'viewClustersPage' }}
                             <li class="">
                                 <a href="{{pathFor 'clusters.list'}}">

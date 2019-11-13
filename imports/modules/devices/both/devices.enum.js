@@ -1,4 +1,4 @@
-export const PEER_TYPES_ENUM = {
+export const DEVICES_TYPES_ENUM = {
 	windows: {
 		title: 'Windows',
 		alias: 'windows'
@@ -13,6 +13,6 @@ export const PEER_TYPES_ENUM = {
 	}
 };
 
-export const PEER_PUBLISH_ENUM = {
-	getPeersList: 'peers.publications.getPeersList',
+export const DEVICES_PUBLISH_ENUM = {
+	getDevicesList: 'devices.publications.getDevicesList',
 };

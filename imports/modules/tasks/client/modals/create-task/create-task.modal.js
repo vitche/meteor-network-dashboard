@@ -10,28 +10,28 @@ import {
 
 import './create-task.modal.html';
 import './create-task.modal.css';
-import { PEER_PUBLISH_ENUM } from '../../../../peer/both/peers.enum';
-import { PeersCollection } from '../../../../models/peers/client/peers.collections';
+import { DEVICES_PUBLISH_ENUM } from '../../../../devices/both/devices.enum';
+import { DevicesCollection } from '../../../../models/devices/client/devices.collections';
 
 Template.Create_task_modal.onCreated(function () {
 	this.state = new ReactiveDict();
 	
-	const peersHandler = this.subscribe(PEER_PUBLISH_ENUM.getPeersList);
+	const devicesHandler = this.subscribe(DEVICES_PUBLISH_ENUM.getDevicesList);
 	
 	// TODO : add spinner
 	this.autorun(() => {
-		if (peersHandler.ready()) {
-			const peers = PeersCollection.find().fetch();
-			console.log(peers);
-			this.state.set('peers', peers);
+		if (devicesHandler.ready()) {
+			const devices = DevicesCollection.find().fetch();
+			console.log(devices);
+			this.state.set('devices', devices);
 		}
 	})
 	
 });
 
 Template.Create_task_modal.helpers({
-	peers: function() {
-		return Template.instance().state.get('peers');
+	devices: function() {
+		return Template.instance().state.get('devices');
 	},
 	hasError: function () {
 		return Template.instance().state.get('hasError');
@@ -107,6 +107,7 @@ Template.Create_task_modal.events({
 		const prolongation = $('input[type=\'checkbox\']').is(':checked');
 		
 		const executorType = $('select[name=task-executor]').val();
+		const device = $('select[name=task-device]').val();
 		const assignTo = $('select[name=task-assign-to]').val() || null;
 		const priceRate = $('input[name=task-rate]').val() || null;
 		
@@ -119,6 +120,7 @@ Template.Create_task_modal.events({
 				time: { type: timeType, prolongation, ...timeParse(startDate, endDate, estimate) },
 				executorType,
 				assignTo,
+				device,
 				priceRate: Number(priceRate),
 			});
 		} catch ( err ) {
