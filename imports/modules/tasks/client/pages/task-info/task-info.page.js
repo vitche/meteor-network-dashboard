@@ -77,15 +77,20 @@ Template.Task_info.helpers({
 			return `${user.profile.firstName} ${user.profile.lastName}`;
 		}
 		return '';
+	},
+	isRunDisabled: function() {
+		const task = Template.instance().state.get('task');
+		return task.assignTo ? '' : 'disabled';
 	}
 });
 
 Template.Task_info.events({
 	'click .js-run-task': async function(event, template) {
 		const instance = Template.instance();
-		instance.state.set('isLoading', true);
 		const task = instance.state.get('task');
 		let updatedTask;
+		instance.state.set('isLoading', true);
+		
 		try {
 			updatedTask = await TasksService.runTask(task._id);
 		} catch (err) {
