@@ -1,4 +1,5 @@
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { TASK_STATUSES } from '../../../tasks/both/tasks.enums';
 
 /**
  * Model of Clusters
@@ -21,7 +22,7 @@ export const TasksSchema = new SimpleSchema({
 	'devicesId.$': {type: String},
 	creatorId: { type: String },
 	organizationId: { type: String },
-	status: { type: String, defaultValue: 'open' },
+	status: { type: String, defaultValue: TASK_STATUSES.open.alias },
 	groupId: { type: String, optional: true },
 	clusterId: { type: String, optional: true },
 	createdAt: {

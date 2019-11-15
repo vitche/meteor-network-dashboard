@@ -34,9 +34,8 @@ Meteor.startup(() => {
 		const defaultClusterId = ClusterModel.insert({
 			...DEFAULT_CLUSTER,
 			organizationId: defaultOrganizationId,
-			groups: [ rootGroupId ]
+			groupId: rootGroupId
 		});
-		console.log(defaultClusterId);
 
 		// join group to organization
 		GroupsCollection.update({ _id: rootGroupId },

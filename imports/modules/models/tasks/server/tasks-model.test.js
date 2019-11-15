@@ -39,7 +39,7 @@ const tasksFakeList = {
 			type: TASK_TIME_EXECUTE_TYPES.estimated.alias,
 			estimate: 10
 		},
-		executorType: TASK_EXECUTOR_TYPES.organizationMembers.alias,
+		executorType: TASK_EXECUTOR_TYPES.organization.alias,
 		creatorId: faker.random.uuid(),
 		organizationId: organizationId_1
 	},
@@ -50,7 +50,7 @@ const tasksFakeList = {
 			type: TASK_TIME_EXECUTE_TYPES.estimated.alias,
 			estimate: 10
 		},
-		executorType: TASK_EXECUTOR_TYPES.organizationMembers.alias,
+		executorType: TASK_EXECUTOR_TYPES.organization.alias,
 		creatorId: faker.random.uuid(),
 		organizationId: organizationId_2
 	},

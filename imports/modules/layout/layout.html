@@ -79,25 +79,11 @@
                                 </a>
                             </li>
                         {{/if}}
-                        {{#if isAllow 'viewGroupsPage' }}
-                            <li class="">
-                                <a href="{{pathFor 'groups.list'}}">
-                                    <i class="fa fa-group"></i> <span>Groups</span>
-                                </a>
-                            </li>
-                        {{/if}}
                             <li class="">
                                 <a href="{{pathFor 'devices.list'}}">
                                     <i class="fa fa-cube"></i> <span>Devices</span>
                                 </a>
                             </li>
-                        {{#if isAllow 'viewClustersPage' }}
-                            <li class="">
-                                <a href="{{pathFor 'clusters.list'}}">
-                                    <i class="fa fa-cubes"></i> <span>Clusters</span>
-                                </a>
-                            </li>
-                        {{/if}}
                     </ul>
                 </section>
                 <!-- /.sidebar -->

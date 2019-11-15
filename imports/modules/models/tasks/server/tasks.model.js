@@ -10,6 +10,10 @@ export class TasksModelServer {
 		return this.collection.insert(task)
 	}
 	
+	update(entityId, query) {
+		return this.collection.update({ _id: entityId }, query);
+	}
+	
 	find(query = {}) {
 		return this.collection.find(query)
 	}
@@ -72,7 +76,7 @@ export class TasksModelServer {
 				$unwind: '$organization'
 			},
 			{
-				$match: {_id: id}
+				$match: { _id: id }
 			}
 		]).toArray();
 		
