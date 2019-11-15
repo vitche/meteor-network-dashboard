@@ -22,7 +22,6 @@ Template.Create_task_modal.onCreated(function () {
 	this.autorun(() => {
 		if (devicesHandler.ready()) {
 			const devices = DevicesCollection.find().fetch();
-			console.log(devices);
 			this.state.set('devices', devices);
 		}
 	})

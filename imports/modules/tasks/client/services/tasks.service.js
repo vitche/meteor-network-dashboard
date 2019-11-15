@@ -25,12 +25,20 @@ class TasksServiceClass {
 		return Meteor.callPromise(TASKS_METHODS_DICT.getTaskWithOrgAndCreator, { taskId });
 	}
 	
-	async getOrganizationMembers() {
-		return await Meteor.callPromise(ORGANIZATION_SERVER_METHODS.getOrganizationMembers);
+	getOrganizationMembers() {
+		const user = Meteor.user();
+		if ( !user.profile.organizationId ) {
+			return [];
+		}
+		return Meteor.callPromise(ORGANIZATION_SERVER_METHODS.getOrganizationMembers);
 	}
 	
-	async runTask(taskId) {
-		return await Meteor.callPromise(TASKS_METHODS_DICT.runTask, {taskId});
+	runTask(taskId) {
+		return Meteor.callPromise(TASKS_METHODS_DICT.runTask, { taskId });
+	}
+	
+	assignCurrentUser(taskId) {
+		return Meteor.callPromise(TASKS_METHODS_DICT.assignCurrentUser, {taskId});
 	}
 	
 }

@@ -5,6 +5,7 @@ import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
 import { createTask } from '../functions/createTask';
 import { TasksModel } from '../../../models/tasks/server/tasks.model';
 import { runTask } from '../functions/runTask';
+import { assignCurrentUser } from '../functions/assignCurrentUser';
 
 export const createTaskMethod = new ValidatedMethod({
 	name: TASKS_METHODS_DICT.createTask,
@@ -77,5 +78,16 @@ export const runTaskMethod = new ValidatedMethod({
 	}).validator(),
 	async run({ taskId }) {
 		return await runTask(taskId)
+	}
+});
+
+export const assignCurrentUserMethod = new ValidatedMethod({
+	name: TASKS_METHODS_DICT.assignCurrentUser,
+	mixin: [ Mixins.loggedIn ],
+	validate: new SimpleSchema({
+		taskId: { type: String },
+	}).validator(),
+	async run({ taskId }) {
+		return await assignCurrentUser(taskId)
 	}
 });

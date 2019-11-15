@@ -1,5 +1,4 @@
 <template name="Task_info">
-
     {{#if isLoading}}
         <section class="overlay-wrapper">
             <div class="overlay">
@@ -18,8 +17,9 @@
                     <div class="col-xs-6 margin-top-20">
                         <div class="button-holder">
                             {{#if isCanRunning task}}
-                                <button type="button" class="btn btn-primary pull-right js-run-task" disabled="{{isRunDisabled}}"><i
-                                        class="fa fa-credit-card" ></i>
+                                <button type="button" class="btn btn-primary pull-right js-run-task"
+                                        disabled="{{isRunDisabled}}"><i
+                                        class="fa fa-credit-card"></i>
                                     Run
                                 </button>
                             {{/if}}
@@ -43,11 +43,18 @@
                         <div class="separator task-assign-to">
                             <span><strong>Assign to: </strong>
                                 {{#if assignedUser}}
-                                    {{assignedUser}}
-                                {{else}}
-                                    <a class="js-assign-me">Assign to me</a>
+                                    {{assignedUser}} <i class="fa fa-close js-unassign-user"></i>
                                 {{/if}}
-                                </span>
+
+                                {{#unless assignedUser}}
+                                    <a class="js-assign-me">Assign to me</a>
+                                {{/unless}}
+
+                                {{#if isUserAssigning}}
+                                    <i class="fa fa-refresh fa-spin"></i>
+                                {{/if}}
+                            </span>
+
                         </div>
                         <div class="separator time-type">
                             <span><strong>Time type:</strong> {{taskTimeType task.time.type}}</span>

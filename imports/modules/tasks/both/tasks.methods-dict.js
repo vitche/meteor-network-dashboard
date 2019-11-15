@@ -3,4 +3,5 @@ export const TASKS_METHODS_DICT = {
 	getTaskById: 'tasks.method.getTaskById',
 	getTaskWithOrgAndCreator: 'tasks.method.getTaskWithOrgAndCreator',
 	runTask: 'tasks.method.runTask',
+	assignCurrentUser: 'tasks.method.assignCurrentUser'
 };
