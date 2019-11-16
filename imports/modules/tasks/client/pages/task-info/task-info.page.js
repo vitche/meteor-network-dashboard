@@ -25,8 +25,7 @@ Template.Task_info.onCreated(async function () {
 		const task = await TasksService.getTaskWithOrgAndCreator(taskId);
 		
 		if ( task.assignTo ) {
-			const assignUser = await UserService.findUserById(task.assignTo);
-			this.state.set('assignUser', assignUser)
+			this.state.set('assignUser', task.assignTo)
 		}
 		
 		this.state.set('task', task);

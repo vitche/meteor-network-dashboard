@@ -6,7 +6,7 @@ import { TASK_STATUSES } from '../../both/tasks.enums';
 export const doneTask = async (taskId) => {
 	let task;
 	try {
-		task = TasksModel.findTaskWithOrgAndCreator(taskId);
+		task = await TasksModel.findTaskWithOrgAndCreator(taskId);
 		
 		await ClusterModel.update(task.clusterId, {
 			$set: {
@@ -26,6 +26,7 @@ export const doneTask = async (taskId) => {
 			}
 		})
 	} catch ( err ) {
+		console.log(err);
 		throw new Meteor.Error(400, err.message)
 	}
 	
