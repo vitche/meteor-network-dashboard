@@ -14,7 +14,7 @@ export const assignCurrentUser = async (taskId) => {
 				assignTo: user._id
 			}
 		});
-		task = await TasksModel.findById(taskId);
+		task = await TasksModel.findTaskWithOrgAndCreator(taskId);
 		
 	} catch (err) {
 		throw new Meteor.Error('update-task', 'Can not assign user to task')

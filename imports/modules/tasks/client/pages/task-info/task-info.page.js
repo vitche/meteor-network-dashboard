@@ -77,7 +77,7 @@ Template.Task_info.helpers({
 		}
 		return '';
 	},
-	isRunDisabled: function () {
+	isRunDisabled: function (assignUser) {
 		const task = Template.instance().state.get('task');
 		return task.assignTo ? '' : 'disabled';
 	}
@@ -85,7 +85,18 @@ Template.Task_info.helpers({
 
 Template.Task_info.events({
 	'click .js-unassign-user': async function (event, template) {
-	
+		const instance = Template.instance();
+		let task = instance.state.get('task');
+		instance.state.set('isUserAssigning', true);
+		try {
+			task = await TasksService.unassignCurrentUser(task._id);
+			instance.state.set('task', task);
+			instance.state.set('assignUser', null);
+			instance.state.set('isUserAssigning', false);
+		} catch ( err ) {
+			console.error(err);
+			instance.state.set('isUserAssigning', false);
+		}
 	},
 	'click .js-assign-me': async function (event, template) {
 		const instance = Template.instance();
@@ -111,13 +122,28 @@ Template.Task_info.events({
 		
 		try {
 			updatedTask = await TasksService.runTask(task._id);
+			
+			instance.state.set('isLoading', false);
+			instance.state.set('task', updatedTask);
 		} catch ( err ) {
 			console.error(err);
 			instance.state.set('isLoading', false);
 		}
+	},
+	'click .js-done-task': async function(event, template) {
+		const instance = Template.instance();
+		const task = instance.state.get('task');
+		let updatedTask;
+		instance.state.set('isLoading', true);
 		
-		instance.state.set('isLoading', false);
-		instance.state.set('task', updatedTask);
-		
+		try {
+			updatedTask = await TasksService.doneTask(task._id);
+			
+			instance.state.set('isLoading', false);
+			instance.state.set('task', updatedTask);
+		} catch ( err ) {
+			console.error(err);
+			instance.state.set('isLoading', false);
+		}
 	}
 });

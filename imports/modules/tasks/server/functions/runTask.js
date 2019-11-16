@@ -51,11 +51,15 @@ export const runTask = async (taskId) => {
 			}
 		});
 		
+		// TODO: return just simple task or rich the task model with creator and organization data
+		task = TasksModel.findTaskWithOrgAndCreator(taskId);
 		
 	} catch ( err ) {
 		console.error('error : ', err);
-		throw Meteor.Error(400, err.message);
+		throw new Meteor.Error(400, err.message);
 	}
+	
+	return task;
 };
 
 function calculateEstimatedTaskTimeRange(taskTime) {

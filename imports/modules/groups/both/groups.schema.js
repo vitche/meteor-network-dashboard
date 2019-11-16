@@ -17,6 +17,7 @@ const GroupsSchema = new SimpleSchema({
 	'clusters.$': { type: String },
 	permissions: { type: Array, optional: true },
 	'permissions.$': { type: String },
+	archived: { type: Boolean, optional: true },
 	createdAt: {
 		type: Date,
 		autoValue() {

@@ -16,6 +16,10 @@ class TasksServiceClass {
 		return taskId
 	}
 	
+	async getTasksList() {
+		return Meteor.callPromise(TASKS_METHODS_DICT.getTasksList);
+	}
+	
 	async getTask(taskId) {
 		const task = await Meteor.callPromise(TASKS_METHODS_DICT.getTaskById, { taskId });
 		return task.length && task[0];
@@ -37,8 +41,16 @@ class TasksServiceClass {
 		return Meteor.callPromise(TASKS_METHODS_DICT.runTask, { taskId });
 	}
 	
+	doneTask(taskId) {
+		return Meteor.callPromise(TASKS_METHODS_DICT.doneTask, { taskId });
+	}
+	
 	assignCurrentUser(taskId) {
-		return Meteor.callPromise(TASKS_METHODS_DICT.assignCurrentUser, {taskId});
+		return Meteor.callPromise(TASKS_METHODS_DICT.assignCurrentUser, { taskId });
+	}
+	
+	unassignCurrentUser(taskId) {
+		return Meteor.callPromise(TASKS_METHODS_DICT.unassignCurrentUser, { taskId });
 	}
 	
 }

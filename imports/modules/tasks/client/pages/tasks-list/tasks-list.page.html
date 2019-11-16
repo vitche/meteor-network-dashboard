@@ -24,6 +24,7 @@
                         <tr>
                             <th style="width: 70px;">Status</th>
                             <th>Title</th>
+                            <th>Organization</th>
                             <th>Assign to</th>
                             <th>Executor type</th>
                             <th>Time type</th>
@@ -32,7 +33,8 @@
                             <tr>
                                 <td><span class="badge bg-green">{{task.status}}</span></td>
                                 <td><a href="{{pathFor 'tasks.info' id=task._id }}">{{task.title}}</a></td>
-                                <td>{{task.assignTo}}</td>
+                                <td>{{task.organization.title}}</td>
+                                <td>{{assignTo task.assignTo}}</td>
                                 <td>{{executorType task.executorType}}</td>
                                 <td>{{taskTimeType task.time.type}}</td>
                             </tr>

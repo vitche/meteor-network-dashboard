@@ -6,6 +6,9 @@ import { createTask } from '../functions/createTask';
 import { TasksModel } from '../../../models/tasks/server/tasks.model';
 import { runTask } from '../functions/runTask';
 import { assignCurrentUser } from '../functions/assignCurrentUser';
+import { unassignCurrentUser } from '../functions/unassignCurrentUser';
+import { doneTask } from '../functions/doneTask';
+import { getTasksList } from '../functions/getTasksList';
 
 export const createTaskMethod = new ValidatedMethod({
 	name: TASKS_METHODS_DICT.createTask,
@@ -31,6 +34,15 @@ export const createTaskMethod = new ValidatedMethod({
 	}).validator(),
 	async run(task) {
 		return await createTask(task);
+	}
+});
+
+export const getTasksListMethod = new ValidatedMethod({
+	name: TASKS_METHODS_DICT.getTasksList,
+	mixins: [ Mixins.loggedIn ],
+	validate: null,
+	async run() {
+		return await getTasksList()
 	}
 });
 
@@ -81,6 +93,17 @@ export const runTaskMethod = new ValidatedMethod({
 	}
 });
 
+export const doneTaskMethod = new ValidatedMethod({
+	name: TASKS_METHODS_DICT.doneTask,
+	mixin: [ Mixins.loggedIn ],
+	validate: new SimpleSchema({
+		taskId: { type: String },
+	}).validator(),
+	async run({ taskId }) {
+		return await doneTask(taskId)
+	}
+});
+
 export const assignCurrentUserMethod = new ValidatedMethod({
 	name: TASKS_METHODS_DICT.assignCurrentUser,
 	mixin: [ Mixins.loggedIn ],
@@ -89,5 +112,16 @@ export const assignCurrentUserMethod = new ValidatedMethod({
 	}).validator(),
 	async run({ taskId }) {
 		return await assignCurrentUser(taskId)
+	}
+});
+
+export const unassignCurrentUserMethod = new ValidatedMethod({
+	name: TASKS_METHODS_DICT.unassignCurrentUser,
+	mixin: [ Mixins.loggedIn ],
+	validate: new SimpleSchema({
+		taskId: { type: String },
+	}).validator(),
+	async run({ taskId }) {
+		return await unassignCurrentUser(taskId)
 	}
 });

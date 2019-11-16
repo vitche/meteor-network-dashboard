@@ -18,8 +18,8 @@
                         <div class="button-holder">
                             {{#if isCanRunning task}}
                                 <button type="button" class="btn btn-primary pull-right js-run-task"
-                                        disabled="{{isRunDisabled}}"><i
-                                        class="fa fa-credit-card"></i>
+                                    {{ isRunDisabled}}>
+                                    <i class="fa fa-credit-card"></i>
                                     Run
                                 </button>
                             {{/if}}
@@ -43,12 +43,19 @@
                         <div class="separator task-assign-to">
                             <span><strong>Assign to: </strong>
                                 {{#if assignedUser}}
-                                    {{assignedUser}} <i class="fa fa-close js-unassign-user"></i>
+                                    {{assignedUser}}
+
+                                    {{#if isCanRunning task}}
+                                        <i class="fa fa-close js-unassign-user"></i>
+                                    {{/if}}
+
                                 {{/if}}
 
                                 {{#unless assignedUser}}
                                     <a class="js-assign-me">Assign to me</a>
                                 {{/unless}}
+
+
 
                                 {{#if isUserAssigning}}
                                     <i class="fa fa-refresh fa-spin"></i>

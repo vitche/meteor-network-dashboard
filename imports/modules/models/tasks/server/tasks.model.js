@@ -1,6 +1,45 @@
 import { TASK_EXECUTOR_TYPES } from '../../../tasks/both/tasks.enums';
 import { TasksCollection } from './tasks-collection.server';
 
+const aggregateTaskWithCreatorAndOrganization = [
+	{
+		$lookup: {
+			from: 'users',
+			localField: 'creatorId',
+			foreignField: '_id',
+			as: 'creator'
+		}
+	},
+	{
+		$unwind: '$creator'
+	},
+	{
+		$lookup: {
+			from: 'organizations',
+			localField: 'organizationId',
+			foreignField: '_id',
+			as: 'organization'
+		}
+	},
+	{
+		$unwind: '$organization'
+	},
+	{
+		$lookup: {
+			from: 'users',
+			localField: 'assignTo',
+			foreignField: '_id',
+			as: 'assignTo'
+		}
+	},
+	{
+		$unwind: {
+			path: '$assignTo',
+			'preserveNullAndEmptyArrays': true
+		}
+	},
+];
+
 export class TasksModelServer {
 	constructor(collection) {
 		this.collection = collection;
@@ -18,8 +57,15 @@ export class TasksModelServer {
 		return this.collection.find(query)
 	}
 	
-	findAll() {
-		return this.collection.find();
+	async findAll() {
+		let tasks;
+		try {
+			tasks = await this.collection.rawCollection().aggregate([ ...aggregateTaskWithCreatorAndOrganization ]).toArray()
+		} catch ( err ) {
+			console.error(err)
+		}
+		
+		return tasks;
 	}
 	
 	findById(id) {
@@ -27,54 +73,47 @@ export class TasksModelServer {
 	}
 	
 	findTasksForOrganizationOwner(organizationId) {
-		return this.collection.find({
-			$or: [
-				{ executorType: TASK_EXECUTOR_TYPES.public.alias },
-				{ organizationId: organizationId, }
-			]
-		});
+		return this.collection.rawCollection().aggregate([
+			...aggregateTaskWithCreatorAndOrganization,
+			{
+				$match: {
+					$or: [
+						{ executorType: TASK_EXECUTOR_TYPES.public.alias },
+						{ organizationId: organizationId, }
+					]
+				}
+			}
+		]).toArray();
 	}
 	
-	findTasksForOrganizationMember(organizationId) {
-		return this.collection.find({
-			$and: [
-				{ executorType: { $in: [ TASK_EXECUTOR_TYPES.organization.alias, TASK_EXECUTOR_TYPES.public.alias ] } },
-				{ organizationId: organizationId, }
-			],
-			
-		});
+	async findTasksForOrganizationMember(organizationId) {
+		return this.collection.rawCollection().aggregate([
+			...aggregateTaskWithCreatorAndOrganization,
+			{
+				$match: {
+					$and: [
+						{ executorType: { $in: [ TASK_EXECUTOR_TYPES.organization.alias, TASK_EXECUTOR_TYPES.public.alias ] } },
+						{ organizationId: organizationId, }
+					]
+				}
+			}
+		]).toArray();
 	}
 	
-	findPublicTasks() {
-		return this.collection.find({
-			executorType: TASK_EXECUTOR_TYPES.public.alias
-		})
+	async findPublicTasks() {
+		return this.collection.rawCollection().aggregate([
+			...aggregateTaskWithCreatorAndOrganization,
+			{
+				$match: {
+					executorType: TASK_EXECUTOR_TYPES.public.alias
+				}
+			}
+		]).toArray();
 	}
 	
 	async findTaskWithOrgAndCreator(id) {
 		let task = await this.collection.rawCollection().aggregate([
-			{
-				$lookup: {
-					from: 'users',
-					localField: 'creatorId',
-					foreignField: '_id',
-					as: 'creator'
-				}
-			},
-			{
-				$unwind: '$creator'
-			},
-			{
-				$lookup: {
-					from: 'organizations',
-					localField: 'organizationId',
-					foreignField: '_id',
-					as: 'organization'
-				}
-			},
-			{
-				$unwind: '$organization'
-			},
+			...aggregateTaskWithCreatorAndOrganization,
 			{
 				$match: { _id: id }
 			}

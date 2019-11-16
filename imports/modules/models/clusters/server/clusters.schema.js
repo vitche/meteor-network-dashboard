@@ -11,6 +11,7 @@ export const ClustersSchema = new SimpleSchema({
 	devicesId: { type: Array, optional: true },
 	'devicesId.$': { type: String, optional: true },
 	groupId: { type: String, optional: true },
+	archived: {type: Boolean, optional: true},
 	createdAt: {
 		type: Date,
 		autoValue() {
