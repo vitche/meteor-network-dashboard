@@ -1,0 +1,16 @@
+.number-block .form-control {
+    display: inline;
+    width: 60px;
+}
+
+/* Webkit browsers like Safari and Chrome */
+.number-block > input[type=number]::-webkit-inner-spin-button,
+.number-block > input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+.number-block > input[type='number'] {
+    -moz-appearance:textfield;
+}

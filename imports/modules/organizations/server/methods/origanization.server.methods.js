@@ -1,13 +1,15 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
 import { Mixins } from '../../../../helpers/server/mixins';
-import { createDefaultUser } from '../../../users/server/functions/createDefaultUser.function';
 import { ORGANIZATION_SERVER_METHODS } from '../../both/organizations.methods';
+
+import { createDefaultUser } from '../../../users/server/functions/createDefaultUser.function';
 
 import { createOrganizationRequest } from '../functions/createOrganizationRequest.function';
 import { getOrganizationById } from '../functions/getOrganizationById.function';
 import { approveOrganization } from '../functions/approveOrganization.function';
 import { inviteUser } from '../functions/inviteUser.function';
+import { getOrganizationMembers } from '../functions/getOrganizationMembers';
 
 export const getOrganizationByIdMethod = new ValidatedMethod({
 	name: ORGANIZATION_SERVER_METHODS.getOrganizationById,
@@ -74,5 +76,19 @@ export const inviteUserMethod = new ValidatedMethod({
 			throw new Meteor.Error(400, err.message);
 		}
 
+	}
+});
+
+export const getOrganizationMembersMethod = new ValidatedMethod({
+	name: ORGANIZATION_SERVER_METHODS.getOrganizationMembers,
+	mixin: [ Mixins.loggedIn, Mixins.roles ],
+	roles: [
+		ROLES_DICTIONARY.private.superAdmin.alias,
+		ROLES_DICTIONARY.private.organizationOwner.alias,
+		ROLES_DICTIONARY.private.organizationMember.alias
+	],
+	validate: null,
+	async run() {
+		return await getOrganizationMembers()
 	}
 });

@@ -5,7 +5,6 @@ import { OrganizationService } from '../../../../organizations/client/service/or
 
 import './create-organization.modal.html'
 
-
 Template.Create_organization_modal.onCreated(function () {
 	this.state = new ReactiveDict()
 });

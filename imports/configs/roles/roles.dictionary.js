@@ -34,6 +34,14 @@ export const ROLES_DICTIONARY = {
 			alias: 'allowAddChildGroup',
 			title: 'Allow Add Child Group'
 		},
+		allowCreateCluster: {
+			alias: 'allowCreateCluster',
+			title: 'Allow Create Cluster'
+		},
+		allowReviewClusters: {
+			alias: 'allowReviewClusters',
+			title: 'Allow Review Clusters'
+		}
 	}
 
 };

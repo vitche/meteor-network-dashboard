@@ -1,1 +1,0 @@
-import './peer-list/peers-list';

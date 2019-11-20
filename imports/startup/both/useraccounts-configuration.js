@@ -25,6 +25,11 @@ function isRedirectAllow(path) {
 		// TODO show notification to user
 	}
 
+	// if route doesn't required any permission pass it
+	if (!route.permissions.length) {
+		return true;
+	}
+
 	const userPermissions = ServerSession.get(SERVER_SESSIONS_KEYS.userPermissions);
 
 	if (!userPermissions) {
@@ -80,12 +85,14 @@ AccountsTemplates.addField(password);
 
 AccountsTemplates.configureRoute('signIn', {
 	name: 'signIn',
-	path: '/signin'
+	path: '/signin',
+	redirect: '/'
 });
 
 AccountsTemplates.configureRoute('signUp', {
 	name: 'join',
 	path: '/join',
+	redirect: '/'
 });
 
 AccountsTemplates.configureRoute('forgotPwd');
@@ -93,6 +100,7 @@ AccountsTemplates.configureRoute('forgotPwd');
 AccountsTemplates.configureRoute('resetPwd', {
 	name: 'resetPwd',
 	path: '/reset-password',
+	redirect: '/'
 });
 
 AccountsTemplates.configureRoute('enrollAccount', {

@@ -1,0 +1,121 @@
+<template name="Create_task_modal">
+    <div class="modal fade in" id="modal-default" style="display: block">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create task</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="crete-task-form">
+                        <div class="form-group {{#if hasError}}has-error{{/if}}">
+                            <label>Task title</label>
+                            <input type="text" class="form-control" placeholder="Enter Organization Name"
+                                   name="task-title"
+                                   disabled="{{#if isLoading }}disabled{{/if}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Enter description"
+                                      name="task-description"
+                                      spellcheck="false"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select device</label>
+                            <select class="form-control" name="task-device">
+                                <option value="">Select type</option>
+                                {{#each device in devices}}
+                                    <option value="{{device._id}}">{{device.name}} ({{device.type}})</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select time execute type</label>
+                            <select class="form-control" name="task-time-execute-type">
+                                <option value="">Select type</option>
+                                {{#each type in timeExecuteTypes}}
+                                    <option value="{{type.alias}}">{{type.title}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                        {{#if isScheduled}}
+                            <div class="form-group">
+                                <label>Start Date:</label>
+                                <input type="datetime-local" class="form-control" name="task-start-date">
+                            </div>
+
+                            <div class="form-group">
+                                <label>End Date:</label>
+                                <input type="datetime-local" class="form-control" name="task-end-date">
+                            </div>
+                        {{/if}}
+
+                        {{#if isEstimated}}
+                            <div class="form-group number-block">
+                                <label for="task-estimate">Original Estimate: </label>
+                                <input type="number" class="form-control" name="task-estimate">
+                                <span> hours</span>
+                            </div>
+                        {{/if}}
+
+                        {{#unless isByComplete}}
+                            <div class="form-group">
+                                <label for="task-prolongation"> Auto prolongation time</label>
+                                <input type="checkbox" name="task-prolongation">
+                            </div>
+                        {{/unless}}
+
+                        <div class="form-group">
+                            <label>Select Executor type</label>
+                            <select class="form-control" name="task-executor">
+                                <option value="">Select type</option>
+                                {{#each item in executorTypes}}
+                                    <option value="{{item.alias}}">{{item.title}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                        {{#if isOrganizationExecutor}}
+                            <div class="form-group">
+                                <label>Assign to </label>
+                                <select class="form-control" name="task-assign-to">
+                                    <option value="">Select type</option>
+                                    {{#each member in members}}
+                                        <option value="{{member._id}}">{{member.profile.firstName}} {{member.profile.lastName}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        {{/if}}
+
+                        {{#if isPublicExecutor}}
+                            <div class="form-group number-block">
+                                <label for="price-rate">Rate: </label>
+                                <input type="number" class="form-control" name="task-rate">
+                            </div>
+                        {{/if}}
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    {{#if onError}}
+                        <div>{{onError}}</div>
+                    {{/if}}
+                    {{#if onSuccess}}
+                        <div>{{onSuccess}}</div>
+                    {{/if}}
+                    <button type="button" class="btn btn-default pull-left js-modal-close" data-dismiss="modal">Close
+                    </button>
+                    <button type="button" class="btn btn-primary js-save">Save changes</button>
+                </div>
+                {{#if isLoading}}
+                    <div class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</template>

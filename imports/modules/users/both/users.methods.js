@@ -46,8 +46,8 @@ const addPermissionToUser = new ValidatedMethod({
 
 const sendEnrollmentLetter = (data) => {
 	Meteor.call('users.sendEnrollmentLetter', data, (err, response) => {
-		if (err) {
-			console.log(err);
+		if ( err ) {
+			console.error(err);
 			return;
 		}
 

@@ -1,1 +1,0 @@
-export const Peer = new Mongo.Collection("peers");
