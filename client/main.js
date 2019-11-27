@@ -2,7 +2,7 @@ import '../imports/startup/client';
 import '../imports/startup/both';
 
 // layouts
-import '../imports/modules/layout/layout';
+import '../imports/modules/layout/client';
 
 // auth
 import '../imports/modules/authentication/client';

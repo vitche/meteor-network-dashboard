@@ -1,0 +1,1 @@
+export const OrganizationCollection = new Mongo.Collection('organizations');

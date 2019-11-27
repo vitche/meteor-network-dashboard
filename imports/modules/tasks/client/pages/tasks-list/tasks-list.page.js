@@ -20,6 +20,7 @@ Template.Tasks_page.onCreated(async function () {
 		console.err(err);
 		this.state.set('isLoading', false);
 	}
+	
 });
 
 Template.Tasks_page.helpers({
