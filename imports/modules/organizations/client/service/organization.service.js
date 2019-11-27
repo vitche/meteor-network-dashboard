@@ -8,7 +8,16 @@ class OrganizationServiceClass {
 		return await Meteor.callPromise(ORGANIZATION_SERVER_METHODS.createOrganizationRequest, { title })
 	}
 	
-	getOrganizationList() {
+	async getOrganizationsTitle() {
+		let organizationTitles = [];
+		try {
+			organizationTitles = await Meteor.callPromise(ORGANIZATION_SERVER_METHODS.getOrganizationTitles);
+		} catch (err) {
+			// TODO: make notification service and show error when it appear;
+			console.error(err);
+		}
+		
+		return organizationTitles;
 	}
 
 

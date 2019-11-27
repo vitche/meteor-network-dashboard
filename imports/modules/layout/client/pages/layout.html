@@ -69,8 +69,8 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            {{#each org in orgList}}
-                                <li><a href="{{pathFor 'organization.info' id=org._id}}">{{org.title}}</a></li>
+                            {{#each org in organizations}}
+                                <li><a href="{{pathFor 'organizations.info' id=org._id}}">{{org.title}}</a></li>
                             {{/each}}
                             <li><a href="#"><i class="fa fa-plus"></i> Create Organization</a></li>
                         </ul>

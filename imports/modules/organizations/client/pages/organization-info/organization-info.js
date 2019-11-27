@@ -3,7 +3,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 import './organization-info.html';
 import { ModalService } from '../../../../ui-modal/client/service/modal.service';
-import { OrganizationsCollection } from '../../../both/organizations.schema';
+import { OrganizationCollection } from '../../../../models/organizations/client/organization.collection';
 
 Template.Organization_info.onCreated(function () {
 	this.state = new ReactiveDict();
@@ -14,7 +14,7 @@ Template.Organization_info.onCreated(function () {
 
 	this.autorun(() => {
 		if (organizationSubscription.ready()) {
-			const organization = OrganizationsCollection.findOne({ _id: organizationId });
+			const organization = OrganizationCollection.findOne({ _id: organizationId });
 			if (organization) {
 				this.state.set('organization', organization);
 			}

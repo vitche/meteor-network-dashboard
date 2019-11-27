@@ -6,8 +6,7 @@ import { GroupsCollection } from '../../../groups/both/groups.schema';
 import { ClusterModel } from '../../../models/clusters/server/clusters.model';
 import { RolesService } from '../../../roles/server/services/roles.service';
 import { UsersCollection } from '../../../users/both/users.schema';
-import { OrganizationsCollection } from '../../both/organizations.schema';
-
+import { OrganizationCollection} from '../../../models/organizations/server/organization.collection';
 
 export const approveOrganization = async function (organizationId, ownerId, groupTitle) {
 	// TODO: make it as transaction flow
@@ -16,7 +15,7 @@ export const approveOrganization = async function (organizationId, ownerId, grou
 		const rootGroup = await GroupsCollection.findOne({ alias: GROUP_ALIASES.rootGroupAlias });
 
 		// get organization data
-		const organization = await OrganizationsCollection.findOne({ _id: organizationId });
+		const organization = await OrganizationCollection.findOne({ _id: organizationId });
 
 		// create root group of organization with provided title
 		const organizationGroupId = await GroupsCollection.insert({
@@ -52,7 +51,7 @@ export const approveOrganization = async function (organizationId, ownerId, grou
 		});
 
 		// set root group id and default cluster id to organization document
-		const updatedOrganization = await OrganizationsCollection.update(organizationId, {
+		const updatedOrganization = await OrganizationCollection.update(organizationId, {
 			$set: {
 				groupId: organizationGroupId,
 				clusterId: organizationClusterId,

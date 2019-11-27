@@ -6,6 +6,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { ROUTES_CONFIG } from '../../../../startup/both/routes.config';
 
 import './layout.html'
+import { OrganizationService } from '../../../organizations/client/service/organization.service';
 
 
 Template.layout.onRendered(function () {
@@ -22,21 +23,22 @@ Template.layout.onRendered(function () {
 });
 
 
-function onCreated() {
+
+
+Template.layout.onCreated(async function () {
 	this.state = new ReactiveDict();
 	
-	
+	const organizationTitles = await OrganizationService.getOrganizationsTitle();
+	this.state.set('titles', organizationTitles);
 	
 	this.onSelect = (selectedOrganization) => {
 		FlowRouter.go(ROUTES_CONFIG.organizations.info.name, { id: selectedOrganization._id });
 	}
-}
-
-Template.layout.onCreated(onCreated);
+});
 
 Template.layout.helpers({
 	organizations: function () {
-		return Template.instance().state.get('organizations')
+		return Template.instance().state.get('titles')
 	},
 	isOrganizationLoading: function () {
 		return !!Template.instance().state.get('organizations')

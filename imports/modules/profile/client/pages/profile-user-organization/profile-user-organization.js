@@ -1,7 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict'
 
-import { OrganizationsCollection } from '../../../../organizations/both/organizations.schema';
+import { OrganizationCollection } from '../../../../models/organizations/client/organization.collection';
 import { RolesService } from '../../../../roles/client/services/roles.service';
 import { ModalService } from '../../../../ui-modal/client/service/modal.service';
 import { ProfileService } from '../../services/profile.service';
@@ -19,7 +19,7 @@ Template.Profile_user_organization.onCreated(function () {
 	this.autorun(() => {
 		if (organizationHandler.ready()) {
 			// get organization where current user is owner
-			const userOrganization = OrganizationsCollection.find().fetch();
+			const userOrganization = OrganizationCollection.find().fetch();
 
 			if (userOrganization.length) {
 				this.state.set('organization', userOrganization[0]);

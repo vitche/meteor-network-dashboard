@@ -1,11 +1,11 @@
-import { OrganizationsCollection } from '../../both/organizations.schema';
+import { OrganizationModel} from '../../../models/organizations/server/organization.model';
 
 export const createOrganizationRequest = async function (title) {
 	const userId = Meteor.userId();
 	let result;
 	// create organization;
 	try {
-		result = await OrganizationsCollection.insert({ title, ownerId: userId });
+		result = await OrganizationModel.insert({ title, ownerId: userId });
 	} catch (err) {
 		console.log(err);
 	}

@@ -4,6 +4,10 @@ class Organization {
 	constructor(collection) {
 		this.collection = collection;
 	}
+	
+	 find(query, projection) {
+		return  this.collection.find(query, { fields : projection})
+	}
 }
 
-export const OrganizationCollection = new Organization(OrganizationCollection);
+export const OrganizationModel = new Organization(OrganizationCollection);

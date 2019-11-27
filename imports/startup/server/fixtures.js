@@ -1,9 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import { DEFAULT_CLUSTER } from '../../configs/default-data/default-cluster.config';
 
 import { GroupsCollection } from '../../modules/groups/both/groups.schema';
-import { ClusterModel } from '../../modules/models/clusters/server/clusters.model';
-import { OrganizationsCollection } from '../../modules/organizations/both/organizations.schema';
+import {OrganizationCollection} from '../../modules/models/organizations/server/organization.collection';
 import { UsersCollection } from '../../modules/users/both/users.schema'
 import { UsersMethods } from '../../modules/users/both/users.methods';
 
@@ -25,23 +23,16 @@ Meteor.startup(() => {
 		const rootGroupId = GroupsCollection.insert({ ...GROUP_DEFAULT.rootGroup });
 		const allUsersGroupId = GroupsCollection.insert({ ...GROUP_DEFAULT.allUsers, parentGroupId: rootGroupId });
 
-		const defaultOrganizationId = OrganizationsCollection.insert({
+		const defaultOrganizationId = OrganizationCollection.insert({
 			...ORGANIZATION_DEFAULT,
 			ownerId: devopsId,
 			groupId: rootGroupId
 		});
-
-		const defaultClusterId = ClusterModel.insert({
-			...DEFAULT_CLUSTER,
-			organizationId: defaultOrganizationId,
-			groupId: rootGroupId
-		});
-
+		
 		// join group to organization
 		GroupsCollection.update({ _id: rootGroupId },
 			{
 				$set: { organizationId: defaultOrganizationId },
-				$addToSet: { clusters: defaultClusterId }
 			},
 		);
 
