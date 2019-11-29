@@ -28,9 +28,9 @@
                                     <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                     <p>
                                         {{currentUser.profile.firstName}} {{currentUser.profile.lastName}}
-                                        {{#if emailLocal}}
-                                            <small>{{emailLocal.address}}</small>
-                                            {{#unless emailLocal.verified}}
+                                        {{#if userEmail}}
+                                            <small>{{userEmail.address}}</small>
+                                            {{#unless userEmail.verified}}
                                                 <small>Email is not verified.</small>
                                             {{/unless}}
                                         {{/if}}
@@ -69,10 +69,16 @@
                         </a>
 
                         <ul class="treeview-menu">
+                            {{#unless organizations}}
+                            <div class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                            {{/unless}}
+
                             {{#each org in organizations}}
-                                <li><a href="{{pathFor 'organizations.info' id=org._id}}">{{org.title}}</a></li>
+                                <li><a class="js-go-to-organization" data-id="{{org._id}}">{{org.title}}</a></li>
                             {{/each}}
-                            <li><a href="#"><i class="fa fa-plus"></i> Create Organization</a></li>
+                            <li><a class="js-create-organization"><i class="fa fa-plus"></i> Create Organization</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -94,6 +100,10 @@
                             <i class="fa fa-list"></i> <span>Public tasks</span>
                         </a>
                     </li>
+                {{#if isAllow 'viewAdministrationPanel' }}
+                    <li class="header">Administration panel</li>
+                    <li><a href="{{pathFor 'organizations.list'}}"><i class="fa fa-building"></i> <span>Manage Organizations</span></a></li>
+                {{/if}}
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -152,7 +162,7 @@
              immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </div>
-    {{#if activeModal}}
+    {{#if isModalActive}}
         <div class="modal-backdrop fade in"></div>
     {{/if}}
 </template>

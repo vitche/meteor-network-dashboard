@@ -7,9 +7,9 @@ import { ROUTES_CONFIG } from '../../../../startup/both/routes.config';
 
 import './layout.html'
 import { OrganizationService } from '../../../organizations/client/service/organization.service';
+import { ModalService } from '../../../ui-modal/client/service/modal.service';
 
-
-Template.layout.onRendered(function () {
+function onRendered() {
 	const files = [ 'dist/js/adminlte.js', 'dist/js/pages/dashboard.js', 'dist/js/demo.js' ];
 	
 	files.forEach((file) => {
@@ -20,53 +20,71 @@ Template.layout.onRendered(function () {
 			$('body').append(script);
 		});
 	})
-});
+}
 
-
-
-
-Template.layout.onCreated(async function () {
+async function onCreated() {
 	this.state = new ReactiveDict();
 	
-	const organizationTitles = await OrganizationService.getOrganizationsTitle();
-	this.state.set('titles', organizationTitles);
+	this.getOrganizationTitles = async () => {
+		const organizationTitles = await OrganizationService.getOrganizationsTitle();
+		this.state.set('titles', organizationTitles);
+	};
 	
-	this.onSelect = (selectedOrganization) => {
-		FlowRouter.go(ROUTES_CONFIG.organizations.info.name, { id: selectedOrganization._id });
+	this.getOrganizationTitles();
+}
+
+//----- HELPERS
+
+function getOrganizationTitle() {
+	return Template.instance().state.get('titles')
+}
+
+function getUserEmail() {
+	const user = Meteor.user();
+	// As we work with synchronous MeteorJS it can be delay between receiving data from MiniMongo
+	if ( !user ) {
+		return;
 	}
-});
+	return user.emails && user.emails[0];
+}
+
+function toggleModal() {
+	return Session.get('activeModal');
+}
+
+//----- EVENTS
+
+function createOrganization() {
+	ModalService.createOrganization();
+}
+
+function logout() {
+	AccountsTemplates.logout();
+}
+
+function goToProfile() {
+	FlowRouter.go(ROUTES_CONFIG.profile.profile.name);
+}
+
+function goToOrganization(event, template) {
+	event.preventDefault();
+	FlowRouter.go(ROUTES_CONFIG.organizations.info.name, {id: event.currentTarget.dataset.id});
+}
+
+//----- REGISTER
+
+Template.layout.onRendered(onRendered);
+Template.layout.onCreated(onCreated);
 
 Template.layout.helpers({
-	organizations: function () {
-		return Template.instance().state.get('titles')
-	},
-	isOrganizationLoading: function () {
-		return !!Template.instance().state.get('organizations')
-	},
-	organizationArgs: function (organization) {
-		return {
-			organization,
-			onSelect: Template.instance().onSelect
-		}
-	},
-	emailLocal: function () {
-		const user = Meteor.user();
-		// As we work with synchronous MeteorJS it can be delay between receiving data from MiniMongo
-		if ( !user ) {
-			return;
-		}
-		return user.emails && user.emails[0];
-	},
-	activeModal: function () {
-		return Session.get('activeModal');
-	}
+	organizations: getOrganizationTitle,
+	userEmail: getUserEmail,
+	isModalActive: toggleModal
 });
 
 Template.layout.events({
-	'click .js-profile-button'() {
-		FlowRouter.go(ROUTES_CONFIG.profile.profile.name);
-	},
-	'click .js-logout-button'() {
-		AccountsTemplates.logout();
-	}
+	'click .js-profile-button': goToProfile,
+	'click .js-logout-button': logout,
+	'click .js-create-organization': createOrganization,
+	'click .js-go-to-organization': goToOrganization
 });
