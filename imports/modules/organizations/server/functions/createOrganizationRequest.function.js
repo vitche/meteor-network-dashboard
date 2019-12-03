@@ -8,6 +8,7 @@ export const createOrganizationRequest = async function (title) {
 		result = await OrganizationModel.insert({ title, ownerId: userId });
 	} catch (err) {
 		console.log(err);
+		throw new Meteor.Error(400, err.message);
 	}
 
 	return result;

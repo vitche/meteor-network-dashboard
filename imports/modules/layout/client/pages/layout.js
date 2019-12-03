@@ -8,6 +8,8 @@ import { ROUTES_CONFIG } from '../../../../startup/both/routes.config';
 import './layout.html'
 import { OrganizationService } from '../../../organizations/client/service/organization.service';
 import { ModalService } from '../../../ui-modal/client/service/modal.service';
+import { ORGANIZATION_PUBLICATIONS } from '../../../organizations/both/organization.publications.enum';
+import { OrganizationCollection } from '../../../models/organizations/client/organization.collection';
 
 function onRendered() {
 	const files = [ 'dist/js/adminlte.js', 'dist/js/pages/dashboard.js', 'dist/js/demo.js' ];
@@ -25,12 +27,15 @@ function onRendered() {
 async function onCreated() {
 	this.state = new ReactiveDict();
 	
-	this.getOrganizationTitles = async () => {
-		const organizationTitles = await OrganizationService.getOrganizationsTitle();
-		this.state.set('titles', organizationTitles);
-	};
+	// TODO: make it as pub/sub through service
+	const orgSubscription = this.subscribe(ORGANIZATION_PUBLICATIONS.getTitles);
 	
-	this.getOrganizationTitles();
+	this.autorun(() => {
+		if (orgSubscription.ready()) {
+			const organizationTitles = OrganizationCollection.find().fetch();
+			this.state.set('titles', organizationTitles);
+		}
+	});
 }
 
 //----- HELPERS
@@ -68,6 +73,7 @@ function goToProfile() {
 
 function goToOrganization(event, template) {
 	event.preventDefault();
+	console.log(event.currentTarget.dataset.id)
 	FlowRouter.go(ROUTES_CONFIG.organizations.info.name, {id: event.currentTarget.dataset.id});
 }
 

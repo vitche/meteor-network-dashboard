@@ -8,11 +8,15 @@ import { OrganizationCollection } from '../../../../models/organizations/client/
 Template.Organization_info.onCreated(function () {
 	this.state = new ReactiveDict();
 	const organizationId = FlowRouter.getParam('id');
+	console.log('organization ID :', organizationId);
 	this.state.set('isLoading', true);
 
 	const organizationSubscription = this.subscribe('organizations.publish.getOrganizationById', organizationId);
 
 	this.autorun(() => {
+		FlowRouter.watchPathChange();
+		var currentContext = FlowRouter.current();
+		console.log(currentContext)
 		if (organizationSubscription.ready()) {
 			const organization = OrganizationCollection.findOne({ _id: organizationId });
 			if (organization) {
@@ -21,7 +25,7 @@ Template.Organization_info.onCreated(function () {
 
 			this.state.set('isLoading', false);
 		}
-	})
+	});
 
 });
 
