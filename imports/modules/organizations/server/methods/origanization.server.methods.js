@@ -21,10 +21,10 @@ export const getOrganizationByIdMethod = new ValidatedMethod({
 		ROLES_DICTIONARY.private.organizationMember.alias
 	],
 	validate: new SimpleSchema({
-		organizationId: { type: String }
+		id: { type: String }
 	}).validator(),
-	async run({ organizationId }) {
-		return await getOrganizationById(organizationId)
+	async run({ id }) {
+		return await getOrganizationById(id)
 	}
 });
 

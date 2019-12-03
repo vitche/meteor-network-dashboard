@@ -2,29 +2,26 @@ import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
 import './organization-info.html';
+
 import { ModalService } from '../../../../ui-modal/client/service/modal.service';
-import { OrganizationCollection } from '../../../../models/organizations/client/organization.collection';
+import { OrganizationService } from '../../service/organization.service';
 
 Template.Organization_info.onCreated(function () {
 	this.state = new ReactiveDict();
-	const organizationId = FlowRouter.getParam('id');
-	console.log('organization ID :', organizationId);
+
 	this.state.set('isLoading', true);
-
-	const organizationSubscription = this.subscribe('organizations.publish.getOrganizationById', organizationId);
-
-	this.autorun(() => {
+	this.autorun(async() => {
 		FlowRouter.watchPathChange();
 		var currentContext = FlowRouter.current();
-		console.log(currentContext)
-		if (organizationSubscription.ready()) {
-			const organization = OrganizationCollection.findOne({ _id: organizationId });
-			if (organization) {
-				this.state.set('organization', organization);
-			}
+		const organizationId = currentContext.params && currentContext.params.id;
 
-			this.state.set('isLoading', false);
+		const organization = await OrganizationService.getOrganizationById(organizationId);
+
+		if ( organization ) {
+			this.state.set('organization', organization);
 		}
+
+		this.state.set('isLoading', false);
 	});
 
 });
