@@ -1,0 +1,9 @@
+.treeview-menu > li > a.disabled  {
+    cursor: default;
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+.treeview-menu > li > a.disabled:hover {
+    color: #8aa4af !important;
+}

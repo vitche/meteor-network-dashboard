@@ -58,5 +58,5 @@ Meteor.publish(ORGANIZATION_PUBLICATIONS.getTitles, () => {
 		throw new Meteor.Error('not-authorized', 'User not authorized');
 	}
 	
-	return OrganizationModel.find({ ownerId: userId }, { title: 1 });
+	return OrganizationModel.find({ ownerId: userId }, { title: 1, verified: 1 });
 });

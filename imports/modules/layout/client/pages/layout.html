@@ -69,16 +69,29 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            {{#unless organizations}}
-                            <div class="overlay">
-                                <i class="fa fa-refresh fa-spin"></i>
-                            </div>
-                            {{/unless}}
-
                             {{#each org in organizations}}
-                                <li><a class="js-go-to-organization" data-id="{{org._id}}">{{org.title}}</a></li>
+                                <li class="treeview">
+                                    <a class="js-go-to-organization" data-id="{{org._id}}">
+                                        <i class="fa fa-circle-o"></i>{{org.title}}
+                                        {{#unless org.verified}}
+                                            <span class="pull-right-container">
+                                                <small class="label pull-right bg-yellow">On hold</small>
+                                            </span>
+                                        {{/unless}}
+                                        <span class="pull-right-container"><i
+                                                class="fa fa-angle-left pull-right"></i></span>
+                                    </a>
+
+                                    <ul class="treeview-menu">
+                                        <li><a class="js-add-task {{isOrgVerified org.verified}}"   data-id="{{org._id}}"><i class="fa fa-plus"></i> Add Task</a>
+                                        </li>
+                                        <li><a class="js-add-device {{isOrgVerified org.verified}}" data-id="{{org._id}}"><i class="fa fa-plus"></i> Add Device</a>
+                                        </li>
+                                    </ul>
+                                </li>
                             {{/each}}
-                            <li><a class="js-create-organization"><i class="fa fa-plus"></i> Create Organization</a></li>
+                            <li><a class="js-create-organization"><i class="fa fa-plus"></i> Create Organization</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -100,10 +113,11 @@
                             <i class="fa fa-list"></i> <span>Public tasks</span>
                         </a>
                     </li>
-                {{#if isAllow 'viewAdministrationPanel' }}
-                    <li class="header">Administration panel</li>
-                    <li><a href="{{pathFor 'organizations.list'}}"><i class="fa fa-building"></i> <span>Manage Organizations</span></a></li>
-                {{/if}}
+                    {{#if isAllow 'viewAdministrationPanel' }}
+                        <li class="header">Administration panel</li>
+                        <li><a href="{{pathFor 'organizations.list'}}"><i class="fa fa-building"></i> <span>Manage Organizations</span></a>
+                        </li>
+                    {{/if}}
                 </ul>
             </section>
             <!-- /.sidebar -->

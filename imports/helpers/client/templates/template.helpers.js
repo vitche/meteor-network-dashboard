@@ -29,7 +29,7 @@ Template.registerHelper('isVerified', (verified) => {
 	if ( verified ) {
 		html = `<span class="label label-success">Approved</span>`
 	} else {
-		html = `<span class="label label-warning">Waiting for approve</span>`
+		html = `<span class="label label-warning">On hold</span>`
 	}
 	return Spacebars.SafeString(html);
 });
