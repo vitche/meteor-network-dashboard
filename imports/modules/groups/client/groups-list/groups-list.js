@@ -1,8 +1,8 @@
 import { Template } from 'meteor/templating';
-import { ReactiveDict } from 'meteor/reactive-dict'
+import { ReactiveDict } from 'meteor/reactive-dict';
 import * as _ from 'lodash';
 
-import { GroupsCollection } from '../../both/groups.schema';
+import { GroupCollection } from '../../../models/groups/client/group.collection';
 import { GroupService } from '../services/groups.service';
 import { ModalService } from '../../../ui-modal/client/service/modal.service';
 
@@ -17,8 +17,8 @@ Template.groupsListWidget.onCreated(function () {
 	const groupsHandler = this.subscribe('groups.publish.getGroupList');
 
 	this.autorun(() => {
-		if (groupsHandler.ready()) {
-			const groupsList = GroupsCollection.find().fetch();
+		if ( groupsHandler.ready() ) {
+			const groupsList = GroupCollection.find().fetch();
 
 			this.state.set('groups', groupsList);
 			this.state.set('isGroupsLoading', false);
@@ -28,12 +28,12 @@ Template.groupsListWidget.onCreated(function () {
 	this.onSelectGroup = () => {
 		const group = Template.instance().data.group;
 		GroupService.getGroupUsers(group._id, (users) => {
-			this.state.set('selectedGroup', { group, users })
-		})
+			this.state.set('selectedGroup', { group, users });
+		});
 	};
 
 	this.addChildGroup = () => {
-		ModalService.forkSubgroup({ parentGroup: Template.instance().data.group })
+		ModalService.forkSubgroup({ parentGroup: Template.instance().data.group });
 	};
 
 	this.deleteGroup = () => {
@@ -43,7 +43,7 @@ Template.groupsListWidget.onCreated(function () {
 
 Template.groupsListWidget.helpers({
 	isGroupsLoad: function () {
-		return Template.instance().state.get('isGroupsLoading')
+		return Template.instance().state.get('isGroupsLoading');
 	},
 	selectedGroup: function () {
 		return Template.instance().state.get('selectedGroup');
@@ -58,7 +58,7 @@ Template.groupsListWidget.helpers({
 			onSelect: instance.onSelectGroup,
 			onAddChildGroup: instance.addChildGroup,
 			onDeleteGroup: instance.deleteGroup,
-		}
+		};
 	}
 });
 

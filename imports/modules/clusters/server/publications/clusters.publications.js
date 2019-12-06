@@ -1,8 +1,8 @@
 import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
-import { GroupsCollection } from '../../../groups/both/groups.schema';
 import { ClusterModel } from '../../../models/clusters/server/clusters.model';
 import { RolesHelpers } from '../../../roles/server/helpers/roles.helpers';
 import { RolesService } from '../../../roles/server/services/roles.service';
+import { GroupModel } from '../../../models/groups/server/group.model';
 
 Meteor.publish('clusters.publish.getClustersList', function () {
 	const userId = this.userId;
@@ -28,7 +28,7 @@ Meteor.publish('clusters.publish.getClustersList', function () {
 	const user = Meteor.user();
 	const userGroups = Object.keys(user.roles);
 
-	return GroupsCollection.find({
+	return GroupModel.find({
 		_id: { $in: userGroups },
 		alias: { $ne: DEFAULT_GROUPS.allUsers.alias }
 	})

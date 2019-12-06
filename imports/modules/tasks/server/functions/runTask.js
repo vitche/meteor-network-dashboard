@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { TasksModel } from '../../../models/tasks/server/tasks.model';
 import { ClusterModel } from '../../../models/clusters/server/clusters.model';
-import { GroupsCollection } from '../../../groups/both/groups.schema';
 import { PERMISSIONS_ENUM } from '../../../../configs/permissions/permissions.enum';
 import { RolesService } from '../../../roles/server/services/roles.service';
 import { TASK_STATUSES, TASK_TIME_EXECUTE_TYPES } from '../../both/tasks.enums';
+import { GroupModel } from '../../../models/groups/server/group.model';
 
 const moment = require('moment');
 
@@ -22,7 +22,7 @@ export const runTask = async (taskId) => {
 		});
 		
 		// create a group
-		const groupId = await GroupsCollection.insert({
+		const groupId = await GroupModel.insert({
 			taskId: task._id,
 			organizationId: task.organizationId,
 			clusters: [ clusterId ],

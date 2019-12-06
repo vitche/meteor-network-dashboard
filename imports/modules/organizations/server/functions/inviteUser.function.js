@@ -1,9 +1,9 @@
 
 import { GROUP_ALIASES } from '../../../../configs/groups/groups.config';
 import { EmailService } from '../../../../utils/server/email/email.service';
-import { GroupsCollection } from '../../../groups/both/groups.schema';
 import { RolesService } from '../../../roles/server/services/roles.service';
 import { UsersCollection } from '../../../users/both/users.schema';
+import { GroupModel } from '../../../models/groups/server/group.model';
 
 // We should not create an user and give him a permissions before he accept the invitation
 // We must just send an invitation letter and only after user accept it create an user document
@@ -22,7 +22,7 @@ export const inviteUser = async function (userId) {
 		});
 
 		// get id of group that contain all organization members
-		const group = await GroupsCollection.findOne(
+		const group = await GroupModel.findOne(
 			{
 				$and: [
 					{ organizationId: loggedUser.profile.organizationId },

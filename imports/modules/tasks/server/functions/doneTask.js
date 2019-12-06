@@ -1,7 +1,7 @@
 import { TasksModel } from '../../../models/tasks/server/tasks.model';
 import { ClusterModel } from '../../../models/clusters/server/clusters.model';
-import { GroupsCollection } from '../../../groups/both/groups.schema';
 import { TASK_STATUSES } from '../../both/tasks.enums';
+import { GroupModel } from '../../../models/groups/server/group.model';
 
 export const doneTask = async (taskId) => {
 	let task;
@@ -14,7 +14,7 @@ export const doneTask = async (taskId) => {
 			}
 		});
 		
-		await GroupsCollection.update({ _id: task.groupId }, {
+		await GroupModel.update({ _id: task.groupId }, {
 			$set: {
 				archived: true
 			}

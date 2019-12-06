@@ -1,9 +1,9 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { GroupsCollection } from '../both/groups.schema';
 import { RolesHelpers } from '../../roles/server/helpers/roles.helpers';
 import { Mixins } from '../../../helpers/server/mixins'
 import { ROLES_DICTIONARY } from '../../../configs/roles/roles.dictionary';
 import { UsersCollection } from '../../users/both/users.schema';
+import { GroupModel } from '../../models/groups/server/group.model';
 
 const DEFAULT_GROUPS = require('../../../configs/default-data/groups.config');
 
@@ -19,13 +19,13 @@ export const getGroupsList = new ValidatedMethod({
 	run() {
 
 		if (RolesHelpers.isSuperAdmin()) {
-			return GroupsCollection.find({}).fetch();
+			return GroupModel.find({}).fetch();
 		}
 
 		const user = Meteor.user();
 		const userGroups = Object.keys(user.roles);
 
-		return GroupsCollection.find({
+		return GroupModel.find({
 			_id: { $in: userGroups },
 			alias: { $ne: DEFAULT_GROUPS.allUsers.alias }
 		}).fetch();
@@ -48,7 +48,7 @@ export const forkGroup = new ValidatedMethod({
 		organizationId: { type: String, optional: true }
 	}).validator(),
 	async run(forkedGroup) {
-		const result = await GroupsCollection.insert(forkedGroup);
+		const result = await GroupModel.insert(forkedGroup);
 		return result;
 	}
 });

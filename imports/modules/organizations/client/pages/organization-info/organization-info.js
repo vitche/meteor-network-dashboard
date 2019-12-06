@@ -13,7 +13,9 @@ import { lineChart } from '../../../../../utils/client/plots/flot-Interactive-ch
 
 
 Template.Organization_info.onRendered(function() {
-	lineChart();
+	setTimeout(() => {
+		lineChart();
+	}, 100);
 });
 
 Template.Organization_info.onCreated(function () {

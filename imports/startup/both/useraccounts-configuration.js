@@ -9,6 +9,7 @@ function isRedirectAllow(path) {
 	const routeName = path.route.name;
 
 	if (!routeName) {
+		FlowRouter.go(ROUTES_CONFIG.dashboard.list.name);
 		throw Error('No entered route configured!');
 	}
 

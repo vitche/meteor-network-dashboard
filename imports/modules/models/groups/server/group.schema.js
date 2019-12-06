@@ -1,13 +1,6 @@
-import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-export const GroupsCollection = new Mongo.Collection('groups');
-
-if ( Meteor.isServer ) {
-	GroupsCollection.rawCollection().createIndex({ parentGroupId: 1 });
-}
-
-const GroupsSchema = new SimpleSchema({
+export const GroupSchema = new SimpleSchema({
 	title: { type: String, max: 100, optional: true },
 	alias: { type: String, optional: true },
 	parentGroupId: { type: String, optional: true },
@@ -31,5 +24,3 @@ const GroupsSchema = new SimpleSchema({
 		},
 	},
 });
-
-GroupsCollection.attachSchema(GroupsSchema);

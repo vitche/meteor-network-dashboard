@@ -28,7 +28,7 @@ export const ROUTES_CONFIG = {
 		list: {
 			name: 'dashboard.list',
 			path: '/',
-			permissions: PAGE_PERMISSIONS.viewDashboardPage
+			permissions: []
 		}
 	},
 	profile: {

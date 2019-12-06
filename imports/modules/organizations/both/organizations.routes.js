@@ -10,6 +10,6 @@ export const ORGANIZATION_ROUTES = {
 	info: {
 		name: 'organizations.info',
 		path: '/:id',
-		permissions: [ ROLES_DICTIONARY.private.superAdmin.alias ]
+		permissions: [  ]
 	}
 };
