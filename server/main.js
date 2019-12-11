@@ -1,6 +1,3 @@
-import { Meteor } from 'meteor/meteor';
-import {FabricConnectionFactory} from '../imports/modules/fabric-client/server/connection-factory';
-
 import '../imports/utils/server';
 
 import '../imports/startup/both/';
@@ -17,9 +14,11 @@ import '../imports/modules/clusters/server';
 import '../imports/modules/tasks/server';
 import '../imports/modules/devices/server';
 
-let connectionFactory = new FabricConnectionFactory('../.certificates');
-connectionFactory.connect('http://localhost:7054', 'ca.example.com').then((connection) => {
-    console.log('Connected to HyperLedger Fabric');
+import '../imports/modules/fabric-client/server/services/connection.service';
+
+// let connectionFactory = new FabricConnectionFactory('../.certificates');
+// connectionFactory.connect('http://localhost:7054', 'ca.example.com').then((connection) => {
+//     console.log('Connected to HyperLedger Fabric');
 
     // let userContext = connection.userContext('admin');
     // userContext.load().then((rootUser) => {
@@ -47,4 +46,4 @@ connectionFactory.connect('http://localhost:7054', 'ca.example.com').then((conne
     //         });
     //     }
     // });
-});
+// });
