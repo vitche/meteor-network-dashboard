@@ -128,10 +128,8 @@ throw new Error('AdminLTE requires jQuery')
 
   // BoxRefresh Data API
   // =================
-  $(window).on('load', function () {
     $(Selector.data).each(function () {
       Plugin.call($(this));
-    });
   });
 
 }(jQuery);
@@ -307,10 +305,9 @@ throw new Error('AdminLTE requires jQuery')
 
   // BoxWidget Data API
   // ==================
-  $(window).on('load', function () {
+ 
     $(Selector.data).each(function () {
       Plugin.call($(this));
-    });
   });
 }(jQuery);
 
@@ -698,9 +695,9 @@ throw new Error('AdminLTE requires jQuery')
     e.preventDefault();
     Plugin.call($(this), 'toggle');
   });
-  $(window).on('load', function () {
+ 
     Plugin.call($(Selector.button));
-  });
+
 }(jQuery);
 
 
@@ -805,10 +802,9 @@ throw new Error('AdminLTE requires jQuery')
 
   // TodoList Data API
   // =================
-  $(window).on('load', function () {
+
     $(Selector.data).each(function () {
       Plugin.call($(this));
-    });
   });
 
 }(jQuery);
@@ -956,11 +952,9 @@ throw new Error('AdminLTE requires jQuery')
 
   // Tree Data API
   // =============
-  $(window).on('load', function () {
     $(Selector.data).each(function () {
       Plugin.call($(this));
     });
-  });
 
 }(jQuery);
 
@@ -1143,7 +1137,5 @@ throw new Error('AdminLTE requires jQuery')
 
   // Layout DATA-API
   // ===============
-  $(window).on('load', function () {
     Plugin.call($('body'));
-  });
 }(jQuery);

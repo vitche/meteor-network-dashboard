@@ -13,4 +13,5 @@ export const PAGE_PERMISSIONS = {
 		ROLES_DICTIONARY.private.organizationOwner.alias,
 		ROLES_DICTIONARY.public.allowReviewClusters.alias
 	],
+	viewAdministrationPanel: [ROLES_DICTIONARY.private.superAdmin.alias]
 };

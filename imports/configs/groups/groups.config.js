@@ -1,4 +1,5 @@
 export const GROUP_TITLES = {
+	organizationOwnersGroupTitle: 'Owners Group',
 	organizationMembersGroupTitle: 'Organization Members',
 };
 export const GROUP_ALIASES = {

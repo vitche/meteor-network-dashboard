@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
-import { DevicesModel } from '../../models/devices/server/devices.model';
+import { DeviceCollection } from '../../models/devices/server/device.collection';
 
 import { DEVICES_PUBLISH_ENUM } from '../both/devices.enum';
 
 Meteor.publish(DEVICES_PUBLISH_ENUM.getDevicesList, function () {
-	return DevicesModel.find();
+	return DeviceCollection.find();
 });

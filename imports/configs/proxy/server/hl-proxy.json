@@ -1,0 +1,6 @@
+{
+  "connection": {
+    "url": "http://localhost:7054",
+    "CAName": "ca.example.com"
+  }
+}

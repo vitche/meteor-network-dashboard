@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { GroupsCollection } from '../../../groups/both/groups.schema';
 import { RolesFacade } from './roles.facade';
+import { GroupModel } from '../../../models/groups/server/group.model';
 
 class RolesServiceClass {
 	constructor() {
@@ -8,7 +8,7 @@ class RolesServiceClass {
 
 	async setUserPermissionsByGroupId(userId, groupId) {
 		try {
-			const { permissions } = await GroupsCollection.findOne({ _id: groupId }, { permissions: 1 });
+			const { permissions } = await GroupModel.findOne({ _id: groupId }, { permissions: 1 });
 			RolesFacade.addUsersToRoles(userId, permissions, groupId)
 		} catch (err) {
 			throw new Meteor.Error('user-permission', err.message)

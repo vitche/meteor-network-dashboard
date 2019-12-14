@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor'
-import { GroupsCollection } from '../both/groups.schema';
 import { SERVER_SESSIONS_KEYS } from '../../../configs/server-session.keys';
 import * as _ from 'lodash';
 import { ROLES_DICTIONARY } from '../../../configs/roles/roles.dictionary';
 import { RolesHelpers } from '../../roles/server/helpers/roles.helpers';
+import { GroupModel } from '../../models/groups/server/group.model';
 
 const DEFAULT_GROUPS = require('../../../configs/default-data/groups.config');
 
@@ -31,13 +31,13 @@ Meteor.publish('groups.publish.getGroupList', function () {
 	}
 
 	if (RolesHelpers.isSuperAdmin()) {
-		return GroupsCollection.find()
+		return GroupModel.find()
 	}
 
 	const user = Meteor.user();
 	const userGroups = Object.keys(user.roles);
 
-	return GroupsCollection.find({
+	return GroupModel.find({
 		_id: { $in: userGroups },
 		alias: { $ne: DEFAULT_GROUPS.allUsers.alias }
 	})

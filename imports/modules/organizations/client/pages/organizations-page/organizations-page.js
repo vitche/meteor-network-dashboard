@@ -2,7 +2,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { ROUTES_CONFIG } from '../../../../../startup/both/routes.config';
-import { OrganizationsCollection } from '../../../both/organizations.schema';
+import { OrganizationCollection } from '../../../../models/organizations/client/organization.collection';
 
 import '../../components/organization-item/organization-item';
 
@@ -15,7 +15,7 @@ Template.Organization_page.onCreated(function () {
 
 	this.autorun(() => {
 		if (this.organizationHandler.ready()) {
-			const organizations = OrganizationsCollection.find().fetch();
+			const organizations = OrganizationCollection.find().fetch();
 			this.state.set('organizations', organizations)
 		}
 	});

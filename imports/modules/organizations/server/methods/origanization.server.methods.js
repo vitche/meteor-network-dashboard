@@ -10,6 +10,7 @@ import { getOrganizationById } from '../functions/getOrganizationById.function';
 import { approveOrganization } from '../functions/approveOrganization.function';
 import { inviteUser } from '../functions/inviteUser.function';
 import { getOrganizationMembers } from '../functions/getOrganizationMembers';
+import { getOrganizationTitles } from '../functions/getOrganizationTitles';
 
 export const getOrganizationByIdMethod = new ValidatedMethod({
 	name: ORGANIZATION_SERVER_METHODS.getOrganizationById,
@@ -20,10 +21,10 @@ export const getOrganizationByIdMethod = new ValidatedMethod({
 		ROLES_DICTIONARY.private.organizationMember.alias
 	],
 	validate: new SimpleSchema({
-		organizationId: { type: String }
+		id: { type: String }
 	}).validator(),
-	async run({ organizationId }) {
-		return await getOrganizationById(organizationId)
+	async run({ id }) {
+		return await getOrganizationById(id)
 	}
 });
 
@@ -38,7 +39,7 @@ export const createOrganizationRequestMethod = new ValidatedMethod({
 	}).validator(),
 	async run({ title }) {
 		return await createOrganizationRequest(title)
-
+		
 	}
 });
 
@@ -72,10 +73,10 @@ export const inviteUserMethod = new ValidatedMethod({
 		try {
 			const userId = await createDefaultUser(email);
 			return await inviteUser(userId)
-		} catch (err) {
+		} catch ( err ) {
 			throw new Meteor.Error(400, err.message);
 		}
-
+		
 	}
 });
 
@@ -90,5 +91,14 @@ export const getOrganizationMembersMethod = new ValidatedMethod({
 	validate: null,
 	async run() {
 		return await getOrganizationMembers()
+	}
+});
+
+export const getOrganizationTitlesMethod = new ValidatedMethod({
+	name: ORGANIZATION_SERVER_METHODS.getOrganizationTitles,
+	mixin: [ Mixins.loggedIn ],
+	validate: null,
+	async run() {
+		return await getOrganizationTitles();
 	}
 });

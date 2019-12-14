@@ -1,11 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import { DEFAULT_CLUSTER } from '../../configs/default-data/default-cluster.config';
 
-import { GroupsCollection } from '../../modules/groups/both/groups.schema';
-import { ClusterModel } from '../../modules/models/clusters/server/clusters.model';
-import { OrganizationsCollection } from '../../modules/organizations/both/organizations.schema';
+import {OrganizationCollection} from '../../modules/models/organizations/server/organization.collection';
 import { UsersCollection } from '../../modules/users/both/users.schema'
 import { UsersMethods } from '../../modules/users/both/users.methods';
+import { GroupModel } from '../../modules/models/groups/server/group.model';
 
 const GROUP_DEFAULT = require('../../configs/default-data/groups.config');
 const USERS_DEFAULT = require('../../configs/default-data/users.config');
@@ -22,30 +20,23 @@ Meteor.startup(() => {
 		const devopsId = Accounts.createUser({ email: USERS_DEFAULT.devops.email });
 
 		// create default groups
-		const rootGroupId = GroupsCollection.insert({ ...GROUP_DEFAULT.rootGroup });
-		const allUsersGroupId = GroupsCollection.insert({ ...GROUP_DEFAULT.allUsers, parentGroupId: rootGroupId });
+		const rootGroupId = GroupModel.insert({ ...GROUP_DEFAULT.rootGroup });
+		const allUsersGroupId = GroupModel.insert({ ...GROUP_DEFAULT.allUsers, parentGroupId: rootGroupId });
 
-		const defaultOrganizationId = OrganizationsCollection.insert({
+		const defaultOrganizationId = OrganizationCollection.insert({
 			...ORGANIZATION_DEFAULT,
 			ownerId: devopsId,
 			groupId: rootGroupId
 		});
-
-		const defaultClusterId = ClusterModel.insert({
-			...DEFAULT_CLUSTER,
-			organizationId: defaultOrganizationId,
-			groupId: rootGroupId
-		});
-
+		
 		// join group to organization
-		GroupsCollection.update({ _id: rootGroupId },
+		GroupModel.update({ _id: rootGroupId },
 			{
 				$set: { organizationId: defaultOrganizationId },
-				$addToSet: { clusters: defaultClusterId }
 			},
 		);
 
-		GroupsCollection.update({ _id: allUsersGroupId }, { $set: { organizationId: defaultOrganizationId } });
+		GroupModel.update({ _id: allUsersGroupId }, { $set: { organizationId: defaultOrganizationId } });
 
 		UsersMethods.setUserWithDefaultSettings.call({
 			userId: devopsId,

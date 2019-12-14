@@ -1,13 +1,13 @@
 import { GROUP_ALIASES } from '../../../../configs/groups/groups.config';
-import { GroupsCollection } from '../../../groups/both/groups.schema';
 import { RolesService } from '../../../roles/server/services/roles.service';
+import { GroupModel } from '../../../models/groups/server/group.model';
 
 export const createDefaultUser = async (email) => {
 	let userId;
 	try {
 		userId = Accounts.createUser({ email });
 
-		const group = await GroupsCollection.findOne({
+		const group = await GroupModel.findOne({
 			alias: GROUP_ALIASES.defaultAllUsersAlias
 		});
 

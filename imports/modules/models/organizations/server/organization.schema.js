@@ -1,9 +1,7 @@
-import { Mongo } from 'meteor/mongo';
+
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-export const OrganizationsCollection = new Mongo.Collection('organizations');
-
-const OrganizationsSchema = new SimpleSchema({
+export const OrganizationsSchema = new SimpleSchema({
 	title: { type: String, max: 100 },
 	ownerId: { type: String },
 	groupId: { type: String, optional: true },
@@ -22,5 +20,3 @@ const OrganizationsSchema = new SimpleSchema({
 		},
 	},
 });
-
-OrganizationsCollection.attachSchema(OrganizationsSchema);
