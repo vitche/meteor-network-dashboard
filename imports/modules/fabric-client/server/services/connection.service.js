@@ -1,10 +1,8 @@
 import { FabricConnectionFactory } from '../connection-factory';
 
 const path = require('path');
-const fs = require('fs');
 
-const certificatePath = path.resolve('../', __dirname, '.certificate');
-console.log(certificatePath)
+const certificatePath = path.resolve(process.env.PWD, 'private', '.certificates');
 
 const hlProxy = require('../../../../configs/proxy/server/hl-proxy');
 
@@ -14,7 +12,6 @@ class HLConnectionService {
 
 		this.connection = null;
 	}
-
 
 	async connect() {
 		if ( this.connection ) {
@@ -57,8 +54,56 @@ class HLConnectionService {
 
 		return HLUser;
 	}
+
+	/**
+	 *
+	 * @param orgId - to which user will be belong
+	 * @param orgOwnerEmail - organization owner's email for finding root user of organization
+	 * @param userType - employee/freelancer. certificate can be created for freelancer during his work on task
+	 * @param userEmail - user email for creating new user
+	 */
+	async registerChild(orgId, orgOwnerEmail, userType, userEmail) {
+		let orgOwnerContext = this.connection.userContext(orgOwnerEmail);
+
+		let orgOwnerUser, newEmployeeUser;
+
+		try {
+			orgOwnerUser = await orgOwnerContext.load();
+		} catch ( err ) {
+			console.error('HyperLedger UserContext Load Error :', err);
+			throw new Error(err.message);
+		}
+
+		if ( !orgOwnerUser || orgOwnerUser.isEnrolled() ) {
+			throw new Error(`User ${ orgOwnerEmail } doesn't exist in HL`);
+		}
+
+		let newUserContext = this.connection.userContext(userEmail);
+
+		try {
+			newEmployeeUser = await newUserContext.load();
+		} catch ( err ) {
+			console.error('HyperLedger UserContext Load Error :', err);
+			throw new Error(err.message);
+		}
+
+		// todo: do we need verify if user already enrolled, especially for freelancers
+
+
+		let HLUser;
+
+		try {
+			HLUser = await newUserContext.registerChild(orgId, orgOwnerUser, userType, userEmail);
+		} catch ( err ) {
+			console.log('HyperLedger Register User Error', err);
+			throw new Error(err.message);
+		}
+
+		return HLUser;
+	}
+
 }
 
-// const connectionFactory = new FabricConnectionFactory('./certificate')
-//
-// export const HLService = new HLConnectionService({ connectionFactory });
+const connectionFactory = new FabricConnectionFactory(certificatePath);
+
+export const HLService = new HLConnectionService({ connectionFactory });
