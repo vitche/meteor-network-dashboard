@@ -29,11 +29,6 @@ Template.Base_modal.onCreated(function () {
 	this.onError = (errorMessage) => {
 		this.finishLoading();
 		this.state.set('onError', `Something went wrong: ${ errorMessage }`)
-
-		// TODO: is it needed??
-		setTimeout(() => {
-			this.reset()
-		}, 3000);
 	};
 
 	this.onSuccess = (successMessage) => {

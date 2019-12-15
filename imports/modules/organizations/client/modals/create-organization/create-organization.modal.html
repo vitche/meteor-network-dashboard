@@ -10,12 +10,35 @@
                         <!-- text input -->
                         <div class="form-group {{#if hasError}}has-error{{/if}}">
                             <label>Organization name</label>
-                            <input type="text" class="form-control" placeholder="Enter Organization Name"
+                            <input type="text" name="organization_name" class="form-control" placeholder="Enter Organization Name"
                                    disabled="{{#if isLoading }}disabled{{/if}}">
                             {{#if hasError}}
                                 <span class="help-block ">Organization name is required</span>
                             {{/if}}
                         </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="js-hl-settings" checked="{{hlDefaultSettings}}">
+                                    Use default HyperLedger settings
+                                </label>
+                            </div>
+                        </div>
+
+                        {{#unless hlDefaultSettings}}
+                            <div class="form-group {{#if hlSettingsError}}has-error{{/if}}">
+                                <label>IP Address 1</label>
+                                <input type="text" name="hl_ip_address_1" class="form-control" placeholder="ip address 1"
+                                       disabled="{{#if isLoading }}disabled{{/if}}">
+                                <label>IP Address 2</label>
+                                <input type="text" name="hl_ip_address_2" class="form-control" placeholder="ip address 2"
+                                       disabled="{{#if isLoading }}disabled{{/if}}">
+                                {{#if hlSettingsError}}
+                                    <span class="help-block ">Organization name is required</span>
+                                {{/if}}
+                            </div>
+                        {{/unless}}
                     </form>
                 </div>
                 <div class="modal-footer">

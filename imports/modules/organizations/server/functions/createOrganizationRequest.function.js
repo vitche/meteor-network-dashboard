@@ -5,12 +5,17 @@ import { ROLES_DICTIONARY } from '../../../../configs/roles/roles.dictionary';
 import { RolesService } from '../../../roles/server/services/roles.service';
 import { GroupModel } from '../../../models/groups/server/group.model';
 
-export const createOrganizationRequest = async function (title) {
+export const createOrganizationRequest = async function ({ title, defaultSettings, settings }) {
 	const userId = Meteor.userId();
 	let organizationId;
+
+	if (!defaultSettings && !(settings.address_1 && settings.address_2)) {
+		throw new Meteor.Error(400, 'Connection address were not provided for HL');
+	}
+
 	// TODO: make it as transaction flow
 	try {
-		organizationId = await OrganizationModel.insert({ title, ownerId: userId });
+		organizationId = await OrganizationModel.insert({ title, ownerId: userId, defaultSettings, settings: settings });
 
 		// create root group of organization with provided title
 		const organizationGroupId = await GroupModel.insert({
@@ -50,5 +55,5 @@ export const createOrganizationRequest = async function (title) {
 		throw new Meteor.Error(400, err.message);
 	}
 
-	return result;
+	return organizationId;
 };

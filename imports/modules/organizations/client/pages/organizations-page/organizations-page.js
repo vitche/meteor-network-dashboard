@@ -14,28 +14,27 @@ Template.Organization_page.onCreated(async function () {
 	try {
 		const organizations = await OrganizationService.getOrganizationsList();
 		this.state.set('organizations', organizations);
-	} catch (err) {
+	} catch ( err ) {
 		console.error(err);
 		//todo: add error notification
 	}
 
-
 	this.onSelect = (selectedOrganization) => {
-		ModalService.approveOrganizationModal(selectedOrganization);
-	}
+		ModalService.approveOrganizationModal({ organization: selectedOrganization });
+	};
 });
 
 Template.Organization_page.helpers({
 	organizations: function () {
-		return Template.instance().state.get('organizations')
+		return Template.instance().state.get('organizations');
 	},
 	isOrganizationLoading: function () {
-		return !!Template.instance().state.get('organizations')
+		return !!Template.instance().state.get('organizations');
 	},
 	organizationArgs: function (organization) {
 		return {
 			organization,
 			onSelect: Template.instance().onSelect
-		}
+		};
 	}
 });

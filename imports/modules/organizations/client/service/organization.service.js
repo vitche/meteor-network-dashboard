@@ -7,8 +7,8 @@ class OrganizationServiceClass {
 	constructor() {
 	}
 
-	 sendCreatingOrganizationRequest({ title }) {
-		return Meteor.callPromise(ORGANIZATION_SERVER_METHODS.createOrganizationRequest, { title })
+	 sendCreatingOrganizationRequest(organization) {
+		return Meteor.callPromise(ORGANIZATION_SERVER_METHODS.createOrganizationRequest, organization)
 	}
 
 	async getOrganizationById(organizationId) {

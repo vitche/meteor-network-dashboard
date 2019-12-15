@@ -24,8 +24,8 @@ export const getOrganizationByIdMethod = new ValidatedMethod({
 	validate: new SimpleSchema({
 		id: { type: String }
 	}).validator(),
-	 run({ id }) {
-		return getOrganizationById(id)
+	run({ id }) {
+		return getOrganizationById(id);
 	}
 });
 
@@ -36,11 +36,15 @@ export const createOrganizationRequestMethod = new ValidatedMethod({
 		ROLES_DICTIONARY.private.defaultUser.alias
 	],
 	validate: new SimpleSchema({
-		title: { type: String }
+		title: { type: String },
+		defaultSettings: { type: Boolean },
+		settings: { type: Object },
+		'settings.address_1': { type: String },
+		'settings.address_2': { type: String }
 	}).validator(),
-	 run({ title }) {
-		return createOrganizationRequest(title)
-		
+	run(organization) {
+		return createOrganizationRequest(organization);
+
 	}
 });
 
@@ -55,7 +59,7 @@ export const approveOrganizationMethod = new ValidatedMethod({
 		ownerId: { type: String },
 		groupTitle: { type: String }
 	}).validator(),
-	 run({ organizationId, ownerId, groupTitle }) {
+	run({ organizationId, ownerId, groupTitle }) {
 		return approveOrganization(organizationId, ownerId, groupTitle);
 	}
 });
@@ -73,11 +77,11 @@ export const inviteUserMethod = new ValidatedMethod({
 	async run({ email }) {
 		try {
 			const userId = await createDefaultUser(email);
-			return await inviteUser(userId)
+			return await inviteUser(userId);
 		} catch ( err ) {
 			throw new Meteor.Error(400, err.message);
 		}
-		
+
 	}
 });
 
@@ -90,8 +94,8 @@ export const getOrganizationMembersMethod = new ValidatedMethod({
 		ROLES_DICTIONARY.private.organizationMember.alias
 	],
 	validate: null,
-	 run() {
-		return getOrganizationMembers()
+	run() {
+		return getOrganizationMembers();
 	}
 });
 
@@ -99,19 +103,19 @@ export const getOrganizationTitlesMethod = new ValidatedMethod({
 	name: ORGANIZATION_SERVER_METHODS.getOrganizationTitles,
 	mixin: [ Mixins.loggedIn ],
 	validate: null,
-	 run() {
+	run() {
 		return getOrganizationTitles();
 	}
 });
 
 export const getOrganizationsMethod = new ValidatedMethod({
 	name: ORGANIZATION_SERVER_METHODS.getOrganizations,
-	mixin: [Mixins.loggedIn, Mixins.roles],
+	mixin: [ Mixins.loggedIn, Mixins.roles ],
 	roles: [
 		ROLES_DICTIONARY.private.superAdmin.alias
 	],
 	validate: null,
 	async run() {
-		return getOrganizations()
+		return getOrganizations();
 	}
 });
