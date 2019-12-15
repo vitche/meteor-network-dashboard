@@ -5,7 +5,7 @@ class Organization {
 		this.collection = collection;
 	}
 	
-	 find(query, projection) {
+	 find(query = {}, projection = {}) {
 		return  this.collection.find(query, { fields : projection})
 	}
 	

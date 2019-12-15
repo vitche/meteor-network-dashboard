@@ -1,29 +1,28 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
-import { OrganizationCollection } from '../../../../models/organizations/client/organization.collection';
 
 import '../../components/organization-item/organization-item';
 
 import './organizations-page.html';
 import { ModalService } from '../../../../ui-modal/client/service/modal.service';
+import { OrganizationService } from '../../service/organization.service';
 
-Template.Organization_page.onCreated(function () {
+Template.Organization_page.onCreated(async function () {
 	this.state = new ReactiveDict();
 
-	this.organizationHandler = this.subscribe('organizations.publish.getOrganizationsList');
+	try {
+		const organizations = await OrganizationService.getOrganizationsList();
+		this.state.set('organizations', organizations);
+	} catch (err) {
+		console.error(err);
+		//todo: add error notification
+	}
 
-	this.autorun(() => {
-		if (this.organizationHandler.ready()) {
-			const organizations = OrganizationCollection.find().fetch();
-			this.state.set('organizations', organizations)
-		}
-	});
 
 	this.onSelect = (selectedOrganization) => {
 		ModalService.approveOrganizationModal(selectedOrganization);
 	}
-
 });
 
 Template.Organization_page.helpers({

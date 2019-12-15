@@ -4,5 +4,6 @@ export const ORGANIZATION_SERVER_METHODS = {
 	approveOrganization: 'organization.methods.approveOrganization',
 	inviteUser: 'organization.methods.inviteUser',
 	getOrganizationMembers: 'organization.methods.getOrganizationMembers',
-	getOrganizationTitles: 'organization.methods.getOrganizationTitles'
+	getOrganizationTitles: 'organization.methods.getOrganizationTitles',
+	getOrganizations: 'organization.methods.getOrganizations'
 };

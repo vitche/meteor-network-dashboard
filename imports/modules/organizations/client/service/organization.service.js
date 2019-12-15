@@ -7,8 +7,8 @@ class OrganizationServiceClass {
 	constructor() {
 	}
 
-	async sendCreatingOrganizationRequest({ title }) {
-		return await Meteor.callPromise(ORGANIZATION_SERVER_METHODS.createOrganizationRequest, { title })
+	 sendCreatingOrganizationRequest({ title }) {
+		return Meteor.callPromise(ORGANIZATION_SERVER_METHODS.createOrganizationRequest, { title })
 	}
 
 	async getOrganizationById(organizationId) {
@@ -35,12 +35,16 @@ class OrganizationServiceClass {
 	}
 
 
-	async approveOrganization(organizationId, ownerId, groupTitle) {
-		return await Meteor.callPromise(ORGANIZATION_SERVER_METHODS.approveOrganization, {
+	 approveOrganization(organizationId, ownerId, groupTitle) {
+		return Meteor.callPromise(ORGANIZATION_SERVER_METHODS.approveOrganization, {
 			organizationId,
 			ownerId,
 			groupTitle
 		})
+	}
+
+	getOrganizationsList() {
+		return Meteor.callPromise(ORGANIZATION_SERVER_METHODS.getOrganizations);
 	}
 
 

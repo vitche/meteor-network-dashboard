@@ -11,6 +11,7 @@ import { approveOrganization } from '../functions/approveOrganization.function';
 import { inviteUser } from '../functions/inviteUser.function';
 import { getOrganizationMembers } from '../functions/getOrganizationMembers';
 import { getOrganizationTitles } from '../functions/getOrganizationTitles';
+import { getOrganizations } from '../functions/getOrganizations';
 
 export const getOrganizationByIdMethod = new ValidatedMethod({
 	name: ORGANIZATION_SERVER_METHODS.getOrganizationById,
@@ -23,8 +24,8 @@ export const getOrganizationByIdMethod = new ValidatedMethod({
 	validate: new SimpleSchema({
 		id: { type: String }
 	}).validator(),
-	async run({ id }) {
-		return await getOrganizationById(id)
+	 run({ id }) {
+		return getOrganizationById(id)
 	}
 });
 
@@ -37,8 +38,8 @@ export const createOrganizationRequestMethod = new ValidatedMethod({
 	validate: new SimpleSchema({
 		title: { type: String }
 	}).validator(),
-	async run({ title }) {
-		return await createOrganizationRequest(title)
+	 run({ title }) {
+		return createOrganizationRequest(title)
 		
 	}
 });
@@ -54,8 +55,8 @@ export const approveOrganizationMethod = new ValidatedMethod({
 		ownerId: { type: String },
 		groupTitle: { type: String }
 	}).validator(),
-	async run({ organizationId, ownerId, groupTitle }) {
-		return await approveOrganization(organizationId, ownerId, groupTitle);
+	 run({ organizationId, ownerId, groupTitle }) {
+		return approveOrganization(organizationId, ownerId, groupTitle);
 	}
 });
 
@@ -89,8 +90,8 @@ export const getOrganizationMembersMethod = new ValidatedMethod({
 		ROLES_DICTIONARY.private.organizationMember.alias
 	],
 	validate: null,
-	async run() {
-		return await getOrganizationMembers()
+	 run() {
+		return getOrganizationMembers()
 	}
 });
 
@@ -98,7 +99,19 @@ export const getOrganizationTitlesMethod = new ValidatedMethod({
 	name: ORGANIZATION_SERVER_METHODS.getOrganizationTitles,
 	mixin: [ Mixins.loggedIn ],
 	validate: null,
+	 run() {
+		return getOrganizationTitles();
+	}
+});
+
+export const getOrganizationsMethod = new ValidatedMethod({
+	name: ORGANIZATION_SERVER_METHODS.getOrganizations,
+	mixin: [Mixins.loggedIn, Mixins.roles],
+	roles: [
+		ROLES_DICTIONARY.private.superAdmin.alias
+	],
+	validate: null,
 	async run() {
-		return await getOrganizationTitles();
+		return getOrganizations()
 	}
 });
