@@ -13,20 +13,19 @@ export const createOrganizationRequest = async function (title) {
 		organizationId = await OrganizationModel.insert({ title, ownerId: userId });
 
 		// create root group of organization with provided title
-		await GroupModel.bulkInsert([
-			{
-				title: `${ title } ${ GROUP_TITLES.organizationOwnersGroupTitle }`,
-				alias: GROUP_ALIASES.organizationRootGroupAlias,
-				organizationId: organizationId,
-				permissions: [ ROLES_DICTIONARY.private.organizationOwner.alias ]
-			},
-			{
-				title: `${ title } ${ GROUP_TITLES.organizationMembersGroupTitle }`,
-				alias: GROUP_ALIASES.organizationMembersGroupAlias,
-				organizationId: organizationId,
-				permissions: [ ROLES_DICTIONARY.private.organizationMember.alias ]
-			} ]);
+		const organizationGroupId = await GroupModel.insert({
+			title: `${ title } ${ GROUP_TITLES.organizationOwnersGroupTitle }`,
+			alias: GROUP_ALIASES.organizationRootGroupAlias,
+			organizationId: organizationId,
+			permissions: [ ROLES_DICTIONARY.private.organizationOwner.alias ]
+		});
 
+		const membersGroupId = await GroupModel.insert({
+			title: `${ title } ${ GROUP_TITLES.organizationMembersGroupTitle }`,
+			alias: GROUP_ALIASES.organizationMembersGroupAlias,
+			organizationId: organizationId,
+			permissions: [ ROLES_DICTIONARY.private.organizationMember.alias ]
+		});
 
 		await UsersCollection.update(userId, {
 			$set: {

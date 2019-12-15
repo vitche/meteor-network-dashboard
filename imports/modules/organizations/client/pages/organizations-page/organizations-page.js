@@ -1,12 +1,12 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
-import { ROUTES_CONFIG } from '../../../../../startup/both/routes.config';
 import { OrganizationCollection } from '../../../../models/organizations/client/organization.collection';
 
 import '../../components/organization-item/organization-item';
 
 import './organizations-page.html';
+import { ModalService } from '../../../../ui-modal/client/service/modal.service';
 
 Template.Organization_page.onCreated(function () {
 	this.state = new ReactiveDict();
@@ -21,7 +21,7 @@ Template.Organization_page.onCreated(function () {
 	});
 
 	this.onSelect = (selectedOrganization) => {
-		FlowRouter.go(ROUTES_CONFIG.organizations.info.name, { id: selectedOrganization._id });
+		ModalService.approveOrganizationModal(selectedOrganization);
 	}
 
 });
