@@ -16,7 +16,7 @@
     "faker": "4.1.0",
     "lodash": "4.17.15",
     "meteor-node-stubs": "0.4.1",
-    "moment": "2.24.0",
+    "moment": "2.29.2",
     "simpl-schema": "1.5.5"
   },
   "meteor": {
